@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1096211211057",
+    "firebase_url": "https://recipe-project-12b72.firebaseio.com",
+    "project_id": "recipe-project-12b72",
+    "storage_bucket": "recipe-project-12b72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096211211057:android:08519d3e4f093e3b428610",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096211211057-3eohf651nkn84f66tg3hm8gb5ktpp44s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMKy42FgqW1kRlEfy9-Z_a-ARtjyQ9UT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096211211057-3eohf651nkn84f66tg3hm8gb5ktpp44s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
