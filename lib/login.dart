@@ -35,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
                 new ListTile(
                   leading: const Icon(Icons.people),
                   title: TextFormField(
-                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(hintText: 'Email'),
                       validator: (value) {
                         if (value.isEmpty) {

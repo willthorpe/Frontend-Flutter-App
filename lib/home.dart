@@ -34,6 +34,46 @@ class _HomePageState extends State<HomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: 310,
+                height: 90.0,
+                child: DrawerHeader(
+                  child: Text(
+                    'MENU',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                          title: Text('${menuItems[index]}',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              )),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context,'/${menuItems[index].toLowerCase()}');
+                          });
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider();
+                    },
+                    itemCount: menuItems.length),
+              ),
+            ],
+          ),
+        ),
         body: Center());
   }
 }
