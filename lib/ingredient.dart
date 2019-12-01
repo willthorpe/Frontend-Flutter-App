@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:image_picker/image_picker.dart';
 import 'globals.dart';
+import 'save.dart';
 
 class IngredientPage extends StatefulWidget {
   IngredientPage({Key key, this.title}) : super(key: key);
@@ -156,11 +157,7 @@ class _IngredientPageState extends State<IngredientPage> {
                       onPressed: () {
                         if (_formIngredientKey.currentState.validate()) {
                           _formIngredientKey.currentState.save();
-                          print('${_ingredientName}');
-                          print('${_ingredientAmount}');
-                          print('${_amountType}');
-                          print('${_ingredientStorage}');
-                          print('${_useByDate}');
+                          saveIngredient(_ingredientName, _ingredientAmount, _amountType, _ingredientStorage,_useByDate);
                           final snackBar =
                               SnackBar(content: Text("Processing"));
                           _scaffoldIngredientKey.currentState
