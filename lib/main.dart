@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'ingredient.dart';
+import 'recipe.dart';
 import 'login.dart';
 import 'register.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/register' : (context) => RegisterPage(title: 'Register'),
         '/' : (context) => LoginPage(title: 'Login'),
         '/ingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
+        '/recipe' : (context) => RecipePage(title: 'Add Recipe'),
       },
     );
   }

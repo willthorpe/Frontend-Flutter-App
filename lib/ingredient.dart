@@ -24,7 +24,7 @@ class _IngredientPageState extends State<IngredientPage> {
   //Save the form data
   String _ingredientName = '';
   String _ingredientAmount = '';
-  String _amountType = ingredientAmounts[0];
+  String _amountType = ingredientTypes[0];
   String _ingredientStorage = '';
   DateTime _useByDate = DateTime.now();
   File _ingredientImage;
@@ -88,7 +88,7 @@ class _IngredientPageState extends State<IngredientPage> {
                   ),
                   trailing: DropdownButton<String>(
                     value: _amountType,
-                    items: ingredientAmounts.map((value) {
+                    items: ingredientTypes.map((value) {
                       return new DropdownMenuItem<String>(
                         value: value,
                         child: new Text(value),

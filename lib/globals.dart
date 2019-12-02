@@ -3,12 +3,20 @@ FirebaseUser user;
 
 List menuItems = [
   'Ingredient',
+  'Recipe',
 ];
 
-List<String> ingredientAmounts = [
+List<String> ingredientTypes = [
   'grams',
   'millilitres',
   'teaspoons',
   'tablespoons',
   'number',
 ];
+
+List<String> recipeTags = [
+  'Breakfast',
+  'Lunch',
+  'Dinner'
+];
+
