@@ -27,8 +27,9 @@ class _RecipePageState extends State<RecipePage> {
   String _prepTime = '';
   String _cookTime = '';
   File _recipeImage;
-  List _ingredients = new List.filled(
-      10, {'name': 'Ingredient', 'amount': '', 'type': 'grams'});
+  List _amounts = new List (10);
+  List _types = new List.filled (10,'grams');
+  List _ingredients = new List.filled(10, 'Ingredient');
   List _methods = new List(12);
 
   Future getImage() async {
@@ -166,7 +167,7 @@ class _RecipePageState extends State<RecipePage> {
                                   ListTile(
                                       leading: const Icon(Icons.fastfood),
                                       title: DropdownButton<String>(
-                                        value: _ingredients[index]['name'],
+                                        value: _ingredients[index],
                                         items: <String>['Ingredient']
                                             .map((String value) {
                                           return new DropdownMenuItem<String>(
@@ -176,8 +177,7 @@ class _RecipePageState extends State<RecipePage> {
                                         }).toList(),
                                         onChanged: (String newValue) {
                                           setState(() {
-                                            _ingredients[index]['name'] =
-                                                newValue;
+                                            _ingredients[index]= newValue;
                                           });
                                         },
                                       )),
@@ -186,21 +186,28 @@ class _RecipePageState extends State<RecipePage> {
                                       title: TextFormField(
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
-                                              hintText: 'Amount'),
+                                              hintText: 'Amount',
+                                          helperText: index.toString()),
 //                                          validator: (value) {
 //                                            if (value.isEmpty) {
 //                                              return 'Please enter an amount';
 //                                            }
 //                                            return null;
 //                                          },
-                                          onSaved: (String value) {
-                                            _ingredients[index]['amount'] =
-                                                value;
-                                          })),
+//                                          onSaved: (String value) {
+//                                            _ingredients[index]['amount'] =
+//                                                value;
+//                                          },
+                                        onChanged: (String newValue) {
+                                          setState(() {
+                                            _amounts[index] =
+                                                newValue;
+                                          });
+                                        },)),
                                   ListTile(
                                       leading: const Icon(Icons.line_weight),
                                       title: DropdownButton<String>(
-                                        value: _ingredients[index]['type'],
+                                        value: _types[index],
                                         items:
                                             ingredientTypes.map((String value) {
                                           return new DropdownMenuItem<String>(
@@ -210,8 +217,7 @@ class _RecipePageState extends State<RecipePage> {
                                         }).toList(),
                                         onChanged: (String newValue) {
                                           setState(() {
-                                            _ingredients[index]['type'] =
-                                                newValue;
+                                            _types[index] = newValue;
                                           });
                                         },
                                       ))
@@ -270,7 +276,7 @@ class _RecipePageState extends State<RecipePage> {
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
                     saveRecipe(_recipeName, _recipeTag, _recipeServings,
-                        _prepTime, _cookTime, _ingredients, _methods);
+                        _prepTime, _cookTime, _ingredients, _amounts, _types, _methods);
                   }
                 }
               });
