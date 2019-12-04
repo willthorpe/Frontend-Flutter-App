@@ -65,7 +65,7 @@ class _RecipePageState extends State<RecipePage> {
                                 return null;
                               },
                               onSaved: (String value) {
-                                this._recipeName = value;
+                                _recipeName = value;
                               }),
                         ),
                         new ListTile(
@@ -101,7 +101,7 @@ class _RecipePageState extends State<RecipePage> {
                                 return null;
                               },
                               onSaved: (String value) {
-                                this._recipeServings = value;
+                                _recipeServings = value;
                               }),
                         ),
                         new ListTile(
@@ -117,7 +117,7 @@ class _RecipePageState extends State<RecipePage> {
                                   return null;
                                 },
                                 onSaved: (String value) {
-                                  this._prepTime = value;
+                                  _prepTime = value;
                                 }),
                             trailing: Text('minutes')),
                         new ListTile(
@@ -133,7 +133,7 @@ class _RecipePageState extends State<RecipePage> {
                                   return null;
                                 },
                                 onSaved: (String value) {
-                                  this._cookTime = value;
+                                  _cookTime = value;
                                 }),
                             trailing: Text('minutes')),
                         new ListTile(
@@ -227,33 +227,34 @@ class _RecipePageState extends State<RecipePage> {
               Step(
                   isActive: _currentStep >= 2,
                   title: Text('Method'),
-                  content:new Container(
+                  content: new Container(
                       height: MediaQuery.of(context).size.height * 0.6,
                       child: Form(
-                    key: _formKeys[2],
-                    child: ListView.separated(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: const Icon(Icons.subject),
-                            title: TextFormField(
-                                decoration: InputDecoration(hintText: 'Method'),
+                        key: _formKeys[2],
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading: const Icon(Icons.subject),
+                                title: TextFormField(
+                                    decoration:
+                                        InputDecoration(hintText: 'Method'),
 //                                validator: (value) {
 //                                  if (value.isEmpty) {
 //                                    return 'Please enter a method';
 //                                  }
 //                                  return null;
 //                                },
-                                onSaved: (String value) {
-                                  _methods[index] = value;
-                                }),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider();
-                        },
-                        itemCount: 12),
-                  ))),
+                                    onSaved: (String value) {
+                                      _methods[index] = value;
+                                    }),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return Divider();
+                            },
+                            itemCount: 12),
+                      ))),
             ],
             type: StepperType.horizontal,
             currentStep: this._currentStep,
@@ -266,9 +267,11 @@ class _RecipePageState extends State<RecipePage> {
                   }
                 } else {
                   //Save data from all the forms
-                  _formKeys[_currentStep].currentState.save();
-                  saveRecipe(_recipeName, _recipeTag, _recipeServings,
-                      _prepTime, _cookTime, _ingredients, _methods);
+                  if (_formKeys[_currentStep].currentState.validate()) {
+                    _formKeys[_currentStep].currentState.save();
+                    saveRecipe(_recipeName, _recipeTag, _recipeServings,
+                        _prepTime, _cookTime, _ingredients, _methods);
+                  }
                 }
               });
             },

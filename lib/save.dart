@@ -22,6 +22,7 @@ Future <String> saveIngredient(String name, String amount, String type, String l
 Future <String> saveRecipe(String name, String tag, String servings, String prepTime,String cookTime, ingredients, methods) async {
   var response = await http.post(url + "/recipe", body: {
     'user': user.uid,
+    'name': name,
     'tag': tag,
     'servings': servings,
     'prepTime' : prepTime,
