@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../globals.dart';
 import '../http/fetch.dart';
 
 class StockroomPage extends StatefulWidget {

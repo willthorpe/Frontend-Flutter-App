@@ -14,3 +14,14 @@ Future<List> fetchIngredients() async {
     print("Request failed with status: ${response.statusCode}.");
   }
 }
+
+Future<List> fetchRecipes() async {
+  var response = await http.post(url + "/recipe", body: {
+    'user': user.uid,
+  });
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}

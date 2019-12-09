@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
-import 'pages/ingredient.dart';
-import 'pages/recipe.dart';
+import 'pages/create_ingredient.dart';
+import 'pages/create_recipe.dart';
 import 'pages/login.dart';
 import 'pages/register.dart';
 import 'pages/stockroom.dart';
+import 'pages/book.dart';
+import 'pages/detail_recipe.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,9 +33,11 @@ class MyApp extends StatelessWidget {
         '/home' : (context) => HomePage(title: 'Your Recipes'),
         '/register' : (context) => RegisterPage(title: 'Register'),
         '/' : (context) => LoginPage(title: 'Login'),
-        '/ingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
-        '/recipe' : (context) => RecipePage(title: 'Add Recipe'),
+        '/addingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
+        '/addrecipe' : (context) => RecipePage(title: 'Add Recipe'),
         '/stockroom' : (context) => StockroomPage(title: 'View Ingredients'),
+        '/recipebook' : (context) => BookPage(title: 'Recipe Book'),
+        '/recipedetail' : (context) => RecipeDetailPage(),
       },
     );
   }

@@ -3,8 +3,9 @@ FirebaseUser user;
 
 List menuItems = [
   'Stockroom',
-  'Ingredient',
-  'Recipe',
+  'Recipe Book',
+  'Add Ingredient',
+  'Add Recipe',
 ];
 
 List<String> ingredientTypes = [
@@ -17,7 +18,9 @@ List<String> ingredientTypes = [
 
 List<String> recipeTags = [
   'Breakfast',
+  'Brunch',
   'Lunch',
+  'Main Meal',
   'Dinner'
 ];
 
