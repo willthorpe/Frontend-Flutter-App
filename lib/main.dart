@@ -4,6 +4,7 @@ import 'ingredient.dart';
 import 'recipe.dart';
 import 'login.dart';
 import 'register.dart';
+import 'stockroom.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/' : (context) => LoginPage(title: 'Login'),
         '/ingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
         '/recipe' : (context) => RecipePage(title: 'Add Recipe'),
+        '/stockroom' : (context) => StockroomPage(title: 'View Ingredients')
       },
     );
   }

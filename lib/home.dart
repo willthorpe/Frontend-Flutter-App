@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                               )),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushNamed(context,'/${menuItems[index].toLowerCase()}');
+                            Navigator.pushNamed(context,'/${menuItems[index].toLowerCase().trim()}');
                           });
                     },
                     separatorBuilder: (context, index) {

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 FirebaseUser user;
 
 List menuItems = [
+  'Stockroom',
   'Ingredient',
   'Recipe',
 ];
