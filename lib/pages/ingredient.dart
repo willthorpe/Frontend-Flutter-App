@@ -4,8 +4,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:image_picker/image_picker.dart';
-import 'globals.dart';
-import 'save.dart';
+import '../globals.dart';
+import '../http/save.dart';
 
 class IngredientPage extends StatefulWidget {
   IngredientPage({Key key, this.title}) : super(key: key);

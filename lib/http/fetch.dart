@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'globals.dart';
+import '../globals.dart';
 import 'package:http/http.dart' as http;
 
 String url = "http://127.0.0.1:3000";

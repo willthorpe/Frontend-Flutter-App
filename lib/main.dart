@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'ingredient.dart';
-import 'recipe.dart';
-import 'login.dart';
-import 'register.dart';
-import 'stockroom.dart';
+import 'pages/home.dart';
+import 'pages/ingredient.dart';
+import 'pages/recipe.dart';
+import 'pages/login.dart';
+import 'pages/register.dart';
+import 'pages/stockroom.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         '/' : (context) => LoginPage(title: 'Login'),
         '/ingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
         '/recipe' : (context) => RecipePage(title: 'Add Recipe'),
-        '/stockroom' : (context) => StockroomPage(title: 'View Ingredients')
+        '/stockroom' : (context) => StockroomPage(title: 'View Ingredients'),
       },
     );
   }

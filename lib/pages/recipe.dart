@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/save.dart';
+import 'package:flutter_app/http/save.dart';
 import 'dart:async';
 import 'dart:io';
-import 'globals.dart';
+import '../globals.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RecipePage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'globals.dart';
-import 'fetch.dart';
+import '../globals.dart';
+import '../http/fetch.dart';
 
 class StockroomPage extends StatefulWidget {
   StockroomPage({Key key, this.title}) : super(key: key);
