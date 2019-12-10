@@ -19,7 +19,7 @@ Future <String> saveIngredient(String name, String amount, String type, String l
   }
 }
 
-Future <String> saveRecipe(String name, String tag, String servings, String prepTime,String cookTime, ingredients, amounts, types, methods) async {
+Future <String> saveRecipe(String name, String tag, String servings, String prepTime,String cookTime, ingredients,methods) async {
   var response = await http.post(url + "/recipe", body: {
     'user': user.uid,
     'name': name,
@@ -28,8 +28,6 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
     'prepTime' : prepTime,
     'cookTime': cookTime,
     'ingredients' : ingredients.toString(),
-    'amounts': amounts.toString(),
-    'types' : types.toString(),
     'methods' : methods.toString()
   });
 

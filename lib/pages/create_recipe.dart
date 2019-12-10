@@ -3,6 +3,7 @@ import 'package:flutter_app/http/save.dart';
 import 'dart:async';
 import 'dart:io';
 import '../globals.dart';
+import '../http/fetch.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RecipePage extends StatefulWidget {
@@ -27,10 +28,10 @@ class _RecipePageState extends State<RecipePage> {
   String _prepTime = '';
   String _cookTime = '';
   File _recipeImage;
-  List _amounts = new List (10);
-  List _types = new List.filled (10,'grams');
-  List _ingredients = new List.filled(10, 'Ingredient');
-  List _methods = new List(12);
+  List _ingredients = [
+    {'name': '', 'amount': 0, 'type': 'grams'}
+  ];
+  List _methods = [''];
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -151,106 +152,129 @@ class _RecipePageState extends State<RecipePage> {
                       ]))),
               //Ingredient Step
               Step(
-                  isActive: _currentStep >= 1,
-                  title: Text('Ingredients'),
-                  content: new Container(
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      child: Form(
-                        key: _formKeys[1],
-                        child: ListView.separated(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                      leading: const Icon(Icons.fastfood),
-                                      title: DropdownButton<String>(
-                                        value: _ingredients[index],
-                                        items: <String>['Ingredient']
-                                            .map((String value) {
-                                          return new DropdownMenuItem<String>(
-                                            value: value,
-                                            child: new Text(value),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String newValue) {
-                                          setState(() {
-                                            _ingredients[index]= newValue;
-                                          });
-                                        },
-                                      )),
-                                  ListTile(
-                                      leading: const Icon(Icons.exposure_zero),
-                                      title: TextFormField(
+                isActive: _currentStep >= 1,
+                title: Text('Ingredients'),
+                content: Form(
+                    key: _formKeys[1],
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            height: MediaQuery.of(context).size.height * 0.55,
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: _ingredients.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: <Widget>[
+                                    ListTile(
+                                        leading: const Icon(Icons.fastfood),
+                                        title: FutureBuilder(
+                                            future: fetchIngredients(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                if (_ingredients[index]['name'] == '') {
+                                                  _ingredients[index]['name'] = snapshot.data[0]['name'];
+                                                }
+                                                return DropdownButton<String>(
+                                                    value: _ingredients[index]['name'],
+                                                    items: snapshot.data.map<DropdownMenuItem<String>>((value) =>
+                                                            new DropdownMenuItem<String>(
+                                                              value: value['name'],
+                                                              child: new Text(value['name']),
+                                                            ))
+                                                        .toList(),
+                                                    onChanged: (newValue) {
+                                                      setState(() {
+                                                        _ingredients[index]['name'] = newValue;
+                                                      });
+                                                    });
+                                              } else {
+                                                return Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                              }
+                                            })),
+                                    ListTile(
+                                        leading:
+                                            const Icon(Icons.exposure_zero),
+                                        title: TextFormField(
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
-                                              hintText: 'Amount',
-                                          helperText: index.toString()),
-//                                          validator: (value) {
-//                                            if (value.isEmpty) {
-//                                              return 'Please enter an amount';
-//                                            }
-//                                            return null;
-//                                          },
-//                                          onSaved: (String value) {
-//                                            _ingredients[index]['amount'] =
-//                                                value;
-//                                          },
-                                        onChanged: (String newValue) {
-                                          setState(() {
-                                            _amounts[index] =
-                                                newValue;
-                                          });
-                                        },)),
-                                  ListTile(
-                                      leading: const Icon(Icons.line_weight),
-                                      title: DropdownButton<String>(
-                                        value: _types[index],
-                                        items:
-                                            ingredientTypes.map((String value) {
-                                          return new DropdownMenuItem<String>(
-                                            value: value,
-                                            child: new Text(value),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String newValue) {
-                                          setState(() {
-                                            _types[index] = newValue;
-                                          });
-                                        },
-                                      ))
-                                ],
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider();
-                            },
-                            itemCount: 10),
-                      ))),
+                                            hintText: 'Amount',
+                                          ),
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Please enter an amount';
+                                            }
+                                            return null;
+                                          },
+                                          onSaved: (String value) {
+                                            _ingredients[index]['amount'] = value;
+                                          },
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              _ingredients[index]['amount'] = newValue;
+                                            });
+                                          },
+                                        )),
+                                    ListTile(
+                                        leading: const Icon(Icons.line_weight),
+                                        title: DropdownButton<String>(
+                                          value: _ingredients[index]['type'],
+                                          items: ingredientTypes.map((String value) {
+                                            return new DropdownMenuItem<String>(
+                                              value: value,
+                                              child: new Text(value),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              _ingredients[index]['type'] = newValue;
+                                            });
+                                          },
+                                        )),
+                                  ],
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return Divider();
+                              },
+                            )),
+                        Center(
+                          child: RaisedButton(
+                              onPressed: () {
+                                addIngredientRow();
+                              },
+                              child: Text('Add Ingredient Line')),
+                        ),
+                      ],
+                    )),
+              ),
               //Method Step
               Step(
                   isActive: _currentStep >= 2,
                   title: Text('Method'),
-                  content: new Container(
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      child: Form(
-                        key: _formKeys[2],
-                        child: ListView.separated(
+                  content: Form(
+                    key: _formKeys[2],
+                    child: Column(children: <Widget>[
+                      Container(
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          child: ListView.separated(
                             shrinkWrap: true,
+                            itemCount: _methods.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 leading: const Icon(Icons.subject),
                                 title: TextFormField(
                                     decoration:
                                         InputDecoration(hintText: 'Method'),
-//                                validator: (value) {
-//                                  if (value.isEmpty) {
-//                                    return 'Please enter a method';
-//                                  }
-//                                  return null;
-//                                },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Please enter a method';
+                                      }
+                                      return null;
+                                    },
                                     onSaved: (String value) {
                                       _methods[index] = value;
                                     }),
@@ -259,8 +283,16 @@ class _RecipePageState extends State<RecipePage> {
                             separatorBuilder: (context, index) {
                               return Divider();
                             },
-                            itemCount: 12),
-                      ))),
+                          )),
+                      Center(
+                        child: RaisedButton(
+                            onPressed: () {
+                              addMethodRow();
+                            },
+                            child: Text('Add Method Line')),
+                      ),
+                    ]),
+                  )),
             ],
             type: StepperType.horizontal,
             currentStep: this._currentStep,
@@ -276,7 +308,7 @@ class _RecipePageState extends State<RecipePage> {
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
                     saveRecipe(_recipeName, _recipeTag, _recipeServings,
-                        _prepTime, _cookTime, _ingredients, _amounts, _types, _methods);
+                        _prepTime, _cookTime, _ingredients, _methods);
                   }
                 }
               });
@@ -290,5 +322,17 @@ class _RecipePageState extends State<RecipePage> {
                 }
               });
             }));
+  }
+
+  void addIngredientRow() {
+    setState(() {
+      _ingredients.add({'name': '', 'amount': 0, 'type': 'grams'});
+    });
+  }
+
+  void addMethodRow() {
+    setState(() {
+      _methods.add("");
+    });
   }
 }
