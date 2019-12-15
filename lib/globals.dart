@@ -4,6 +4,7 @@ FirebaseUser user;
 List menuItems = [
   'Stockroom',
   'Recipe Book',
+  'Recipe Calendar',
   'Add Ingredient',
   'Add Recipe',
 ];
