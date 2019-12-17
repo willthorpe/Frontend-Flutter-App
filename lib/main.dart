@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'pages/home.dart';
-import 'pages/create_ingredient.dart';
-import 'pages/create_recipe.dart';
-import 'pages/login.dart';
-import 'pages/register.dart';
-import 'pages/stockroom.dart';
-import 'pages/book.dart';
-import 'pages/calendar.dart';
-import 'pages/detail_recipe.dart';
-
+import 'views/home.dart';
+import 'views/create_ingredient.dart';
+import 'views/create_recipe.dart';
+import 'views/login.dart';
+import 'views/register.dart';
+import 'views/stockroom.dart';
+import 'views/book.dart';
+import 'views/calendar.dart';
+import 'views/detail_recipe.dart';
+import 'database/open.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    setupDatabase();
     return MaterialApp(
       title: 'Integrated Recipes',
       theme: ThemeData(
