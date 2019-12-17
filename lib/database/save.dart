@@ -13,7 +13,4 @@ Future saveCalendar(List recipes) async {
     },
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
-
-  final List<Map<String, dynamic>> maps = await db.query('calendars');
-  print(maps);
 }
