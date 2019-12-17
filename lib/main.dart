@@ -8,7 +8,9 @@ import 'views/stockroom.dart';
 import 'views/book.dart';
 import 'views/calendar.dart';
 import 'views/detail_recipe.dart';
+import 'views/shopping_list.dart';
 import 'database/open.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/recipebook' : (context) => BookPage(title: 'Recipe Book'),
         '/recipecalendar' : (context) => CalendarPage(title:'Recipe Calendar'),
         '/recipedetail' : (context) => RecipeDetailPage(),
+        '/shoppinglist' : (context) => ShoppingListPage(title: 'Shopping List'),
       },
     );
   }

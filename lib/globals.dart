@@ -8,6 +8,7 @@ List menuItems = [
   'Stockroom',
   'Recipe Book',
   'Recipe Calendar',
+  'Shopping List',
   'Add Ingredient',
   'Add Recipe',
 ];
