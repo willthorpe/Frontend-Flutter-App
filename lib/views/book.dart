@@ -43,7 +43,6 @@ class _BookPageState extends State<BookPage> {
                           }
                       );
                     },
-
                     separatorBuilder: (context, index) {
                       return Divider();
                     },
