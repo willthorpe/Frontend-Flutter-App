@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/fetch.dart';
+import 'package:flutter_app/http/save.dart';
 
 class ShoppingListPage extends StatefulWidget {
   ShoppingListPage({Key key, this.title}) : super(key: key);
@@ -13,7 +14,7 @@ class ShoppingListPage extends StatefulWidget {
 class _ShoppingListPageState extends State<ShoppingListPage> {
   final _scaffoldShoppingKey = GlobalKey<ScaffoldState>();
   final _formShoppingKey = GlobalKey<FormState>();
-  List _amounts = [];
+  List _purchased = [];
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                         return null;
                                       },
                                       onSaved: (value) {
-                                        this._amounts.add({
+                                        this._purchased.add({
                                           'name': snapshot.data[index]['name'],
                                           'amount': int.parse(value) ,
                                           'type': snapshot.data[index]['type']
@@ -89,7 +90,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                         return null;
                                       },
                                       onSaved: (value) {
-                                        this._amounts.add({
+                                        this._purchased.add({
                                           'name': snapshot.data[index]['name'],
                                           'amount': int.parse(value) ,
                                           'type': snapshot.data[index]['type']
@@ -110,8 +111,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                             onPressed: () {
                               if (_formShoppingKey.currentState.validate()) {
                                 _formShoppingKey.currentState.save();
-                                print(_amounts);
-                                //saveShoppingList(_amounts);
+                                saveShoppingList(_purchased);
                                 final snackBar =
                                     SnackBar(content: Text("Processing"));
                                 _scaffoldShoppingKey.currentState

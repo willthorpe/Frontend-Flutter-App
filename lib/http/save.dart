@@ -37,3 +37,16 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
     print("Request failed with status: ${response.statusCode}.");
   }
 }
+
+Future <String> saveShoppingList(purchased) async {
+  var response = await http.patch(url + "/recipe", body: {
+    'user': user.uid,
+    'purchased' : purchased.toString()
+  });
+
+  if (response.statusCode == 200) {
+    print('Response body: ${response.body}');
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}
