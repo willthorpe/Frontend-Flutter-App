@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/http/delete.dart';
 
 class RecipeDetailPage extends StatefulWidget {
   RecipeDetailPage({Key key, this.title, this.data}) : super(key: key);
@@ -55,7 +56,15 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                         arguments['data']['cookTime'] +
                         ' minutes'),
                   ),
-                ]),
+                Center(
+                  child: RaisedButton(
+                      onPressed: () {
+                        deleteRecipe(arguments['title']);
+                      },
+                      child: Text('Delete Recipe?')),
+                ),
+                ]
+              ),
             Container(
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: ListView.separated(
