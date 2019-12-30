@@ -90,7 +90,7 @@ class _CalendarPageState extends State<CalendarPage> {
                       )),
               //Lunch step
               Step(
-                  isActive: _currentStep >= 0,
+                  isActive: _currentStep >= 1,
                   title: Text('Lunch'),
                   content: new Form(
                       key: _formKeys[1],
@@ -137,7 +137,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   )),
               //Dinner step
               Step(
-                  isActive: _currentStep >= 0,
+                  isActive: _currentStep >= 2,
                   title: Text('Dinner'),
                   content: new Form(
                       key: _formKeys[2],
