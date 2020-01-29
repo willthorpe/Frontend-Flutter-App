@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../globals.dart';
+import 'package:flutter_app/http/fetch.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key, this.title}) : super(key: key);
@@ -45,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
                         activeColor: Colors.lightGreen,
                         min: 0,
                         max: 10,
-                        divisions: 11,
+                        divisions: 20,
                         onChanged: (rating) {
                           setState(() => _sliders[index] = rating);
                         },
@@ -61,7 +62,7 @@ class _SearchPageState extends State<SearchPage> {
                   onPressed: () {
                     if (_formSearchKey.currentState.validate()) {
                       _formSearchKey.currentState.save();
-                      //search();
+                      fetchSearchResults(_sliders);
                       final snackBar =
                       SnackBar(content: Text("Processing"));
                       _scaffoldSearchKey.currentState
