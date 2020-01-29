@@ -8,6 +8,7 @@ String url = "http://127.0.0.1:3000";
 List menuItems = [
   'Stockroom',
   'Recipe Book',
+  'Search',
   'Recipe Calendar',
   'Shopping List',
   'Add Ingredient',
@@ -33,7 +34,7 @@ List<String> recipeTags = [
   'Dinner'
 ];
 
-List settings = [
+List<String> settings = [
   'Use Leftovers',
   'Alcohol-Free',
   'Celery-Free',
@@ -71,4 +72,10 @@ List settings = [
   'Low-Carb Diet',
   'Low-Fat Diet',
   'Low-Sodium Diet'
+];
+
+List<String> searchParameters = [
+  'Prefer Stockroom Food',
+  'Prefer Lighter Weight',
+  'Prefer Variety'
 ];
