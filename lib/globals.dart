@@ -3,10 +3,10 @@ import 'package:sqflite/sqflite.dart';
 
 FirebaseUser user;
 Database internalDatabase;
-String url = "http://127.0.0.1:3000";
+String url = "http://52.56.185.203:3000";
 
 List menuItems = [
-  'Stockroom',
+  'Ingredients',
   'Recipe Book',
   'Search',
   'Recipe Calendar',
@@ -35,7 +35,6 @@ List<String> recipeTags = [
 ];
 
 List<String> settings = [
-  'Use Leftovers',
   'Alcohol-Free',
   'Celery-Free',
   'Crustcean-Free',
@@ -75,7 +74,9 @@ List<String> settings = [
 ];
 
 List<String> searchParameters = [
-  'Prefer Stockroom Food',
+  'Prefer Owned Ingredients',
   'Prefer Lighter Weight',
-  'Prefer Variety'
+  'Prefer Variety',
+  'Prefer Popular Recipes',
+  'Prefer Less Ingredients'
 ];

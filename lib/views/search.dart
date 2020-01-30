@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
               shrinkWrap: true,
               itemCount: searchParameters.length,
               itemBuilder: (context, index) {
-                _sliders.add(5.0);
+                _sliders.add(0.5);
                 return
                   ListTile(
                     title: Center(child: Text(
@@ -45,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
                     subtitle: Slider(
                         activeColor: Colors.lightGreen,
                         min: 0,
-                        max: 10,
+                        max: 1,
                         divisions: 20,
                         onChanged: (rating) {
                           setState(() => _sliders[index] = rating);
@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                           .showSnackBar(snackBar);
                     }
                   },
-                  child: Text('Save')),
+                  child: Text('Search')),
             ),
           ],
           ),
