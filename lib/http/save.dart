@@ -8,7 +8,7 @@ Future <String> saveIngredient(String name, String amount, String type, String l
     'amount': amount,
     'type' : type,
     'location': location,
-    'useBy' : useByDate
+    'useByDate' : useByDate.toString()
   });
 
   if (response.statusCode == 200) {
