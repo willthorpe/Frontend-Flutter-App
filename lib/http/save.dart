@@ -2,13 +2,16 @@ import 'package:flutter_app/globals.dart';
 import 'package:http/http.dart' as http;
 
 Future <String> saveIngredient(String name, String amount, String type, String location, DateTime useByDate) async {
+  var useBy = useByDate.toString();
+
+
   var response = await http.post(url + "/ingredient", body: {
     'user': user.uid,
     'name': name,
     'amount': amount,
     'type' : type,
     'location': location,
-    'useByDate' : useByDate.toString()
+    'useByDate' : useBy.split(" ")[0]
   });
 
   if (response.statusCode == 200) {

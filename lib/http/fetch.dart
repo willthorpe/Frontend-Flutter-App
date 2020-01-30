@@ -4,9 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/database/fetch.dart';
 
 Future<List> fetchIngredients() async {
-  var response = await http.post(url + "/ingredient", body: {
-    'user': user.uid,
-  });
+  var response = await http.get(url + "/ingredient/"+ user.uid);
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
@@ -15,9 +13,7 @@ Future<List> fetchIngredients() async {
 }
 
 Future<List> fetchRecipes() async {
-  var response = await http.post(url + "/recipe", body: {
-    'user': user.uid,
-  });
+  var response = await http.get(url + "/recipe/"+ user.uid);
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
@@ -27,10 +23,7 @@ Future<List> fetchRecipes() async {
 
 Future<List> fetchShoppingList() async {
   var calendar = await fetchCalendar();
-  var response = await http.post(url + "/list", body: {
-    'user': user.uid,
-    'calendar':calendar.toString()
-  });
+  var response = await http.get(url + "/list/"+ user.uid + "/" + calendar.toString());
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
@@ -43,11 +36,7 @@ Future<List> fetchSearchResults(sliders) async {
   for(var i = 0;i<searchParameters.length;i++){
     parameters.add({searchParameters[i]:sliders[i]});
   }
-  print(parameters);
-  var response = await http.post(url + "/search", body: {
-    'user': user.uid,
-    'parameters': parameters.toString()
-  });
+  var response = await http.get(url + "/search/"+ user.uid + "/" + parameters.toString());
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
