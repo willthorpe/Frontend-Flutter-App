@@ -78,5 +78,7 @@ List<String> searchParameters = [
   'Prefer Lighter Weight',
   'Prefer Variety',
   'Prefer Popular Recipes',
-  'Prefer Less Ingredients'
+  'Prefer Less Ingredients',
+  'Prefer Less Complex Recipes',
+  'Prefer Shorter Recipes'
 ];
