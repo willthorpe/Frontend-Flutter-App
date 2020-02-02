@@ -3,6 +3,7 @@ import 'views/home.dart';
 import 'views/create_ingredient.dart';
 import 'views/create_recipe.dart';
 import 'views/search.dart';
+import 'views/search_results.dart';
 import 'views/login.dart';
 import 'views/register.dart';
 import 'views/ingredients.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/addingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
         '/addrecipe' : (context) => RecipePage(title: 'Add Recipe'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
+        '/searchresults' : (context) => SearchResultsPage(),
         '/ingredients' : (context) => IngredientsPage(title: 'View Ingredients'),
         '/recipebook' : (context) => BookPage(title: 'Recipe Book'),
         '/recipecalendar' : (context) => CalendarPage(title:'Recipe Calendar'),
