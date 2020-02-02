@@ -26,19 +26,37 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return new ListView.separated(
+                  shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return new ListTile(
                       leading: const Icon(Icons.note_add),
-                      title: Text(snapshot.data[index]['recipe']['name'] + " " + snapshot.data[index]['score'].toString() + "% match"),
-                      subtitle: Column(
+                      title: Text(snapshot.data[index]['recipe']['name']),
+                      trailing: Text(snapshot.data[index]['score'].toString() + "% match"),
+                        subtitle: Column(
                         children: <Widget>[
                           Text("Tag: " + snapshot.data[index]['recipe']['tag']),
                           Text("Servings: " + snapshot.data[index]['recipe']['servings']),
                           Text("Prep Time: " + snapshot.data[index]['recipe']['prepTime'] + " minutes"),
                           Text("Cook Time: " + snapshot.data[index]['recipe']['cookTime'] + " minutes"),
-                          Text("Method: " + snapshot.data[index]['recipe']['method']),
-                          
+                          Text("\nMethod"),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data[index]['method'].length,
+                            itemBuilder: (BuildContext context, int methodIndex) {
+                              return Text(snapshot.data[index]['method'][methodIndex]);
+                            }),
+                          Text("\nIngredients:"),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data[index]['ingredients'].length,
+                              itemBuilder: (BuildContext context, int ingredientIndex) {
+                                return Text(snapshot.data[index]['ingredients'][ingredientIndex][1]['amount'].toString()
+                                    + " "
+                                    + snapshot.data[index]['ingredients'][ingredientIndex][1]['type']
+                                    + " "
+                                    + snapshot.data[index]['ingredients'][ingredientIndex][0]['name']);
+                              }),
                         ],
                       )
                     );
