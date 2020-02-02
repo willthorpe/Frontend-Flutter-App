@@ -34,7 +34,16 @@ List<String> recipeTags = [
   'Dinner'
 ];
 
-List<String> settings = [
+List<String> diets = [
+  'Balanced Diet',
+  'High-Fibre Diet',
+  'High-Protein Diet',
+  'Low-Carb Diet',
+  'Low-Fat Diet',
+  'Low-Sodium Diet'
+];
+
+List <String> allergies = [
   'Alcohol-Free',
   'Celery-Free',
   'Crustcean-Free',
@@ -65,12 +74,6 @@ List<String> settings = [
   'Vegan',
   'Vegetarian',
   'Wheat Free',
-  'Balanced Diet',
-  'High-Fibre Diet',
-  'High-Protein Diet',
-  'Low-Carb Diet',
-  'Low-Fat Diet',
-  'Low-Sodium Diet'
 ];
 
 List<String> searchParameters = [
@@ -80,5 +83,6 @@ List<String> searchParameters = [
   'Prefer Popular Recipes',
   'Prefer Less Ingredients',
   'Prefer Less Complex Recipes',
-  'Prefer Shorter Recipes'
+  'Prefer Shorter Recipes',
+  'Prefer Matching Diet',
 ];

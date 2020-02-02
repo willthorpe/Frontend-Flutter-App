@@ -32,11 +32,14 @@ Future<List> fetchShoppingList() async {
 }
 
 Future<List> fetchSearchResults(sliders) async {
+  var diets = await fetchDiets();
+  var allergies = await fetchAllergies();
+
   List parameters = [];
   for(var i = 0;i<searchParameters.length;i++){
     parameters.add(sliders[i]);
   }
-  var response = await http.get(url + "/search?"+ user.uid + "&" + parameters.toString());
+  var response = await http.get(url + "/search?"+ user.uid + "&" + parameters.toString() +  "&" + allergies.toString() + "&" + diets.toString());
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {

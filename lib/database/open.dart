@@ -6,21 +6,33 @@ import 'package:flutter_app/globals.dart';
 Future setupDatabase() async {
   print("setup database");
   final database = openDatabase(
-    join(await getDatabasesPath(), 'recipe_database3.db'),
-    // When the database is first created, create a table to store dogs.
+    join(await getDatabasesPath(), 'recipe_database4.db'),
     onCreate: (db, version) {
       print("db created");
       db.execute(
         "CREATE TABLE calendars(id INTEGER PRIMARY KEY AUTOINCREMENT, breakfast TEXT, lunch TEXT, dinner TEXT)"
       );
       db.execute(
-        "CREATE TABLE settings(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value int)",
+        "CREATE TABLE diets(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value int)",
       );
-      for(var i =0; i<settings.length; i++){
+      db.execute(
+        "CREATE TABLE allergies(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value int)",
+      );
+      for(var i =0; i<diets.length; i++){
         db.insert(
-          'settings',
+          'diets',
           {
-            'name': settings[i],
+            'name': diets[i],
+            'value': 0,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      for(var i =0; i<allergies.length; i++){
+        db.insert(
+          'allergies',
+          {
+            'name': allergies[i],
             'value': 0,
           },
           conflictAlgorithm: ConflictAlgorithm.replace,
