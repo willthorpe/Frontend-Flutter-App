@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app/globals.dart';
 
@@ -7,9 +8,9 @@ Future saveCalendar(List recipes) async {
   await db.insert(
     'calendars',
     {
-      'breakfast': recipes[0].toString(),
-      'lunch': recipes[1].toString(),
-      'dinner': recipes[2].toString(),
+      'breakfast': json.encode(recipes[0]),
+      'lunch': json.encode(recipes[1]),
+      'dinner': json.encode(recipes[2]),
     },
     conflictAlgorithm: ConflictAlgorithm.replace,
   );

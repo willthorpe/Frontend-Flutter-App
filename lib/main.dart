@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'views/home.dart';
 import 'views/create_ingredient.dart';
 import 'views/create_recipe.dart';
+import 'views/next_recipe.dart';
 import 'views/search.dart';
 import 'views/search_results.dart';
 import 'views/login.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/' : (context) => LoginPage(title: 'Login'),
         '/addingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
         '/addrecipe' : (context) => RecipePage(title: 'Add Recipe'),
+        '/nextrecipe' : (context) => NextRecipePage(title:'Next Recipe'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
         '/searchresults' : (context) => SearchResultsPage(),
         '/ingredients' : (context) => IngredientsPage(title: 'View Ingredients'),

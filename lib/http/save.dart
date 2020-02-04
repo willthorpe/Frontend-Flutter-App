@@ -1,5 +1,6 @@
 import 'package:flutter_app/globals.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Future <String> saveIngredient(String name, String amount, String type, String location, DateTime useByDate) async {
   var useBy = useByDate.toString();
@@ -29,8 +30,8 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
     'servings': servings,
     'prepTime' : prepTime,
     'cookTime': cookTime,
-    'ingredients' : ingredients.toString(),
-    'methods' : methods.toString()
+    'ingredients' : json.encode(ingredients),
+    'methods' : json.encode(methods)
   });
 
   if (response.statusCode == 200) {
@@ -43,7 +44,7 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
 Future <String> saveShoppingList(purchased) async {
   var response = await http.patch(url + "/recipe", body: {
     'user': user.uid,
-    'purchased' : purchased.toString()
+    'purchased' : json.encode(purchased)
   });
 
   if (response.statusCode == 200) {

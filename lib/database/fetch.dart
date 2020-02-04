@@ -1,11 +1,21 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app/globals.dart';
 
-Future<Object> fetchCalendar() async {
+Future<List> fetchCalendar() async {
   final Database db = internalDatabase;
-  final calendar =
-      await db.rawQuery('SELECT * from calendars ORDER BY id DESC limit 1');
+  List<Map<String, dynamic>> calendars =
+  await db.rawQuery('SELECT * from calendars ORDER BY id DESC limit 1');
+
+  var calendar = List.generate(calendars.length, (index) {
+    return {
+      'id': calendars[index]['id'],
+      'breakfast': json.decode(calendars[index]['breakfast']),
+      'lunch': json.decode(calendars[index]['lunch']),
+      'dinner': json.decode(calendars[index]['dinner'])
+    };
+  });
   return calendar;
 }
 
@@ -50,4 +60,9 @@ Future<Object> fetchAllergies() async {
   return allergies;
 }
 
+Future<Object> fetchLeftovers() async {
+  final Database db = internalDatabase;
+  final leftovers =
+  await db.rawQuery('SELECT * from leftovers');
+  return leftovers;
 }

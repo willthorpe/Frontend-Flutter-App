@@ -18,6 +18,9 @@ Future setupDatabase() async {
       db.execute(
         "CREATE TABLE allergies(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value int)",
       );
+      db.execute(
+        "CREATE TABLE leftovers(id INTEGER PRIMARY KEY AUTOINCREMENT, recipe TEXT, amount int)",
+      );
       for(var i =0; i<diets.length; i++){
         db.insert(
           'diets',

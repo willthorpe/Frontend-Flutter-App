@@ -3,9 +3,10 @@ import 'package:sqflite/sqflite.dart';
 
 FirebaseUser user;
 Database internalDatabase;
-String url = "http://52.56.185.203:3000";
+String url = "http://127.0.0.1:3000";
 
 List menuItems = [
+  'Next Recipe',
   'Ingredients',
   'Recipe Book',
   'Search',

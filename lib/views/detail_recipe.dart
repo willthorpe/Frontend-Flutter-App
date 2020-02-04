@@ -12,8 +12,6 @@ class RecipeDetailPage extends StatefulWidget {
 }
 
 class _RecipeDetailPageState extends State<RecipeDetailPage> {
-  final _scaffoldBookKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute
