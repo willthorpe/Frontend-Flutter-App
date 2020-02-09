@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/save.dart';
 import 'package:flutter_app/http/fetch.dart';
 import 'package:quiver/async.dart';
 
@@ -14,7 +15,9 @@ class _NextRecipePageState extends State<NextRecipePage> {
   Future _future;
   final _scaffoldResultsKey = GlobalKey<ScaffoldState>();
   final _formResultsKey = GlobalKey<FormState>();
+  final _formLeftoverKey = GlobalKey<FormState>();
   var _timers = [];
+  var _leftovers = 0;
 
   @override
   void initState() {
@@ -32,7 +35,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return DefaultTabController(
-                length: 4,
+                length: 5,
                 child: Scaffold(
                     key: this._scaffoldResultsKey,
                     appBar: AppBar(
@@ -42,6 +45,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                           Tab(icon: Icon(Icons.fastfood)),
                           Tab(icon: Icon(Icons.subject)),
                           Tab(icon: Icon(Icons.timer)),
+                          Tab(icon: Icon(Icons.cached)),
                         ])),
                     body: TabBarView(children: [
                       new Container(
@@ -131,14 +135,17 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                           },
                                           onSaved: (String value) {
                                             setState(() {
-                                              CountdownTimer countdownTimer = CountdownTimer(Duration(minutes:int.parse(value)),Duration(seconds:1));
-                                              this._timers.add(
-                                                  countdownTimer
-                                              );
-                                              var listener = countdownTimer.listen(null);
+                                              CountdownTimer countdownTimer =
+                                                  CountdownTimer(
+                                                      Duration(
+                                                          minutes:
+                                                              int.parse(value)),
+                                                      Duration(seconds: 1));
+                                              this._timers.add(countdownTimer);
+                                              var listener =
+                                                  countdownTimer.listen(null);
                                               listener.onData((duration) {
-                                                setState(() {
-                                                });
+                                                setState(() {});
                                               });
                                               print(_timers);
                                             });
@@ -169,11 +176,48 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return ListTile(
-                                            title: Text(_timers[index].remaining.toString())
-                                        );
+                                            title: Text(_timers[index]
+                                                .remaining
+                                                .toString()));
                                       }),
                                 ])),
                       ),
+                      new Container(
+                          child: Form(
+                              key: this._formLeftoverKey,
+                              child: ListView(
+                                children: <Widget>[
+                                  new ListTile(
+                                      leading: const Icon(Icons.timer),
+                                      title: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                              hintText: 'Number of leftovers'),
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Enter value';
+                                            }
+                                            return null;
+                                          },
+                                          onSaved: (String value) {
+                                            this._leftovers = int.parse(value);
+                                          })),
+                                  Center(
+                                    child: RaisedButton(
+                                        onPressed: () {
+                                          if (this._formLeftoverKey.currentState.validate()) {
+                                            this._formLeftoverKey.currentState.save();
+                                            saveLeftovers(snapshot.data[0]["name"], _leftovers);
+                                            final snackBar =
+                                            SnackBar(content: Text("Processing"));
+                                            this._scaffoldResultsKey.currentState
+                                                .showSnackBar(snackBar);
+                                          }
+                                        },
+                                        child: Text('Save')),
+                                  ),
+                                ],
+                              )))
                     ])));
           } else {
             return Center(

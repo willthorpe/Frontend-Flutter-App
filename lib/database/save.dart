@@ -16,6 +16,18 @@ Future saveCalendar(List recipes) async {
   );
 }
 
+Future saveLeftovers(recipe, amount) async {
+  final Database db = internalDatabase;
+  await db.insert(
+    'leftovers',
+    {
+      'name': recipe,
+      'amount': amount,
+    },
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+}
+
 Future saveSettings(List preferences) async {
   final Database db = await internalDatabase;
   for (var i = 0; i < preferences.length; i++) {
