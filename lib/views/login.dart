@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/globals.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -14,8 +15,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _scaffoldLoginKey = GlobalKey<ScaffoldState>();
   final _formLoginKey = GlobalKey<FormState>();
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
   //Save the form data
   String _email = '';
   String _password = '';
@@ -64,6 +63,13 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: RaisedButton(
                       onPressed: () {
+                        _signInGoogle(context);
+                      },
+                      child: Text("Login with Google")),
+                ),
+                Center(
+                  child: RaisedButton(
+                      onPressed: () {
                         if (_formLoginKey.currentState.validate()) {
                           _formLoginKey.currentState.save();
                          loginUser(_email,_password, context);
@@ -96,6 +102,25 @@ Future <String> loginUser(String email, String password, context) async {
   }  catch (e) {
     throw new AuthException(e.code, e.message);
   }
+}
+
+Future <String> _signInGoogle(context) async {
+  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  final GoogleSignInAuthentication googleAuth =
+  await googleUser.authentication;
+  final AuthCredential credential = GoogleAuthProvider.getCredential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+  final FirebaseUser user =
+      (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+  assert(user.email != null);
+  assert(user.displayName != null);
+  assert(!user.isAnonymous);
+  assert(await user.getIdToken() != null);
+
+  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  firebaseResult(currentUser, context);
 }
 
 firebaseResult(returnedUser, context){
