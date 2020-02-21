@@ -27,6 +27,7 @@ class _BookPageState extends State<BookPage> {
               future: fetchRecipes(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  print(snapshot.data);
                   return new ListView.separated(
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -34,7 +35,7 @@ class _BookPageState extends State<BookPage> {
                           leading: const Icon(Icons.note_add),
                           title: Text(snapshot.data[index]['name']),
                           subtitle: Text(snapshot.data[index]['tag']),
-                          trailing: Text('Serves ' + snapshot.data[index]['servings']),
+                          trailing: Text('Serves ' + snapshot.data[index]['servings'].toString()),
                           onTap: () {
                             Navigator.pushNamed(context, '/recipedetail',arguments:{
                               'title':snapshot.data[index]['name'],

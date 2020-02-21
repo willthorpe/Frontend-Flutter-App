@@ -4,8 +4,6 @@ import 'dart:convert';
 
 Future <String> saveIngredient(String name, String amount, String type, String location, DateTime useByDate) async {
   var useBy = useByDate.toString();
-
-
   var response = await http.post(url + "/ingredient", body: {
     'user': user.uid,
     'name': name,
@@ -40,6 +38,20 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
     print("Request failed with status: ${response.statusCode}.");
   }
 }
+
+Future <String> createLink(String recipe) async {
+  var response = await http.post(url + "/link", body: {
+    'user': user.uid,
+    'recipe': recipe,
+  });
+
+  if (response.statusCode == 200) {
+    print('Response body: ${response.body}');
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}
+
 
 Future <String> saveShoppingList(purchased) async {
   var response = await http.patch(url + "/recipe", body: {

@@ -40,18 +40,18 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                   ),
                   new ListTile(
                     leading: const Icon(Icons.room_service),
-                    title: Text(arguments['data']['servings'] + ' people'),
+                    title: Text(arguments['data']['servings'].toString() + ' people'),
                   ),
                   new ListTile(
                     leading: const Icon(Icons.av_timer),
                     title: Text('Prep Time: ' +
-                        arguments['data']['prepTime'] +
+                        arguments['data']['prepTime'].toString() +
                         ' minutes'),
                   ),
                   new ListTile(
                     leading: const Icon(Icons.av_timer),
                     title: Text('Cooking Time: ' +
-                        arguments['data']['cookTime'] +
+                        arguments['data']['cookTime'].toString() +
                         ' minutes'),
                   ),
                 Center(
