@@ -7,13 +7,13 @@ String url = "http://35.177.194.119:3000";
 
 List menuItems = [
   'Next Recipe',
-  'Ingredients',
-  'Recipe Book',
-  'Search',
-  'Recipe Calendar',
-  'Shopping List',
   'Add Ingredient',
   'Add Recipe',
+  'Ingredients',
+  'Recipe Book',
+  'Recipe Calendar',
+  'Shopping List',
+  'Search',
   'Settings'
 ];
 
