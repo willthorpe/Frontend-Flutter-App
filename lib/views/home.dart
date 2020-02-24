@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../globals.dart';
+import 'next_recipe.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -34,43 +35,41 @@ class _HomePageState extends State<HomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: 310,
-                height: 90.0,
-                child: DrawerHeader(
-                  child: Text(
-                    'MENU',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30.0,
+        drawer:
+        Container(
+          width: MediaQuery.of(context).size.height * 0.25,
+          child:Drawer(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.13,
+                  child: DrawerHeader(
+                    child: Text("Menu",
+                        style: TextStyle(
+                          fontSize: 25.0,
+                        )),
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
                     ),
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                  ),
                 ),
-              ),
-              Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                          title: Text('${menuItems[index]}',
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              )),
-                          onTap: () {
-                            Navigator.popAndPushNamed(context,'/${menuItems[index].toLowerCase().split(" ").join("")}');
-                          });
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider();
-                    },
-                    itemCount: menuItems.length),
-              ),
-            ],
+                Expanded(
+                  child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                            title: Text('${menuItems[index]}',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                )),
+                            onTap: () {
+                              Navigator.popAndPushNamed(context,'/${menuItems[index].toLowerCase().split(" ").join("")}');
+                            });
+                      },
+                      itemCount: menuItems.length),
+                ),
+              ],
+            ),
           ),
         ),
         body: Center());
