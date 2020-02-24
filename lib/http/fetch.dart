@@ -24,6 +24,17 @@ Future<List> fetchRecipes() async {
   }
 }
 
+Future<List> fetchCalendarRecipes() async {
+  var calendar = await fetchCalendar();
+  var leftovers = await fetchLeftovers();
+  var response = await http.get(url + "/recipe?user=" + user.uid);
+  if (response.statusCode == 200) {
+    return [calendar[0], json.decode(response.body) + leftovers];
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}
+
 Future<List> fetchShoppingList() async {
   var calendar = await fetchCalendar();
   var response = await http.get(
@@ -52,6 +63,7 @@ Future<List> fetchSearchResults(sliders) async {
       "&diets=" +
       json.encode(diets));
   if (response.statusCode == 200) {
+    print(response.body);
     return json.decode(response.body);
   } else {
     print("Request failed with status: ${response.statusCode}.");

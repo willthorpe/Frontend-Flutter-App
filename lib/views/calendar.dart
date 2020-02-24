@@ -54,16 +54,19 @@ class _CalendarPageState extends State<CalendarPage> {
                                   leading: Text(_days[index],
                                       style: TextStyle(fontSize: 15.0)),
                                   title: FutureBuilder(
-                                      future: fetchRecipes(),
+                                      future: fetchCalendarRecipes(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
+                                          if (snapshot.data[0].length > 0){
+                                            _recipes[0] = snapshot.data[0]['breakfast'];
+                                          }
                                           if (_recipes[0][index] == '') {
                                             _recipes[0][index] =
-                                                snapshot.data[0]['name'];
+                                                snapshot.data[1][0]['name'];
                                           }
                                           return DropdownButton<String>(
                                               value: _recipes[0][index],
-                                              items: snapshot.data
+                                              items: snapshot.data[1]
                                                   .map<
                                                       DropdownMenuItem<
                                                           String>>((value) =>
@@ -101,16 +104,19 @@ class _CalendarPageState extends State<CalendarPage> {
                                 leading: Text(_days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchRecipes(),
+                                    future: fetchCalendarRecipes(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
+                                        if (snapshot.data[0].length > 0){
+                                          _recipes[1] = snapshot.data[0]['lunch'];
+                                        }
                                         if (_recipes[1][index] == '') {
                                           _recipes[1][index] =
-                                          snapshot.data[0]['name'];
+                                          snapshot.data[1][0]['name'];
                                         }
                                         return DropdownButton<String>(
                                             value: _recipes[1][index],
-                                            items: snapshot.data
+                                            items: snapshot.data[1]
                                                 .map<
                                                 DropdownMenuItem<
                                                     String>>((value) =>
@@ -148,16 +154,19 @@ class _CalendarPageState extends State<CalendarPage> {
                                 leading: Text(_days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchRecipes(),
+                                    future: fetchCalendarRecipes(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
+                                        if (snapshot.data[0].length > 0){
+                                          _recipes[2] = snapshot.data[0]['dinner'];
+                                        }
                                         if (_recipes[2][index] == '') {
                                           _recipes[2][index] =
-                                          snapshot.data[0]['name'];
+                                          snapshot.data[1][0]['name'];
                                         }
                                         return DropdownButton<String>(
                                             value: _recipes[2][index],
-                                            items: snapshot.data
+                                            items: snapshot.data[1]
                                                 .map<
                                                 DropdownMenuItem<
                                                     String>>((value) =>
