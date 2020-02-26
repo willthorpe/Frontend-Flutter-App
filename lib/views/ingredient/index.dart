@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../http/fetch.dart';
+import '../../http/fetch.dart';
 
 class IngredientsPage extends StatefulWidget {
   IngredientsPage({Key key, this.title}) : super(key: key);

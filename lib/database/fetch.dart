@@ -19,6 +19,22 @@ Future<List> fetchCalendar() async {
   return calendar;
 }
 
+Future<List> fetchCalendars() async {
+  final Database db = internalDatabase;
+  List<Map<String, dynamic>> calendars =
+  await db.rawQuery('SELECT * from calendars ORDER BY id DESC');
+
+  var calendar = List.generate(calendars.length, (index) {
+    return {
+      'id': calendars[index]['id'],
+      'breakfast': json.decode(calendars[index]['breakfast']),
+      'lunch': json.decode(calendars[index]['lunch']),
+      'dinner': json.decode(calendars[index]['dinner'])
+    };
+  });
+  return calendar;
+}
+
 Future<Object> fetchSettings() async {
   final Database db = internalDatabase;
   List<Map<String, dynamic>> allergies =

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/http/save.dart';
 import 'dart:async';
 import 'dart:io';
-import '../globals.dart';
-import '../http/fetch.dart';
+import '../../globals.dart';
+import '../../http/fetch.dart';
 import 'package:image_picker/image_picker.dart';
 
-class RecipePage extends StatefulWidget {
-  RecipePage({Key key, this.title}) : super(key: key);
+class CreateRecipePage extends StatefulWidget {
+  CreateRecipePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _RecipePageState createState() => _RecipePageState();
+  _CreateRecipePageState createState() => _CreateRecipePageState();
 }
 
-class _RecipePageState extends State<RecipePage> {
+class _CreateRecipePageState extends State<CreateRecipePage> {
   List<GlobalKey<FormState>> _formKeys = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),

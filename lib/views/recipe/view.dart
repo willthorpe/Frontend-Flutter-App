@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/delete.dart';
 
-class RecipeDetailPage extends StatefulWidget {
-  RecipeDetailPage({Key key, this.title, this.data}) : super(key: key);
+class ViewRecipePage extends StatefulWidget {
+  ViewRecipePage({Key key, this.title, this.data}) : super(key: key);
 
   final String title;
   final List data;
 
   @override
-  _RecipeDetailPageState createState() => _RecipeDetailPageState();
+  _ViewRecipePageState createState() => _ViewRecipePageState();
 }
 
-class _RecipeDetailPageState extends State<RecipeDetailPage> {
+class _ViewRecipePageState extends State<ViewRecipePage> {
   @override
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute

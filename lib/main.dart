@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'views/home.dart';
-import 'views/create_ingredient.dart';
-import 'views/create_recipe.dart';
-import 'views/next_recipe.dart';
-import 'views/search.dart';
-import 'views/search_results.dart';
 import 'views/login.dart';
 import 'views/register.dart';
-import 'views/ingredients.dart';
-import 'views/book.dart';
-import 'views/calendar.dart';
-import 'views/detail_recipe.dart';
-import 'views/shopping_list.dart';
 import 'views/settings.dart';
+import 'views/shoppingList/index.dart';
 import 'database/open.dart';
+
+import 'views/ingredient/index.dart';
+import 'views/ingredient/create.dart';
+
+import 'views/recipe/index.dart';
+import 'views/recipe/create.dart';
+import 'views/recipe/next.dart';
+import 'views/recipe/view.dart';
+
+import 'views/search/index.dart';
+import 'views/search/results.dart';
+
+import 'views/calendar/index.dart';
+import 'views/calendar/create.dart';
+import 'views/calendar/edit.dart';
+import 'views/calendar/view.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,18 +48,20 @@ class MyApp extends StatelessWidget {
         '/home' : (context) => HomePage(title: 'Your Recipes'),
         '/register' : (context) => RegisterPage(title: 'Register'),
         '/' : (context) => LoginPage(title: 'Login'),
-        '/addingredient' : (context) => IngredientPage(title: 'Add Ingredient'),
-        '/addrecipe' : (context) => RecipePage(title: 'Add Recipe'),
+        '/createingredient' : (context) => CreateIngredientPage(title: 'Create Ingredient'),
+        '/createrecipe' : (context) => CreateRecipePage(title: 'Create Recipe'),
+        '/createcalendar' : (context) => CreateCalendarPage(title:'Create Calendar'),
+        '/editcalendar' : (context) => EditCalendarPage(title:'Edit Calendar'),
+        '/viewcalendars' : (context) => ViewCalendarsPage(title:'View Calendars'),
         '/nextrecipe' : (context) => NextRecipePage(title:'Next Recipe'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
         '/searchresults' : (context) => SearchResultsPage(),
-        '/ingredients' : (context) => IngredientsPage(title: 'View Ingredients'),
+        '/ingredients' : (context) => IngredientsPage(title: 'Ingredients'),
         '/recipebook' : (context) => BookPage(title: 'Recipe Book'),
-        '/recipecalendar' : (context) => CalendarPage(title:'Recipe Calendar'),
-        '/recipedetail' : (context) => RecipeDetailPage(),
+        '/recipecalendar' : (context) => CalendarsPage(title:'Recipe Calendars'),
+        '/recipeview' : (context) => ViewRecipePage(),
         '/shoppinglist' : (context) => ShoppingListPage(title: 'Shopping List'),
         '/settings' : (context) => SettingsPage(title: 'Settings'),
-
       },
     );
   }

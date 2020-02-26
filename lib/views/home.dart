@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../globals.dart';
-import 'next_recipe.dart';
-
+import '../apis/google.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   Center(
-                    child: Text('\nAdd',
+                    child: Text('\nCreate',
                         style: TextStyle(
                           fontSize: 30.0,
                         )),
@@ -98,7 +97,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: (){
                 Navigator.pushNamed(context,
-                    '/addingredient');
+                    '/createingredient');
               },
             ),
             RaisedButton(
@@ -106,7 +105,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   Center(
-                    child: Text('\nAdd',
+                    child: Text('\nCreate',
                         style: TextStyle(
                           fontSize: 30.0,
                         )),
@@ -121,7 +120,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: (){
                 Navigator.pushNamed(context,
-                    '/addrecipe');
+                    '/createrecipe');
               },
             ),
             RaisedButton(

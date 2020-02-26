@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../globals.dart';
+import '../../globals.dart';
 import 'package:flutter_app/http/fetch.dart';
 
 class SearchPage extends StatefulWidget {

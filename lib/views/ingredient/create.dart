@@ -4,19 +4,19 @@ import 'dart:async';
 import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:image_picker/image_picker.dart';
-import '../globals.dart';
-import '../http/save.dart';
+import '../../globals.dart';
+import '../../http/save.dart';
 
-class IngredientPage extends StatefulWidget {
-  IngredientPage({Key key, this.title}) : super(key: key);
+class CreateIngredientPage extends StatefulWidget {
+  CreateIngredientPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _IngredientPageState createState() => _IngredientPageState();
+  _CreateIngredientPageState createState() => _CreateIngredientPageState();
 }
 
-class _IngredientPageState extends State<IngredientPage> {
+class _CreateIngredientPageState extends State<CreateIngredientPage> {
   final _scaffoldIngredientKey = GlobalKey<ScaffoldState>();
   final _formIngredientKey = GlobalKey<FormState>();
   final _format = DateFormat("yyyy-MM-dd");

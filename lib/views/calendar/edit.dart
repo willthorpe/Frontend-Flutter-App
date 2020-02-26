@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../http/fetch.dart';
-import '../database/save.dart';
+import '../../http/fetch.dart';
+import '../../database/save.dart';
 
-class CalendarPage extends StatefulWidget {
-  CalendarPage({Key key, this.title}) : super(key: key);
+class EditCalendarPage extends StatefulWidget {
+  EditCalendarPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _CalendarPageState createState() => _CalendarPageState();
+  _EditCalendarPageState createState() => _EditCalendarPageState();
 }
 
-class _CalendarPageState extends State<CalendarPage> {
+class _EditCalendarPageState extends State<EditCalendarPage> {
   final _scaffoldCalendarKey = GlobalKey<ScaffoldState>();
   List<GlobalKey<FormState>> _formKeys = [
     GlobalKey<FormState>(),
@@ -30,7 +30,11 @@ class _CalendarPageState extends State<CalendarPage> {
   ];
 
   //Save the form data
-  List _recipes = [['','','','','','',''],['','','','','','',''],['','','','','','','']];
+  List _recipes = [
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '']
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,49 +52,48 @@ class _CalendarPageState extends State<CalendarPage> {
                   content: new Form(
                       key: _formKeys[0],
                       child: ListView.builder(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                  leading: Text(_days[index],
-                                      style: TextStyle(fontSize: 15.0)),
-                                  title: FutureBuilder(
-                                      future: fetchCalendarRecipes(),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          if (snapshot.data[0].length > 0){
-                                            _recipes[0] = snapshot.data[0]['breakfast'];
-                                          }
-                                          if (_recipes[0][index] == '') {
-                                            _recipes[0][index] =
-                                                snapshot.data[1][0]['name'];
-                                          }
-                                          return DropdownButton<String>(
-                                              value: _recipes[0][index],
-                                              items: snapshot.data[1]
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) =>
-                                                      new DropdownMenuItem<
-                                                          String>(
-                                                        value: value['name'],
-                                                        child: new Text(
-                                                            value['name']),
-                                                      ))
-                                                  .toList(),
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  _recipes[0][index] = newValue;
-                                                });
-                                              });
-                                        } else {
-                                          return Center(
-                                            child: CircularProgressIndicator(),
-                                          );
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                                leading: Text(_days[index],
+                                    style: TextStyle(fontSize: 15.0)),
+                                title: FutureBuilder(
+                                    future: fetchCalendarRecipes(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        if (snapshot.data[0].length > 0) {
+                                          _recipes[0] =
+                                              snapshot.data[0]['breakfast'];
                                         }
-                                      }));
-                            },
-                            itemCount: 7)
-                      )),
+                                        if (_recipes[0][index] == '') {
+                                          _recipes[0][index] =
+                                              snapshot.data[1][0]['name'];
+                                        }
+                                        return DropdownButton<String>(
+                                            value: _recipes[0][index],
+                                            items: snapshot.data[1]
+                                                .map<DropdownMenuItem<String>>(
+                                                    (value) =>
+                                                        new DropdownMenuItem<
+                                                            String>(
+                                                          value: value['name'],
+                                                          child: new Text(
+                                                              value['name']),
+                                                        ))
+                                                .toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _recipes[0][index] = newValue;
+                                              });
+                                            });
+                                      } else {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+                                    }));
+                          },
+                          itemCount: 7))),
               //Lunch step
               Step(
                   isActive: _currentStep >= 1,
@@ -107,25 +110,25 @@ class _CalendarPageState extends State<CalendarPage> {
                                     future: fetchCalendarRecipes(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
-                                        if (snapshot.data[0].length > 0){
-                                          _recipes[1] = snapshot.data[0]['lunch'];
+                                        if (snapshot.data[0].length > 0) {
+                                          _recipes[1] =
+                                              snapshot.data[0]['lunch'];
                                         }
                                         if (_recipes[1][index] == '') {
                                           _recipes[1][index] =
-                                          snapshot.data[1][0]['name'];
+                                              snapshot.data[1][0]['name'];
                                         }
                                         return DropdownButton<String>(
                                             value: _recipes[1][index],
                                             items: snapshot.data[1]
-                                                .map<
-                                                DropdownMenuItem<
-                                                    String>>((value) =>
-                                            new DropdownMenuItem<
-                                                String>(
-                                              value: value['name'],
-                                              child: new Text(
-                                                  value['name']),
-                                            ))
+                                                .map<DropdownMenuItem<String>>(
+                                                    (value) =>
+                                                        new DropdownMenuItem<
+                                                            String>(
+                                                          value: value['name'],
+                                                          child: new Text(
+                                                              value['name']),
+                                                        ))
                                                 .toList(),
                                             onChanged: (newValue) {
                                               setState(() {
@@ -139,8 +142,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                       }
                                     }));
                           },
-                          itemCount: 7)
-                  )),
+                          itemCount: 7))),
               //Dinner step
               Step(
                   isActive: _currentStep >= 2,
@@ -157,25 +159,25 @@ class _CalendarPageState extends State<CalendarPage> {
                                     future: fetchCalendarRecipes(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
-                                        if (snapshot.data[0].length > 0){
-                                          _recipes[2] = snapshot.data[0]['dinner'];
+                                        if (snapshot.data[0].length > 0) {
+                                          _recipes[2] =
+                                              snapshot.data[0]['dinner'];
                                         }
                                         if (_recipes[2][index] == '') {
                                           _recipes[2][index] =
-                                          snapshot.data[1][0]['name'];
+                                              snapshot.data[1][0]['name'];
                                         }
                                         return DropdownButton<String>(
                                             value: _recipes[2][index],
                                             items: snapshot.data[1]
-                                                .map<
-                                                DropdownMenuItem<
-                                                    String>>((value) =>
-                                            new DropdownMenuItem<
-                                                String>(
-                                              value: value['name'],
-                                              child: new Text(
-                                                  value['name']),
-                                            ))
+                                                .map<DropdownMenuItem<String>>(
+                                                    (value) =>
+                                                        new DropdownMenuItem<
+                                                            String>(
+                                                          value: value['name'],
+                                                          child: new Text(
+                                                              value['name']),
+                                                        ))
                                                 .toList(),
                                             onChanged: (newValue) {
                                               setState(() {
@@ -189,8 +191,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                       }
                                     }));
                           },
-                          itemCount: 7)
-                  )),
+                          itemCount: 7))),
               //Lunch Step
             ],
             type: StepperType.horizontal,
