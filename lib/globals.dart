@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sqflite/sqflite.dart';
 
 FirebaseUser user;
+var httpClient = null;
 Database internalDatabase;
-String url = "http://35.177.194.119:3000";
+String url = "http://127.0.0.1:3000";
 
 List menuItems = [
   'Next Recipe',
