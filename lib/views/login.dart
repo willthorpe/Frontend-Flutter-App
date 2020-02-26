@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/globals.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/io_client.dart';
+import 'package:http/http.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -104,8 +106,30 @@ Future <String> loginUser(String email, String password, context) async {
   }
 }
 
+//Günter Zöchbauer
+//https://stackoverflow.com/questions/48477625/how-to-use-google-api-in-flutter
+class GoogleHttpClient extends IOClient {
+  Map<String, String> _headers;
+
+  GoogleHttpClient(this._headers) : super();
+
+  @override
+  Future<StreamedResponse> send(BaseRequest request) =>
+      super.send(request..headers.addAll(_headers));
+
+  @override
+  Future<Response> head(Object url, {Map<String, String> headers}) =>
+      super.head(url, headers: headers..addAll(_headers));
+
+}
+
 Future <String> _signInGoogle(context) async {
-  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  final GoogleSignInAccount googleUser = await GoogleSignIn(
+    scopes: [
+      'https://www.googleapis.com/auth/calendar',
+      'https://www.googleapis.com/auth/calendar.events'
+    ],
+  ).signIn();
   final GoogleSignInAuthentication googleAuth =
   await googleUser.authentication;
   final AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -120,6 +144,9 @@ Future <String> _signInGoogle(context) async {
   assert(await user.getIdToken() != null);
 
   final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  var authHeaders = await googleUser.authHeaders;
+  httpClient = GoogleHttpClient(authHeaders);
+
   firebaseResult(currentUser, context);
 }
 
