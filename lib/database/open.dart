@@ -21,6 +21,9 @@ Future setupDatabase() async {
       db.execute(
         "CREATE TABLE leftovers(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount int)",
       );
+      db.execute(
+        "CREATE TABLE nutrition(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value int)",
+      );
       for(var i =0; i<diets.length; i++){
         db.insert(
           'diets',

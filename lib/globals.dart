@@ -15,6 +15,7 @@ List menuItems = [
   'Recipe Calendar',
   'Shopping List',
   'Search',
+  'Nutrition Goals',
   'Settings'
 ];
 

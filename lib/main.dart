@@ -4,6 +4,7 @@ import 'views/login.dart';
 import 'views/register.dart';
 import 'views/settings.dart';
 import 'views/shoppingList/index.dart';
+import 'views/nutrition.dart';
 import 'database/open.dart';
 
 import 'views/ingredient/index.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         '/editcalendar' : (context) => EditCalendarPage(title:'Edit Calendar'),
         '/viewcalendars' : (context) => ViewCalendarsPage(title:'View Calendars'),
         '/nextrecipe' : (context) => NextRecipePage(title:'Next Recipe'),
+        '/nutritiongoals' : (context) => CreateNutritionPage(title: 'Nutrition Goals'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
         '/searchresults' : (context) => SearchResultsPage(),
         '/ingredients' : (context) => IngredientsPage(title: 'Ingredients'),

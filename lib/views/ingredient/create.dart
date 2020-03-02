@@ -60,7 +60,7 @@ class _CreateIngredientPageState extends State<CreateIngredientPage> {
                         return null;
                       },
                       onSaved: (String value) {
-                        this._ingredientName = value;
+                        _ingredientName = value;
                       }),
                 ),
                 new ListTile(
@@ -75,7 +75,7 @@ class _CreateIngredientPageState extends State<CreateIngredientPage> {
                         return null;
                       },
                       onSaved: (String value) {
-                        this._ingredientAmount = value;
+                        _ingredientAmount = value;
                       }),
                 ),
                 new ListTile(
@@ -112,7 +112,7 @@ class _CreateIngredientPageState extends State<CreateIngredientPage> {
                         return null;
                       },
                       onSaved: (String value) {
-                        this._ingredientStorage = value;
+                        _ingredientStorage = value;
                       }
                   ),
                 ),

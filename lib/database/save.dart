@@ -56,3 +56,17 @@ Future saveSettings(List preferences) async {
     }
   }
 }
+
+Future saveNutrition(nutrition) async {
+  final Database db = internalDatabase;
+  for (var item in nutrition.entries){
+    await db.insert(
+      'nutrition',
+      {
+        'name': item.key,
+        'value': item.value,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+}
