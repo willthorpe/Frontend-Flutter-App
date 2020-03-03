@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app/globals.dart';
 
-Future saveCalendar(List recipes) async {
+Future saveCalendar(List recipes, active) async {
   final Database db = internalDatabase;
   await db.insert(
     'calendars',
@@ -11,7 +11,30 @@ Future saveCalendar(List recipes) async {
       'breakfast': json.encode(recipes[0]),
       'lunch': json.encode(recipes[1]),
       'dinner': json.encode(recipes[2]),
+      'active': active
     },
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+}
+
+Future saveActiveCalendar(activeID) async {
+  final Database db = internalDatabase;
+  await db.update(
+    'calendars',
+    {
+      'active': false,
+    },
+    where: 'active=?',
+    whereArgs: [true],
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+  await db.update(
+    'calendars',
+    {
+      'active': true,
+    },
+    where: 'id=?',
+    whereArgs: [activeID],
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
 }

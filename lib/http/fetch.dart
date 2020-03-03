@@ -25,7 +25,7 @@ Future<List> fetchRecipes() async {
 }
 
 Future<List> fetchCalendarRecipes() async {
-  var calendar = await fetchCalendar();
+  var calendar = await fetchActiveCalendar();
   var leftovers = await fetchLeftovers();
   var response = await http.get(url + "/recipe?user=" + user.uid);
   if (response.statusCode == 200) {
@@ -36,7 +36,7 @@ Future<List> fetchCalendarRecipes() async {
 }
 
 Future<List> fetchShoppingList() async {
-  var calendar = await fetchCalendar();
+  var calendar = await fetchActiveCalendar();
   var response = await http.get(
       url + "/list?user=" + user.uid + "&calendar=" + json.encode(calendar));
   if (response.statusCode == 200) {
@@ -71,7 +71,7 @@ Future<List> fetchSearchResults(sliders) async {
 }
 
 Future<List> fetchNextRecipe() async {
-  var calendar = await fetchCalendar();
+  var calendar = await fetchActiveCalendar();
   var now = new DateTime.now();
   var day = now.weekday;
   var nextMeal = null;

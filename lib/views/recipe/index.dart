@@ -37,7 +37,7 @@ class _BookPageState extends State<BookPage> {
                           subtitle: Text(snapshot.data[index]['tag']),
                           trailing: Text('Serves ' + snapshot.data[index]['servings'].toString()),
                           onTap: () {
-                            Navigator.pushNamed(context, '/recipedetail',arguments:{
+                            Navigator.pushNamed(context, '/recipeview',arguments:{
                               'title':snapshot.data[index]['name'],
                               'data': snapshot.data[index]
                             });

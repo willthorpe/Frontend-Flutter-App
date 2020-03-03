@@ -6,11 +6,11 @@ import 'package:flutter_app/globals.dart';
 Future setupDatabase() async {
   print("setup database");
   final database = openDatabase(
-    join(await getDatabasesPath(), 'recipe_database4.db'),
+    join(await getDatabasesPath(), 'mealplanner.db'),
     onCreate: (db, version) {
       print("db created");
       db.execute(
-        "CREATE TABLE calendars(id INTEGER PRIMARY KEY AUTOINCREMENT, breakfast TEXT, lunch TEXT, dinner TEXT)"
+        "CREATE TABLE calendars(id INTEGER PRIMARY KEY AUTOINCREMENT, breakfast TEXT, lunch TEXT, dinner TEXT, active BOOLEAN)"
       );
       db.execute(
         "CREATE TABLE diets(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value int)",

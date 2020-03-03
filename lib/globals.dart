@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 FirebaseUser user;
 var httpClient = null;
 Database internalDatabase;
-String url = "http://127.0.0.1:3000";
+String url = "http://3.10.20.105:3000";
 
 List menuItems = [
   'Next Recipe',
@@ -88,4 +88,14 @@ List<String> searchParameters = [
   'Prefer Less Complex Recipes',
   'Prefer Shorter Recipes',
   'Prefer Matching Diet',
+];
+
+final days = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday'
 ];

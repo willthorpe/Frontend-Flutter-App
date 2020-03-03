@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../http/fetch.dart';
 import '../../database/save.dart';
+import 'package:flutter_app/globals.dart';
 
 class EditCalendarPage extends StatefulWidget {
   EditCalendarPage({Key key, this.title}) : super(key: key);
@@ -19,15 +20,6 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
     GlobalKey<FormState>()
   ];
   int _currentStep = 0;
-  final _days = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
-  ];
 
   //Save the form data
   List _recipes = [
@@ -55,7 +47,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
-                                leading: Text(_days[index],
+                                leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
                                     future: fetchCalendarRecipes(),
@@ -104,7 +96,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
-                                leading: Text(_days[index],
+                                leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
                                     future: fetchCalendarRecipes(),
@@ -153,7 +145,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
-                                leading: Text(_days[index],
+                                leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
                                     future: fetchCalendarRecipes(),
@@ -207,7 +199,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                   //Save data from all the forms
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
-                    saveCalendar(_recipes);
+                    saveCalendar(_recipes, false);
                   }
                 }
               });
