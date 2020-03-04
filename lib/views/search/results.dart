@@ -26,68 +26,69 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             future: fetchSearchResults(arguments['data']),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data);
                 return new ListView.separated(
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return new ListTile(
-                        leading: const Icon(Icons.note_add),
-                        title: Text(snapshot.data[index]['recipe']['name']),
-                        trailing: Text(
-                            snapshot.data[index]['score'].toString() +
-                                "% match"),
-                        subtitle: Column(
-                          children: <Widget>[
-                            Text("Tag: " +
-                                snapshot.data[index]['recipe']['tag']),
-                            Text("Servings: " +
-                                snapshot.data[index]['recipe']['servings'].toString()),
-                            Text("Prep Time: " +
-                                snapshot.data[index]['recipe']['prepTime'].toString() +
-                                " minutes"),
-                            Text("Cook Time: " +
-                                snapshot.data[index]['recipe']['cookTime'].toString() +
-                                " minutes"),
-                            Text("\nMethod"),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount:
-                                    snapshot.data[index]['method'].length,
-                                itemBuilder:
-                                    (BuildContext context, int methodIndex) {
-                                  return Text(snapshot.data[index]['method']
-                                      [methodIndex]);
-                                }),
-                            Text("\nIngredients:"),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount:
-                                    snapshot.data[index]['ingredients'].length,
-                                itemBuilder: (BuildContext context,
-                                    int ingredientIndex) {
-                                  return Text(snapshot.data[index]
-                                                  ['ingredients']
-                                              [ingredientIndex][1]['amount'].toString()
-                                          .toString() +
-                                      " " +
-                                      snapshot.data[index]['ingredients']
-                                          [ingredientIndex][1]['type'] +
-                                      " " +
-                                      snapshot.data[index]['ingredients']
-                                          [ingredientIndex][0]['name']);
-                                }),
-                            RaisedButton(
-                                onPressed: () {
-                                  createLink(snapshot.data[index]['recipe']['name'], snapshot.data[index]['ingredients']);
-                                  final snackBar =
-                                      SnackBar(content: Text("Processing"));
-                                  _scaffoldResultsKey.currentState
-                                      .showSnackBar(snackBar);
-                                },
-                                child: Text('Add to Recipe Book')),
-                          ],
-                        ));
+                    return Column(
+                      children: <Widget>[
+                        ListTile(
+                          title: Text(snapshot.data[index]['recipe']['name']),
+                          trailing: Text(
+                              snapshot.data[index]['score'].toString() +
+                                  "% match")
+                        ),
+                        Text("Tag: " +
+                            snapshot.data[index]['recipe']['tag']),
+                        Text("Servings: " +
+                            snapshot.data[index]['recipe']['servings'].toString()),
+                        Text("Prep Time: " +
+                            snapshot.data[index]['recipe']['prepTime'].toString() +
+                            " minutes"),
+                        Text("Cook Time: " +
+                            snapshot.data[index]['recipe']['cookTime'].toString() +
+                            " minutes"),
+                        Text("\nMethod"),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(10),
+                            itemCount:
+                            snapshot.data[index]['method'].length,
+                            itemBuilder:
+                                (BuildContext context, int methodIndex) {
+                              return Text(snapshot.data[index]['method']
+                              [methodIndex]);
+                            }),
+                        Text("\nIngredients:"),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(10),
+                            itemCount:
+                            snapshot.data[index]['ingredients'].length,
+                            itemBuilder: (BuildContext context,
+                                int ingredientIndex) {
+                              return Text(snapshot.data[index]
+                              ['ingredients']
+                              [ingredientIndex][1]['amount'].toString()
+                                  .toString() +
+                                  " " +
+                                  snapshot.data[index]['ingredients']
+                                  [ingredientIndex][1]['type'] +
+                                  " " +
+                                  snapshot.data[index]['ingredients']
+                                  [ingredientIndex][0]['name']);
+                            }),
+                        RaisedButton(
+                            onPressed: () {
+                              createLink(snapshot.data[index]['recipe']['name'], snapshot.data[index]['ingredients']);
+                              final snackBar =
+                              SnackBar(content: Text("Processing"));
+                              _scaffoldResultsKey.currentState
+                                  .showSnackBar(snackBar);
+                            },
+                            child: Text('Add to Recipe Book')),
+                      ],
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return Divider();

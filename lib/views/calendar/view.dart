@@ -18,6 +18,7 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: true,
         key: _scaffoldCalendarViewKey,
         appBar: AppBar(
           title: Text(widget.title),
@@ -30,26 +31,51 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                 if (snapshot.hasData) {
                   return new ListView.separated(
                     padding: const EdgeInsets.all(10),
+                    shrinkWrap: true,
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        child: Column(
+                      return Column(
                           children: <Widget>[
-                            Text('Breakfast'),
-                            Text(snapshot.data[index]['breakfast'].toString()),
-                            Text('Lunch'),
-                            Text(snapshot.data[index]['lunch'].toString()),
-                            Text('Dinner'),
-                            Text(snapshot.data[index]['dinner'].toString()),
+                            Text('Breakfast:'),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(10),
+                                itemCount:
+                                snapshot.data[index]['breakfast'].length,
+                                itemBuilder:
+                                    (BuildContext context, int breakfastIndex) {
+                                  return Text(snapshot.data[index]['breakfast'][breakfastIndex]);
+                                }),
+                            Text('Lunch:'),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(10),
+                                itemCount:
+                                snapshot.data[index]['breakfast'].length,
+                                itemBuilder:
+                                    (BuildContext context, int lunchIndex) {
+                                  return Text(snapshot.data[index]['breakfast'][lunchIndex]);
+                                }),
+                            Text('Dinner:'),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(10),
+                                itemCount:
+                                snapshot.data[index]['breakfast'].length,
+                                itemBuilder:
+                                    (BuildContext context, int dinnerIndex) {
+                                  return Text(snapshot.data[index]['breakfast'][dinnerIndex]);
+                                }),
                             Text('Active'),
-                            Text("Currently " + snapshot.data[index]['active'].toString()),
+                            Text("Currently " +
+                                snapshot.data[index]['active'].toString()),
                             RaisedButton(
                                 onPressed: () {
-                                  saveActiveCalendar(snapshot.data[index]['id']);
+                                  saveActiveCalendar(
+                                      snapshot.data[index]['id']);
                                 },
                                 child: Text('Mark as Active Calendar')),
                           ],
-                        ),
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -62,7 +88,6 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                   );
                 }
               }),
-        )
-    );
+        ));
   }
 }
