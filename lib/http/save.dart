@@ -39,10 +39,11 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
   }
 }
 
-Future <String> createLink(String recipe) async {
+Future <String> createLink(String recipe, ingredients) async {
   var response = await http.post(url + "/link", body: {
     'user': user.uid,
     'recipe': recipe,
+    'ingredients' : json.encode(ingredients)
   });
 
   if (response.statusCode == 200) {

@@ -30,6 +30,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
                   return new ListView.separated(
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
+                      print(snapshot.data[index]);
                       if(snapshot.data[index]['type'] == "number"){
                         return new ListTile(
                             leading: const Icon(Icons.fastfood),
@@ -38,7 +39,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
                                 snapshot.data[index]['location'] +
                                 ' expires ' +
                                 snapshot.data[index]['useByDate']),
-                            trailing: Text(snapshot.data[index]['amount'])
+                            trailing: Text(snapshot.data[index]['amount'].toString())
                         );
                       }else {
                         return new ListTile(
@@ -48,7 +49,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
                                 snapshot.data[index]['location'] +
                                 ' expires ' +
                                 snapshot.data[index]['useByDate']),
-                            trailing: Text(snapshot.data[index]['amount'] +
+                            trailing: Text(snapshot.data[index]['amount'].toString() +
                                 ' ' +
                                 snapshot.data[index]['type'])
                         );

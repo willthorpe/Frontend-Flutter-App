@@ -79,7 +79,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                 }),
                             RaisedButton(
                                 onPressed: () {
-                                  createLink(snapshot.data[index]['recipe']['name']);
+                                  createLink(snapshot.data[index]['recipe']['name'], snapshot.data[index]['ingredients']);
                                   final snackBar =
                                       SnackBar(content: Text("Processing"));
                                   _scaffoldResultsKey.currentState
