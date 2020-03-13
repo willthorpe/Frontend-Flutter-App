@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/save.dart';
 import 'package:flutter_app/http/fetch.dart';
+import 'package:flutter_app/http/save.dart';
 import 'package:quiver/async.dart';
 
 class NextRecipePage extends StatefulWidget {
@@ -208,13 +209,14 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                           if (this._formLeftoverKey.currentState.validate()) {
                                             this._formLeftoverKey.currentState.save();
                                             saveLeftovers(snapshot.data[0]["name"], _leftovers);
+                                            updateIngredients(snapshot.data[0]['ingredients']);
                                             final snackBar =
                                             SnackBar(content: Text("Processing"));
                                             this._scaffoldResultsKey.currentState
                                                 .showSnackBar(snackBar);
                                           }
                                         },
-                                        child: Text('Save')),
+                                        child: Text('Mark as Made')),
                                   ),
                                 ],
                               )))
