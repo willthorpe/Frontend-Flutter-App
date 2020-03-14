@@ -3,6 +3,7 @@ import 'dart:core';
 import '../globals.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/database/fetch.dart';
+import '../apis/google.dart';
 
 Future<List> fetchIngredients() async {
   var response = await http.get(url + "/ingredient?user=" + user.uid);
@@ -96,6 +97,7 @@ Future<List> fetchNextRecipe() async {
 }
 
 Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency) async {
+  var busy = fetchGoogleCalendars();
   var response = await http.get(url +
       "/automate?user=" +
       user.uid +
@@ -106,7 +108,10 @@ Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency) async {
       "&dinner=" +
       json.encode(dinner) +
       "&week=" +
-      json.encode(weekFrequency));
+      json.encode(weekFrequency) +
+      "&busy=" +
+      json.encode(busy)
+  );
   if (response.statusCode == 200) {
     print(response.body);
     return json.decode(response.body);
