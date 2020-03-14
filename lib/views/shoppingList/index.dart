@@ -79,7 +79,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                   child: TextFormField(
                                       keyboardType: TextInputType.number,
                                       decoration:
-                                          InputDecoration(hintText: 'Amount'),
+                                          InputDecoration(hintText: 'No. Bought'),
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return 'Please enter an amount';

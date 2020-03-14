@@ -94,3 +94,23 @@ Future<List> fetchNextRecipe() async {
     print("Request failed with status: ${response.statusCode}.");
   }
 }
+
+Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency) async {
+  var response = await http.get(url +
+      "/automate?user=" +
+      user.uid +
+      "&breakfasr=" +
+      json.encode(breakfast) +
+      "&lunch=" +
+      json.encode(lunch) +
+      "&dinner=" +
+      json.encode(dinner) +
+      "&week=" +
+      json.encode(weekFrequency));
+  if (response.statusCode == 200) {
+    print(response.body);
+    return json.decode(response.body);
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}

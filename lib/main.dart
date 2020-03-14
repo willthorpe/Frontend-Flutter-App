@@ -22,6 +22,7 @@ import 'views/calendar/index.dart';
 import 'views/calendar/create.dart';
 import 'views/calendar/edit.dart';
 import 'views/calendar/view.dart';
+import 'views/calendar/automate.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         '/createcalendar' : (context) => CreateCalendarPage(title:'Create Calendar'),
         '/editcalendar' : (context) => EditCalendarPage(title:'Edit Calendar'),
         '/viewcalendars' : (context) => ViewCalendarsPage(title:'View Calendars'),
+        '/automatecalendar': (context) => AutomateCalendarPage(title: 'Automate Calendar'),
         '/nextrecipe' : (context) => NextRecipePage(title:'Next Recipe'),
         '/nutritiongoals' : (context) => CreateNutritionPage(title: 'Nutrition Goals'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
