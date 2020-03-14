@@ -5,8 +5,8 @@ import 'package:flutter_app/globals.dart';
 Future<List> fetchGoogleCalendars() async {
   var results = await CalendarApi(httpClient).calendarList.list();
   FreeBusyRequest freeBusy = new FreeBusyRequest();
-  freeBusy.timeMin = new DateTime.utc(2020, 2, 26);
-  freeBusy.timeMax = new DateTime.utc(2020, 2, 27);
+  freeBusy.timeMin = new DateTime.now().toUtc();
+  freeBusy.timeMax = freeBusy.timeMin.add(Duration(days: 2));
   freeBusy.items = [];
   for (var i in results.items) {
     FreeBusyRequestItem item = new FreeBusyRequestItem();

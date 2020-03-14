@@ -97,11 +97,11 @@ Future<List> fetchNextRecipe() async {
 }
 
 Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency) async {
-  var busy = fetchGoogleCalendars();
+  var busy = await fetchGoogleCalendars();
   var response = await http.get(url +
       "/automate?user=" +
       user.uid +
-      "&breakfasr=" +
+      "&breakfast=" +
       json.encode(breakfast) +
       "&lunch=" +
       json.encode(lunch) +
