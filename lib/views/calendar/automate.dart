@@ -19,6 +19,7 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
   List<double> _lunch = [12, 14];
   List<double> _dinner = [17, 20];
   String _weekFrequency;
+  String _eatingTime;
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +151,21 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                       title: TextFormField(
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
+                              hintText: 'Eating Time'),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter an eating time';
+                            }
+                            return null;
+                          },
+                          onSaved: (String value) {
+                            _eatingTime = value;
+                          }),
+                    ),
+                    new ListTile(
+                      title: TextFormField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
                               hintText: 'Weeks since last made'),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -167,7 +183,7 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                             if (_formAutomateKey.currentState
                                 .validate()) {
                               _formAutomateKey.currentState.save();
-                              automateCalendar(_breakfast,_lunch,_dinner,_weekFrequency);
+                              automateCalendar(_breakfast,_lunch,_dinner,_weekFrequency, _eatingTime);
                               final snackBar =
                               SnackBar(content: Text("Processing"));
                               _scaffoldAutomateKey.currentState

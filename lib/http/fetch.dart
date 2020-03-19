@@ -63,6 +63,7 @@ Future<List> fetchSearchResults(sliders) async {
       json.encode(allergies) +
       "&diets=" +
       json.encode(diets));
+    print(response.body);
   if (response.statusCode == 200) {
     print(response.body);
     return json.decode(response.body);
@@ -96,8 +97,9 @@ Future<List> fetchNextRecipe() async {
   }
 }
 
-Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency) async {
+Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency, eatingTime) async {
   var busy = await fetchGoogleCalendars();
+  print(busy);
   var response = await http.get(url +
       "/automate?user=" +
       user.uid +
@@ -107,8 +109,10 @@ Future<List> automateCalendar(breakfast, lunch, dinner, weekFrequency) async {
       json.encode(lunch) +
       "&dinner=" +
       json.encode(dinner) +
-      "&week=" +
-      json.encode(weekFrequency) +
+      "&weekFrequency=" +
+      weekFrequency +
+      "&eatingTime=" +
+      eatingTime +
       "&busy=" +
       json.encode(busy)
   );

@@ -26,5 +26,5 @@ Future<List> fetchGoogleCalendars() async {
     return left['start'].compareTo(right['start']);
   });
 
-  print(collatedTimes);
+  return collatedTimes;
 }
