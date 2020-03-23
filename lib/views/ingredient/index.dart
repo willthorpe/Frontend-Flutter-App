@@ -28,6 +28,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return new ListView.separated(
+                    padding: EdgeInsets.all(10),
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       print(snapshot.data[index]);

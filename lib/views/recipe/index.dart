@@ -29,6 +29,7 @@ class _BookPageState extends State<BookPage> {
                 if (snapshot.hasData) {
                   print(snapshot.data);
                   return new ListView.separated(
+                    padding: EdgeInsets.all(10),
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return new ListTile(

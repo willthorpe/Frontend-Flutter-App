@@ -52,7 +52,8 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                         if (value.isEmpty) {
                                           return 'Please enter an amount';
                                         }
-                                        if(int.parse(value)  < snapshot.data[index]['amount']){
+                                        if (int.parse(value) <
+                                            snapshot.data[index]['amount']) {
                                           return 'Value too small';
                                         }
                                         return null;
@@ -60,7 +61,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                       onSaved: (value) {
                                         this._purchased.add({
                                           'name': snapshot.data[index]['name'],
-                                          'amount': int.parse(value) ,
+                                          'amount': int.parse(value),
                                           'type': snapshot.data[index]['type']
                                         });
                                       }),
@@ -79,12 +80,13 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                   child: TextFormField(
                                       keyboardType: TextInputType.number,
                                       decoration:
-                                          InputDecoration(hintText: 'No. Bought'),
+                                          InputDecoration(hintText: 'Bought'),
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return 'Please enter an amount';
                                         }
-                                        if(int.parse(value) < snapshot.data[index]['amount']){
+                                        if (int.parse(value) <
+                                            snapshot.data[index]['amount']) {
                                           return 'Value too small';
                                         }
                                         return null;
@@ -92,7 +94,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                       onSaved: (value) {
                                         this._purchased.add({
                                           'name': snapshot.data[index]['name'],
-                                          'amount': int.parse(value) ,
+                                          'amount': int.parse(value),
                                           'type': snapshot.data[index]['type']
                                         });
                                       }),
@@ -104,23 +106,18 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                         },
                       ),
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.10,
-                      child: Center(
-                        child: RaisedButton(
-                            onPressed: () {
-                              if (_formShoppingKey.currentState.validate()) {
-                                _formShoppingKey.currentState.save();
-                                saveShoppingList(_purchased);
-                                final snackBar =
-                                    SnackBar(content: Text("Processing"));
-                                _scaffoldShoppingKey.currentState
-                                    .showSnackBar(snackBar);
-                              }
-                            },
-                            child: Text('Save')),
-                      ),
-                    )
+                    RaisedButton(
+                        onPressed: () {
+                          if (_formShoppingKey.currentState.validate()) {
+                            _formShoppingKey.currentState.save();
+                            saveShoppingList(_purchased);
+                            final snackBar =
+                                SnackBar(content: Text("Processing"));
+                            _scaffoldShoppingKey.currentState
+                                .showSnackBar(snackBar);
+                          }
+                        },
+                        child: Text('Save')),
                   ]);
                 } else {
                   return Center(

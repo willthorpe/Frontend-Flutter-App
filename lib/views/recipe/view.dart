@@ -64,6 +64,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                 ]
               ),
             Container(
+                padding: EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: ListView.separated(
                     shrinkWrap: true,
@@ -95,6 +96,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                     itemCount: arguments['data']['ingredients'].length)),
             Container(
                 height: MediaQuery.of(context).size.height * 0.8,
+                padding: EdgeInsets.all(10),
                 child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
