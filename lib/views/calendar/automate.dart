@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../http/fetch.dart';
 
 class AutomateCalendarPage extends StatefulWidget {
   AutomateCalendarPage({Key key, this.title}) : super(key: key);
@@ -60,10 +59,12 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                                 max: 24,
                                 divisions: 24,
                                 onChanged: (rating) {
-                                  setState(() => _mealsData[_meals[index]][0] = rating);
+                                  setState(() =>
+                                      _mealsData[_meals[index]][0] = rating);
                                 },
                                 value: _mealsData[_meals[index]][0]),
-                            trailing: Text(_mealsData[_meals[index]][0].toString()),
+                            trailing:
+                                Text(_mealsData[_meals[index]][0].toString()),
                           ),
                           ListTile(
                             title: Center(
@@ -79,28 +80,28 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                                 max: 24,
                                 divisions: 24,
                                 onChanged: (rating) {
-                                  setState(() => _mealsData[_meals[index]][1] = rating);
+                                  setState(() =>
+                                      _mealsData[_meals[index]][1] = rating);
                                 },
                                 value: _mealsData[_meals[index]][1]),
-                            trailing: Text(_mealsData[_meals[index]][1].toString()),
+                            trailing:
+                                Text(_mealsData[_meals[index]][1].toString()),
                           ),
                           ListTile(
-                            title: Center(
-                                child: Text(
-                                  'Allow duplicates for ' + _meals[index],
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                  ),
-                                )),
-                            subtitle: Checkbox(
-                              value: _mealsData[_meals[index]][2],
-                              onChanged: (bool value){
-                                setState(() {
-                                  _mealsData[_meals[index]][2] = value;
-                                });
-                              }
-                            )
-                          )
+                              title: Center(
+                                  child: Text(
+                                'Allow duplicates for ' + _meals[index],
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              )),
+                              subtitle: Checkbox(
+                                  value: _mealsData[_meals[index]][2],
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _mealsData[_meals[index]][2] = value;
+                                    });
+                                  }))
                         ],
                       );
                     }),
@@ -138,7 +139,13 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                       onPressed: () {
                         if (_formAutomateKey.currentState.validate()) {
                           _formAutomateKey.currentState.save();
-                          automateCalendar(_mealsData, _weekFrequency, _eatingTime);
+                          Navigator.pushNamed(context, '/automateresults',
+                              arguments: {
+                                'title': 'View Calendar',
+                                'mealsData': _mealsData,
+                                'weekFrequency': _weekFrequency,
+                                'eatingTime': _eatingTime
+                              });
                           final snackBar =
                               SnackBar(content: Text("Processing"));
                           _scaffoldAutomateKey.currentState

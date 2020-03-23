@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Expanded(
                   child: ListView.builder(
+                    padding: EdgeInsets.only(top:0),
                       itemBuilder: (context, index) {
                         return ListTile(
                             title: Text('${menuItems[index]}',

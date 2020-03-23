@@ -51,20 +51,20 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(10),
                                 itemCount:
-                                snapshot.data[index]['breakfast'].length,
+                                snapshot.data[index]['lunch'].length,
                                 itemBuilder:
                                     (BuildContext context, int lunchIndex) {
-                                  return Text(snapshot.data[index]['breakfast'][lunchIndex]);
+                                  return Text(snapshot.data[index]['lunch'][lunchIndex]);
                                 }),
                             Text('Dinner:'),
                             ListView.builder(
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(10),
                                 itemCount:
-                                snapshot.data[index]['breakfast'].length,
+                                snapshot.data[index]['dinner'].length,
                                 itemBuilder:
                                     (BuildContext context, int dinnerIndex) {
-                                  return Text(snapshot.data[index]['breakfast'][dinnerIndex]);
+                                  return Text(snapshot.data[index]['dinner'][dinnerIndex]);
                                 }),
                             Text('Active'),
                             Text("Currently " +
