@@ -15,9 +15,16 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
   final _formAutomateKey = GlobalKey<FormState>();
 
   //Save the form data
-  List<double> _breakfast = [8, 10];
-  List<double> _lunch = [12, 14];
-  List<double> _dinner = [17, 20];
+
+  //[Meal start, meal end, duplicates]
+  List _meals = ['breakfast', 'lunch', 'dinner'];
+
+  Map _mealsData = {
+    'breakfast': [8.0, 10.0, false],
+    'lunch': [12.0, 14.0, false],
+    'dinner': [17.0, 20.0, false]
+  };
+
   String _weekFrequency;
   String _eatingTime;
 
@@ -28,171 +35,119 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body:  Form(
-                key: _formAutomateKey,
-                child: ListView(
-                  padding: EdgeInsets.all(10),
-                  children: <Widget>[
-                    new ListTile(
-                      title: Center(
-                          child: Text(
-                            'Earliest Breakfast Time',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )),
-                      subtitle: Slider(
-                          activeColor: Colors.lightGreen,
-                          min: 0,
-                          max: 24,
-                          divisions: 24,
-                          onChanged: (rating) {
-                            setState(() => _breakfast[0] = rating);
-                          },
-                          value: _breakfast[0]),
-                      trailing: Text(_breakfast[0].toString()),
-                    ),
-                    new ListTile(
-                      title: Center(
-                          child: Text(
-                            'Latest Breakfast Time',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )),
-                      subtitle: Slider(
-                          activeColor: Colors.lightGreen,
-                          min: 0,
-                          max: 24,
-                          divisions: 24,
-                          onChanged: (rating) {
-                            setState(() => _breakfast[1] = rating);
-                          },
-                          value: _breakfast[1]),
-                      trailing: Text(_breakfast[1].toString()),
-                    ),
-                    new ListTile(
-                      title: Center(
-                          child: Text(
-                            'Earliest Lunch Time',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )),
-                      subtitle: Slider(
-                          activeColor: Colors.lightGreen,
-                          min: 0,
-                          max: 24,
-                          divisions: 24,
-                          onChanged: (rating) {
-                            setState(() => _lunch[0] = rating);
-                          },
-                          value: _lunch[0]),
-                      trailing: Text(_lunch[0].toString()),
-                    ),
-                    new ListTile(
-                      title: Center(
-                          child: Text(
-                            'Latest Lunch Time',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )),
-                      subtitle: Slider(
-                          activeColor: Colors.lightGreen,
-                          min: 0,
-                          max: 24,
-                          divisions: 24,
-                          onChanged: (rating) {
-                            setState(() => _lunch[1] = rating);
-                          },
-                          value: _lunch[1]),
-                      trailing: Text(_lunch[1].toString()),
-                    ),
-                    new ListTile(
-                      title: Center(
-                          child: Text(
-                            'Earliest Dinner Time',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )),
-                      subtitle: Slider(
-                          activeColor: Colors.lightGreen,
-                          min: 0,
-                          max: 24,
-                          divisions: 24,
-                          onChanged: (rating) {
-                            setState(() => _dinner[0] = rating);
-                          },
-                          value: _dinner[0]),
-                      trailing: Text(_dinner[0].toString()),
-                    ),
-                    new ListTile(
-                      title: Center(
-                          child: Text(
-                            'Latest Dinner Time',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )),
-                      subtitle: Slider(
-                          activeColor: Colors.lightGreen,
-                          min: 0,
-                          max: 24,
-                          divisions: 24,
-                          onChanged: (rating) {
-                            setState(() => _dinner[1] = rating);
-                          },
-                          value: _dinner[1]),
-                      trailing: Text(_dinner[1].toString()),
-                    ),
-                    new ListTile(
-                      title: TextFormField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              hintText: 'Eating Time'),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter an eating time';
-                            }
-                            return null;
-                          },
-                          onSaved: (String value) {
-                            _eatingTime = value;
-                          }),
-                    ),
-                    new ListTile(
-                      title: TextFormField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              hintText: 'Weeks since last made'),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter a week frequency';
-                            }
-                            return null;
-                          },
-                          onSaved: (String value) {
-                            _weekFrequency = value;
-                          }),
-                    ),
-                    Center(
-                      child: RaisedButton(
-                          onPressed: () {
-                            if (_formAutomateKey.currentState
-                                .validate()) {
-                              _formAutomateKey.currentState.save();
-                              automateCalendar(_breakfast,_lunch,_dinner,_weekFrequency, _eatingTime);
-                              final snackBar =
+        body: Form(
+            key: _formAutomateKey,
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: <Widget>[
+                new ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _meals.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return new Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Center(
+                                child: Text(
+                              'Earliest ' + _meals[index] + ' Time',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            )),
+                            subtitle: Slider(
+                                activeColor: Colors.lightGreen,
+                                min: 0,
+                                max: 24,
+                                divisions: 24,
+                                onChanged: (rating) {
+                                  setState(() => _mealsData[_meals[index]][0] = rating);
+                                },
+                                value: _mealsData[_meals[index]][0]),
+                            trailing: Text(_mealsData[_meals[index]][0].toString()),
+                          ),
+                          ListTile(
+                            title: Center(
+                                child: Text(
+                              'Latest ' + _meals[index] + ' Time',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            )),
+                            subtitle: Slider(
+                                activeColor: Colors.lightGreen,
+                                min: 0,
+                                max: 24,
+                                divisions: 24,
+                                onChanged: (rating) {
+                                  setState(() => _mealsData[_meals[index]][1] = rating);
+                                },
+                                value: _mealsData[_meals[index]][1]),
+                            trailing: Text(_mealsData[_meals[index]][1].toString()),
+                          ),
+                          ListTile(
+                            title: Center(
+                                child: Text(
+                                  'Allow duplicates for ' + _meals[index],
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                )),
+                            subtitle: Checkbox(
+                              value: _mealsData[_meals[index]][2],
+                              onChanged: (bool value){
+                                setState(() {
+                                  _mealsData[_meals[index]][2] = value;
+                                });
+                              }
+                            )
+                          )
+                        ],
+                      );
+                    }),
+                new ListTile(
+                  title: TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(hintText: 'Eating Time'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter an eating time';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value) {
+                        _eatingTime = value;
+                      }),
+                ),
+                new ListTile(
+                  title: TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration:
+                          InputDecoration(hintText: 'Weeks since last made'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter a week frequency';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value) {
+                        _weekFrequency = value;
+                      }),
+                ),
+                Center(
+                  child: RaisedButton(
+                      onPressed: () {
+                        if (_formAutomateKey.currentState.validate()) {
+                          _formAutomateKey.currentState.save();
+                          automateCalendar(_mealsData, _weekFrequency, _eatingTime);
+                          final snackBar =
                               SnackBar(content: Text("Processing"));
-                              _scaffoldAutomateKey.currentState
-                                  .showSnackBar(snackBar);
-                            }
-                          },
-                          child: Text('Save')),
-                    ),
-                  ],
-                )));
+                          _scaffoldAutomateKey.currentState
+                              .showSnackBar(snackBar);
+                        }
+                      },
+                      child: Text('Save')),
+                ),
+              ],
+            )));
   }
 }
