@@ -63,7 +63,7 @@ Future<List> fetchSearchResults(sliders) async {
       json.encode(allergies) +
       "&diets=" +
       json.encode(diets));
-    print(response.body);
+  print(response.body);
   if (response.statusCode == 200) {
     print(response.body);
     return json.decode(response.body);
@@ -78,18 +78,19 @@ Future<List> fetchNextRecipe() async {
   var day = now.weekday;
   var nextMeal = null;
 
-  if (now.hour < 12){
+  if (now.hour < 12) {
     //Breakfast
-    nextMeal = calendar[0]["breakfast"][day+1];
-  }else if(now.hour <= 14 && now.hour >= 12){
+    nextMeal = calendar[0]["breakfast"][day + 1];
+  } else if (now.hour <= 14 && now.hour >= 12) {
     //Lunch
-    nextMeal = calendar[0]["lunch"][day+1];
-  }else{
+    nextMeal = calendar[0]["lunch"][day + 1];
+  } else {
     //Dinner
-    nextMeal = calendar[0]["dinner"][day+1];
+    nextMeal = calendar[0]["dinner"][day + 1];
   }
 
-  var response = await http.get(url + "/next?user=" + user.uid + "&recipe=" + nextMeal);
+  var response =
+      await http.get(url + "/next?user=" + user.uid + "&recipe=" + nextMeal);
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
@@ -98,9 +99,7 @@ Future<List> fetchNextRecipe() async {
 }
 
 Future<List> automateCalendar(meals, weekFrequency, eatingTime) async {
-  print(meals);
   var busy = await fetchGoogleCalendars();
-  print(busy);
   var response = await http.get(url +
       "/automate?user=" +
       user.uid +
@@ -111,10 +110,19 @@ Future<List> automateCalendar(meals, weekFrequency, eatingTime) async {
       "&eatingTime=" +
       eatingTime +
       "&busy=" +
-      json.encode(busy)
-  );
+      json.encode(busy));
   if (response.statusCode == 200) {
-    print(response.body);
+    return json.decode(response.body);
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}
+
+Future<List> fetchRecipeGraphData() async {
+  var calendars = await fetchCalendars();
+  var response = await http.get(
+      url + "/graph/recipe?user=" + user.uid + "&calendars=" + json.encode(calendars));
+  if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
     print("Request failed with status: ${response.statusCode}.");
