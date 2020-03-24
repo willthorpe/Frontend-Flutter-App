@@ -16,6 +16,7 @@ List menuItems = [
   'Shopping List',
   'Search',
   'Nutrition Goals',
+  'Graphs',
   'Settings'
 ];
 
