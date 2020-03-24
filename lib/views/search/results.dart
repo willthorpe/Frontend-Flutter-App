@@ -53,18 +53,34 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                 snapshot.data[index]['recipe']['cookTime']
                                     .toString() +
                                 " minutes"),
-                            Text("\nMethod"),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(10),
-                                itemCount:
-                                    snapshot.data[index]['method'].length,
-                                itemBuilder:
-                                    (BuildContext context, int methodIndex) {
-                                  return Text(snapshot.data[index]['method']
-                                      [methodIndex]);
-                                }),
-                            Text("\nIngredients:"),
+                            Text('\nMethod:\n',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                )),
+                            Container(
+                              height:
+                              MediaQuery.of(context).size.height * 0.3,
+                              child: GridView.builder(
+                                  gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  padding: EdgeInsets.all(10),
+                                  itemCount:
+                                  snapshot.data[index]['method'].length,
+                                  itemBuilder: (BuildContext context,
+                                      int methodIndex) {
+                                    return Text(snapshot.data[index]['method']
+                                    [methodIndex]);
+                                  }),
+                            ),
+                            Text('Ingredients:\n',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                )),
                             ListView.builder(
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(10),
