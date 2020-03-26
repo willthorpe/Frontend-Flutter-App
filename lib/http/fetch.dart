@@ -8,7 +8,6 @@ import '../apis/google.dart';
 Future<List> fetchIngredients() async {
   var response = await http.get(url + "/ingredient?user=" + user.uid);
   if (response.statusCode == 200) {
-    print(response.body);
     return json.decode(response.body);
   } else {
     print("Request failed with status: ${response.statusCode}.");
