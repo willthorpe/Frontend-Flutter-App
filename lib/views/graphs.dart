@@ -36,8 +36,8 @@ class _CreateGraphsPageState extends State<GraphsPage> {
                     data: data,
                     domainFn: (dynamic series, _) => series.recipe,
                     measureFn: (dynamic series, _) => series.amount,
-                    colorFn: (_ , __) => charts.MaterialPalette.green.shadeDefault)
-              ];
+                  labelAccessorFn: (dynamic series, _) => '${series.recipe}',
+                )];
 
               return new Container(
                 padding: EdgeInsets.all(10),
@@ -46,11 +46,19 @@ class _CreateGraphsPageState extends State<GraphsPage> {
                     Text('Graph of Recipe Use in Calendars'),
                     Container(
                         height: MediaQuery.of(context).size.height * 0.8,
-                        child: charts.BarChart(series)
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: charts.PieChart(series, defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
+                          new charts.ArcLabelDecorator(
+                              labelPosition: charts.ArcLabelPosition.auto,
+                              outsideLabelStyleSpec: charts.TextStyleSpec(fontSize: 10),
+                              insideLabelStyleSpec: charts.TextStyleSpec(fontSize: 10)
+                              )
+                        ]))
                     )
                   ],
                 ),
               );
+
             } else {
               return Center(
                 child: CircularProgressIndicator(),

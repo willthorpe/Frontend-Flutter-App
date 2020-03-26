@@ -6,7 +6,7 @@ Future<List> fetchGoogleCalendars() async {
   var results = await CalendarApi(httpClient).calendarList.list();
   FreeBusyRequest freeBusy = new FreeBusyRequest();
   freeBusy.timeMin = new DateTime.now().toUtc();
-  freeBusy.timeMax = freeBusy.timeMin.add(Duration(days: 2));
+  freeBusy.timeMax = freeBusy.timeMin.add(Duration(days: 7));
   freeBusy.items = [];
   for (var i in results.items) {
     FreeBusyRequestItem item = new FreeBusyRequestItem();

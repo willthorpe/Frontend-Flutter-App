@@ -37,7 +37,7 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
         body: Form(
             key: _formAutomateKey,
             child: ListView(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(15),
               children: <Widget>[
                 new ListView.builder(
                     shrinkWrap: true,
