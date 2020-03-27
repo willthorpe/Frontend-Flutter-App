@@ -126,8 +126,8 @@ class GoogleHttpClient extends IOClient {
 Future <String> _signInGoogle(context) async {
   final GoogleSignInAccount googleUser = await GoogleSignIn(
     scopes: [
-      'https://www.googleapis.com/auth/calendar',
-      'https://www.googleapis.com/auth/calendar.events'
+      'https://www.googleapis.com/auth/calendar.readonly',
+      'https://www.googleapis.com/auth/calendar.events.readonly'
     ],
   ).signIn();
   final GoogleSignInAuthentication googleAuth =
