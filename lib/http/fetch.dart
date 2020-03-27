@@ -89,9 +89,9 @@ Future<List> fetchNextRecipe() async {
   }
 
   var response =
-      await http.get(url + "/next?user=" + user.uid + "&recipe=" + nextMeal);
+      await http.get(url + "/nextRecipe?user=" + user.uid + "&recipe=" + nextMeal);
   if (response.statusCode == 200) {
-    return json.decode(response.body);
+    return [json.decode(response.body)];
   } else {
     print("Request failed with status: ${response.statusCode}.");
   }

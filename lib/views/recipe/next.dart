@@ -34,7 +34,9 @@ class _NextRecipePageState extends State<NextRecipePage> {
     return FutureBuilder(
         future: this._future,
         builder: (context, snapshot) {
+          print(snapshot.data);
           if (snapshot.hasData) {
+            print(snapshot.data);
             return DefaultTabController(
                 length: 5,
                 child: Scaffold(
@@ -56,18 +58,18 @@ class _NextRecipePageState extends State<NextRecipePage> {
                           children: <Widget>[
                             ListTile(
                               title: Text(
-                                  "Servings: " + snapshot.data[0]['servings']),
+                                  "Servings: " + snapshot.data[0]['servings'].toString()),
                             ),
                             ListTile(
                               title: Text("Tag: " + snapshot.data[0]['tag']),
                             ),
                             ListTile(
                               title: Text(
-                                  "Prep Time: " + snapshot.data[0]['prepTime']),
+                                  "Prep Time: " + snapshot.data[0]['prepTime'].toString()),
                             ),
                             ListTile(
                               title: Text(
-                                  "Cook Time: " + snapshot.data[0]['cookTime']),
+                                  "Cook Time: " + snapshot.data[0]['cookTime'].toString()),
                             )
                           ],
                         ),
