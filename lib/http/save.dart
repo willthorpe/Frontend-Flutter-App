@@ -2,15 +2,16 @@ import 'package:flutter_app/globals.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future <String> saveIngredient(String name, String amount, String type, String location, DateTime useByDate) async {
+Future<String> saveIngredient(String name, String amount, String type,
+    String location, DateTime useByDate) async {
   var useBy = useByDate.toString();
   var response = await http.post(url + "/ingredient", body: {
     'user': user.uid,
     'name': name,
     'amount': amount,
-    'type' : type,
+    'type': type,
     'location': location,
-    'useByDate' : useBy.split(" ")[0]
+    'useByDate': useBy.split(" ")[0]
   });
 
   if (response.statusCode == 200) {
@@ -20,16 +21,17 @@ Future <String> saveIngredient(String name, String amount, String type, String l
   }
 }
 
-Future <String> saveRecipe(String name, String tag, String servings, String prepTime,String cookTime, ingredients,methods) async {
+Future<String> saveRecipe(String name, String tag, String servings,
+    String prepTime, String cookTime, ingredients, methods) async {
   var response = await http.post(url + "/recipe", body: {
     'user': user.uid,
     'name': name,
     'tag': tag,
     'servings': servings,
-    'prepTime' : prepTime,
+    'prepTime': prepTime,
     'cookTime': cookTime,
-    'ingredients' : json.encode(ingredients),
-    'methods' : json.encode(methods)
+    'ingredients': json.encode(ingredients),
+    'methods': json.encode(methods)
   });
 
   if (response.statusCode == 200) {
@@ -39,11 +41,11 @@ Future <String> saveRecipe(String name, String tag, String servings, String prep
   }
 }
 
-Future <String> createLink(String recipe, ingredients) async {
+Future<String> createLink(String recipe, ingredients) async {
   var response = await http.post(url + "/link", body: {
     'user': user.uid,
     'recipe': recipe,
-    'ingredients' : json.encode(ingredients)
+    'ingredients': json.encode(ingredients)
   });
 
   if (response.statusCode == 200) {
@@ -53,12 +55,9 @@ Future <String> createLink(String recipe, ingredients) async {
   }
 }
 
-
-Future <String> saveShoppingList(purchased) async {
-  var response = await http.patch(url + "/recipe", body: {
-    'user': user.uid,
-    'purchased' : json.encode(purchased)
-  });
+Future<String> saveShoppingList(purchased) async {
+  var response = await http.patch(url + "/recipe",
+      body: {'user': user.uid, 'purchased': json.encode(purchased)});
 
   if (response.statusCode == 200) {
     print('Response body: ${response.body}');
@@ -67,11 +66,9 @@ Future <String> saveShoppingList(purchased) async {
   }
 }
 
-Future <String> updateIngredients(ingredients) async {
-  var response = await http.patch(url + "/ingredient", body: {
-    'user': user.uid,
-    'ingredients' : json.encode(ingredients)
-  });
+Future<String> updateIngredients(ingredients) async {
+  var response = await http.patch(url + "/ingredient",
+      body: {'user': user.uid, 'ingredients': json.encode(ingredients)});
 
   if (response.statusCode == 200) {
     print('Response body: ${response.body}');

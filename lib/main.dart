@@ -9,7 +9,7 @@ import 'views/graphs.dart';
 import 'database/open.dart';
 
 import 'views/ingredient/index.dart';
-import 'views/ingredient/create.dart';
+import 'views/ingredient/list.dart';
 
 import 'views/recipe/index.dart';
 import 'views/recipe/create.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         '/home' : (context) => HomePage(title: 'Your Recipes'),
         '/register' : (context) => RegisterPage(title: 'Register'),
         '/' : (context) => LoginPage(title: 'Login'),
-        '/createingredient' : (context) => CreateIngredientPage(title: 'Create Ingredient'),
+        '/listingredient' : (context) => ListIngredientPage(title: 'List Ingredient'),
         '/createrecipe' : (context) => CreateRecipePage(title: 'Create Recipe'),
         '/createcalendar' : (context) => CreateCalendarPage(title:'Create Calendar'),
         '/editcalendar' : (context) => EditCalendarPage(title:'Edit Calendar'),
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
         '/nutritiongoals' : (context) => CreateNutritionPage(title: 'Nutrition Goals'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
         '/searchresults' : (context) => SearchResultsPage(),
-        '/ingredients' : (context) => IngredientsPage(title: 'Ingredients'),
+        '/larder' : (context) => IngredientsPage(title: 'Larder'),
         '/recipebook' : (context) => BookPage(title: 'Recipe Book'),
         '/recipecalendar' : (context) => CalendarsPage(title:'Recipe Calendars'),
         '/recipeview' : (context) => ViewRecipePage(),

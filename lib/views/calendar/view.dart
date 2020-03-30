@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../database/fetch.dart';
 import '../../database/save.dart';
+import 'package:flutter_app/globals.dart';
 
 class ViewCalendarsPage extends StatefulWidget {
   ViewCalendarsPage({Key key, this.title}) : super(key: key);
@@ -39,6 +40,10 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                           var activeWidget = Container(
                               child: RaisedButton(
                                   onPressed: () {
+                                    final snackBar =
+                                    SnackBar(content: Text("Processing"));
+                                    _scaffoldCalendarViewKey.currentState
+                                        .showSnackBar(snackBar);
                                     saveActiveCalendar(
                                         snapshot.data[index]['id']);
                                   },
@@ -77,7 +82,9 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                                           .data[index]['breakfast'].length,
                                       itemBuilder: (BuildContext context,
                                           int breakfastIndex) {
-                                        return Text(snapshot.data[index]
+                                        return Text(
+                                            days[breakfastIndex] + ":\n" +
+                                            snapshot.data[index]
                                             ['breakfast'][breakfastIndex]);
                                       }),
                                 ),
@@ -102,7 +109,9 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                                           snapshot.data[index]['lunch'].length,
                                       itemBuilder: (BuildContext context,
                                           int lunchIndex) {
-                                        return Text(snapshot.data[index]
+                                        return Text(
+                                            days[lunchIndex] + ":\n" +
+                                                snapshot.data[index]
                                             ['lunch'][lunchIndex]);
                                       }),
                                 ),
@@ -125,7 +134,8 @@ class _ViewCalendarsPageState extends State<ViewCalendarsPage> {
                                           snapshot.data[index]['dinner'].length,
                                       itemBuilder: (BuildContext context,
                                           int dinnerIndex) {
-                                        return Text(snapshot.data[index]
+                                        return Text(  days[dinnerIndex] + ":\n" +
+                                            snapshot.data[index]
                                             ['dinner'][dinnerIndex]);
                                       }),
                                 ),

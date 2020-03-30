@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:async';
-import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../globals.dart';
 import '../../http/save.dart';
 
-class CreateIngredientPage extends StatefulWidget {
-  CreateIngredientPage({Key key, this.title}) : super(key: key);
+class ListIngredientPage extends StatefulWidget {
+  ListIngredientPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _CreateIngredientPageState createState() => _CreateIngredientPageState();
+  _ListIngredientPageState createState() => _ListIngredientPageState();
 }
 
-class _CreateIngredientPageState extends State<CreateIngredientPage> {
+class _ListIngredientPageState extends State<ListIngredientPage> {
   final _scaffoldIngredientKey = GlobalKey<ScaffoldState>();
   final _formIngredientKey = GlobalKey<FormState>();
-  final _format = DateFormat("yyyy-MM-dd");
 
   //Save the form data
   String _ingredientName = '';
@@ -27,15 +23,6 @@ class _CreateIngredientPageState extends State<CreateIngredientPage> {
   String _amountType = ingredientTypes[0];
   String _ingredientStorage = '';
   DateTime _useByDate = DateTime.now();
-  File _ingredientImage;
-
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _ingredientImage = image;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,42 +103,34 @@ class _CreateIngredientPageState extends State<CreateIngredientPage> {
                       }
                   ),
                 ),
-                new ListTile(
-                  leading: const Icon(Icons.date_range),
-                  title: Text(
-                  'Use by Date',
-                  style: TextStyle(
-                      color: Colors.black54
-                  ),
-                ),
-                  trailing: Column(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          child: DateTimeField(
-                            format: _format,
-                            onShowPicker: (context, currentValue) {
-                              return showDatePicker(
-                                  context: context,
-                                  firstDate: DateTime(1900),
-                                  initialDate: currentValue ?? DateTime.now(),
-                                  lastDate: DateTime(2100));
-                            },
-                            onSaved: (value){
-                              _useByDate = value;
-                            },
-                          ),
-                        )
-                  ]),
-                ),
-                new ListTile(
-                  leading: const Icon(Icons.add_a_photo),
-                  title: RaisedButton(
-                      onPressed: getImage, child: Text('Add Picture')),
-                  trailing: _ingredientImage == null
-                      ? Text('No picture added.')
-                      : Image.file(_ingredientImage),
-                ),
+//                new ListTile(
+//                  leading: const Icon(Icons.date_range),
+//                  title: Text(
+//                  'Use by Date',
+//                  style: TextStyle(
+//                      color: Colors.black54
+//                  ),
+//                ),
+//                  trailing: Column(
+//                      children: <Widget>[
+//                        Container(
+//                          width: MediaQuery.of(context).size.width * 0.40,
+//                          child: DateTimeField(
+//                            format: _format,
+//                            onShowPicker: (context, currentValue) {
+//                              return showDatePicker(
+//                                  context: context,
+//                                  firstDate: DateTime(1900),
+//                                  initialDate: currentValue ?? DateTime.now(),
+//                                  lastDate: DateTime(2100));
+//                            },
+//                            onSaved: (value){
+//                              _useByDate = value;
+//                            },
+//                          ),
+//                        )
+//                  ]),
+//                ),
                 Center(
                   child: RaisedButton(
                       onPressed: () {

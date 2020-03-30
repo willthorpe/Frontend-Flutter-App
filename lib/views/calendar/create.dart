@@ -187,6 +187,10 @@ class _CreateCalendarPageState extends State<CreateCalendarPage> {
                   //Save data from all the forms
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
+                    final snackBar =
+                    SnackBar(content: Text("Processing"));
+                    _scaffoldCalendarKey.currentState
+                        .showSnackBar(snackBar);
                     saveCalendar(_recipes, false);
                   }
                 }

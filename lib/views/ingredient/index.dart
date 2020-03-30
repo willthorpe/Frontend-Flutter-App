@@ -61,28 +61,32 @@ class _IngredientsPageState extends State<IngredientsPage> {
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              if (_displayList[index]['type'] == "number") {
-                                return new ListTile(
-                                    leading: const Icon(Icons.fastfood),
-                                    title: Text(_displayList[index]['name']),
-                                    subtitle: Text('In ' +
-                                        _displayList[index]['location'] +
-                                        ' expires ' +
-                                        _displayList[index]['useByDate']),
-                                    trailing: Text(_displayList[index]['amount']
-                                        .toString()));
-                              } else {
-                                return new ListTile(
-                                    leading: const Icon(Icons.fastfood),
-                                    title: Text(_displayList[index]['name']),
-                                    subtitle: Text('In ' +
-                                        _displayList[index]['location'] +
-                                        ' expires ' +
-                                        _displayList[index]['useByDate']),
-                                    trailing: Text(
-                                        _displayList[index]['amount'].toString() +
-                                            ' ' +
-                                            _displayList[index]['type']));
+                              if(_displayList[index]['amount'] > 0){
+                                if (_displayList[index]['type'] == "number") {
+                                  return new ListTile(
+                                      leading: const Icon(Icons.fastfood),
+                                      title: Text(_displayList[index]['name']),
+                                      subtitle: Text('In ' +
+                                          _displayList[index]['location'] +
+                                          ' expires ' +
+                                          _displayList[index]['useByDate']),
+                                      trailing: Text(_displayList[index]['amount']
+                                          .toString()));
+                                } else {
+                                  return new ListTile(
+                                      leading: const Icon(Icons.fastfood),
+                                      title: Text(_displayList[index]['name']),
+                                      subtitle: Text('In ' +
+                                          _displayList[index]['location'] +
+                                          ' expires ' +
+                                          _displayList[index]['useByDate']),
+                                      trailing: Text(
+                                          _displayList[index]['amount'].toString() +
+                                              ' ' +
+                                              _displayList[index]['type']));
+                              }
+                              }else{
+                                return Text('');
                               }
                             },
                             separatorBuilder: (context, index) {

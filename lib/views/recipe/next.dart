@@ -3,6 +3,9 @@ import 'package:flutter_app/database/save.dart';
 import 'package:flutter_app/http/fetch.dart';
 import 'package:flutter_app/http/save.dart';
 import 'package:quiver/async.dart';
+import 'dart:io';
+import 'dart:async';
+import 'package:image_picker/image_picker.dart';
 
 class NextRecipePage extends StatefulWidget {
   NextRecipePage({Key key, this.title}) : super(key: key);
@@ -19,6 +22,15 @@ class _NextRecipePageState extends State<NextRecipePage> {
   final _formLeftoverKey = GlobalKey<FormState>();
   var _timers = [];
   var _leftovers = 0;
+  File _recipeImage;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _recipeImage = image;
+    });
+  }
 
   @override
   void initState() {
@@ -34,7 +46,6 @@ class _NextRecipePageState extends State<NextRecipePage> {
     return FutureBuilder(
         future: this._future,
         builder: (context, snapshot) {
-          print(snapshot.data);
           if (snapshot.hasData) {
             print(snapshot.data);
             return DefaultTabController(
@@ -57,19 +68,20 @@ class _NextRecipePageState extends State<NextRecipePage> {
                           shrinkWrap: true,
                           children: <Widget>[
                             ListTile(
-                              title: Text(
-                                  "Servings: " + snapshot.data[0]['servings'].toString()),
+                              title: Text("Servings: " +
+                                  snapshot.data[0]['servings'].toString()),
                             ),
                             ListTile(
-                              title: Text("Tag: " + snapshot.data[0]['tag']),
+                              title:
+                                  Text("Meal Time: " + snapshot.data[0]['tag']),
                             ),
                             ListTile(
-                              title: Text(
-                                  "Prep Time: " + snapshot.data[0]['prepTime'].toString()),
+                              title: Text("Prep Time: " +
+                                  snapshot.data[0]['prepTime'].toString()),
                             ),
                             ListTile(
-                              title: Text(
-                                  "Cook Time: " + snapshot.data[0]['cookTime'].toString()),
+                              title: Text("Cook Time: " +
+                                  snapshot.data[0]['cookTime'].toString()),
                             )
                           ],
                         ),
@@ -181,6 +193,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                         return ListTile(
                                             title: Text(_timers[index]
                                                 .remaining
+                                                .inSeconds
                                                 .toString()));
                                       }),
                                 ])),
@@ -189,6 +202,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                           child: Form(
                               key: this._formLeftoverKey,
                               child: ListView(
+                                padding: EdgeInsets.all(10),
                                 children: <Widget>[
                                   new ListTile(
                                       leading: const Icon(Icons.timer),
@@ -205,16 +219,39 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                           onSaved: (String value) {
                                             this._leftovers = int.parse(value);
                                           })),
+                                  ListTile(
+                                    leading: const Icon(Icons.add_a_photo),
+                                    title: Container(
+                                      width: 150,
+                                      child: RaisedButton(
+                                          onPressed: getImage,
+                                          child: Text('Photo')),
+                                    ),
+                                    trailing: _recipeImage == null
+                                        ? Text('No image selected.')
+                                        : Image.file(_recipeImage),
+                                  ),
                                   Center(
                                     child: RaisedButton(
                                         onPressed: () {
-                                          if (this._formLeftoverKey.currentState.validate()) {
-                                            this._formLeftoverKey.currentState.save();
-                                            saveLeftovers(snapshot.data[0]["name"], _leftovers);
-                                            updateIngredients(snapshot.data[0]['ingredients']);
-                                            final snackBar =
-                                            SnackBar(content: Text("Processing"));
-                                            this._scaffoldResultsKey.currentState
+                                          if (this
+                                              ._formLeftoverKey
+                                              .currentState
+                                              .validate()) {
+                                            this
+                                                ._formLeftoverKey
+                                                .currentState
+                                                .save();
+                                            saveLeftovers(
+                                                snapshot.data[0]["name"],
+                                                _leftovers);
+                                            updateIngredients(snapshot.data[0]
+                                                ['ingredients']);
+                                            final snackBar = SnackBar(
+                                                content: Text("Processing"));
+                                            this
+                                                ._scaffoldResultsKey
+                                                .currentState
                                                 .showSnackBar(snackBar);
                                           }
                                         },

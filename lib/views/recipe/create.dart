@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/save.dart';
-import 'dart:async';
-import 'dart:io';
 import '../../globals.dart';
 import '../../http/fetch.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CreateRecipePage extends StatefulWidget {
   CreateRecipePage({Key key, this.title}) : super(key: key);
@@ -20,6 +17,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
     GlobalKey<FormState>(),
     GlobalKey<FormState>()
   ];
+  final _scaffoldRecipeKey = GlobalKey<ScaffoldState>();
   final ScrollController scrollController = ScrollController();
   int _currentStep = 0;
   String _recipeName = '';
@@ -27,23 +25,13 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   String _recipeServings = '';
   String _prepTime = '';
   String _cookTime = '';
-  File _recipeImage;
-  List _ingredients = [
-    {'name': '', 'amount': 0, 'type': 'grams'}
-  ];
+  List _ingredients = [];
   List _methods = [''];
-
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _recipeImage = image;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldRecipeKey,
         appBar: AppBar(
           title: Text(widget.title),
         ),
@@ -71,9 +59,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                               }),
                         ),
                         new ListTile(
-                          leading: const Icon(Icons.group),
+                          leading: const Icon(Icons.timer),
                           title: Text(
-                            'Tag',
+                            'Meal Time',
                             style: TextStyle(color: Colors.black54),
                           ),
                           trailing: DropdownButton<String>(
@@ -138,17 +126,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   _cookTime = value;
                                 }),
                             trailing: Text('minutes')),
-                        new ListTile(
-                          leading: const Icon(Icons.add_a_photo),
-                          title: Container(
-                            width: 150,
-                            child: RaisedButton(
-                                onPressed: getImage, child: Text('Photo')),
-                          ),
-                          trailing: _recipeImage == null
-                              ? Text('No image selected.')
-                              : Image.file(_recipeImage),
-                        ),
                       ]))),
               //Ingredient Step
               Step(
@@ -172,22 +149,58 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                             future: fetchIngredients(),
                                             builder: (context, snapshot) {
                                               if (snapshot.hasData) {
-                                                if (_ingredients[index]['name'] == '') {
-                                                  _ingredients[index]['name'] = snapshot.data[0]['name'];
-                                                }
-                                                return DropdownButton<String>(
-                                                    value: _ingredients[index]['name'],
-                                                    items: snapshot.data.map<DropdownMenuItem<String>>((value) =>
-                                                            new DropdownMenuItem<String>(
-                                                              value: value['name'],
-                                                              child: new Text(value['name']),
-                                                            ))
-                                                        .toList(),
-                                                    onChanged: (newValue) {
-                                                      setState(() {
-                                                        _ingredients[index]['name'] = newValue;
+                                                if (_ingredients[index][
+                                                            'ingredientType'] ==
+                                                        'stockroom' &&
+                                                    snapshot.data.length > 0) {
+                                                  if (_ingredients[index]
+                                                          ['name'] ==
+                                                      '') {
+                                                    _ingredients[index]
+                                                            ['name'] =
+                                                        snapshot.data[0]
+                                                            ['name'];
+                                                  }
+                                                  return DropdownButton<String>(
+                                                      value: _ingredients[index]
+                                                          ['name'],
+                                                      items: snapshot.data
+                                                          .map<
+                                                              DropdownMenuItem<
+                                                                  String>>((value) =>
+                                                              new DropdownMenuItem<
+                                                                  String>(
+                                                                value: value[
+                                                                    'name'],
+                                                                child: new Text(
+                                                                    value[
+                                                                        'name']),
+                                                              ))
+                                                          .toList(),
+                                                      onChanged: (newValue) {
+                                                        setState(() {
+                                                          _ingredients[index]
+                                                                  ['name'] =
+                                                              newValue;
+                                                        });
                                                       });
-                                                    });
+                                                } else {
+                                                  return TextFormField(
+                                                      decoration:
+                                                          InputDecoration(
+                                                              hintText: 'Name'),
+                                                      validator: (value) {
+                                                        if (value.isEmpty) {
+                                                          return 'Please enter a food name';
+                                                        }
+                                                        return null;
+                                                      },
+                                                      onChanged:
+                                                          (String value) {
+                                                        _ingredients[index]
+                                                            ['name'] = value;
+                                                      });
+                                                }
                                               } else {
                                                 return Center(
                                                   child:
@@ -210,11 +223,13 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                             return null;
                                           },
                                           onSaved: (String value) {
-                                            _ingredients[index]['amount'] = value;
+                                            _ingredients[index]['amount'] =
+                                                value;
                                           },
                                           onChanged: (String newValue) {
                                             setState(() {
-                                              _ingredients[index]['amount'] = newValue;
+                                              _ingredients[index]['amount'] =
+                                                  newValue;
                                             });
                                           },
                                         )),
@@ -222,7 +237,8 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                         leading: const Icon(Icons.line_weight),
                                         title: DropdownButton<String>(
                                           value: _ingredients[index]['type'],
-                                          items: ingredientTypes.map((String value) {
+                                          items: ingredientTypes
+                                              .map((String value) {
                                             return new DropdownMenuItem<String>(
                                               value: value,
                                               child: new Text(value),
@@ -230,10 +246,20 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                           }).toList(),
                                           onChanged: (String newValue) {
                                             setState(() {
-                                              _ingredients[index]['type'] = newValue;
+                                              _ingredients[index]['type'] =
+                                                  newValue;
                                             });
                                           },
                                         )),
+                                    ListTile(
+                                        title: RaisedButton(
+                                            onPressed: () {
+                                              print(_ingredients);
+                                              setState(() {
+                                                _ingredients.removeAt(index);
+                                              });
+                                            },
+                                            child: Text('Remove Ingredient')))
                                   ],
                                 );
                               },
@@ -241,13 +267,27 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 return Divider();
                               },
                             )),
-                        Center(
-                          child: RaisedButton(
-                              onPressed: () {
-                                addIngredientRow();
-                              },
-                              child: Text('Add Ingredient Line')),
-                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              child: RaisedButton(
+                                  onPressed: () {
+                                    addIngredientRow('stockroom');
+                                  },
+                                  child:
+                                      Text('Add Ingredient \n from Stockroom')),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              child: RaisedButton(
+                                  onPressed: () {
+                                    addIngredientRow('new');
+                                  },
+                                  child: Text('New Ingredient')),
+                            )
+                          ],
+                        )
                       ],
                     )),
               ),
@@ -265,20 +305,27 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             itemCount: _methods.length,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                leading: const Icon(Icons.subject),
-                                title: TextFormField(
-                                    decoration:
-                                        InputDecoration(hintText: 'Method'),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Please enter a method';
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (String value) {
-                                      _methods[index] = value;
-                                    }),
-                              );
+                                  leading: const Icon(Icons.subject),
+                                  title: TextFormField(
+                                      decoration:
+                                          InputDecoration(hintText: 'Method'),
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please enter a method';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (String value) {
+                                        _methods[index] = value;
+                                      }),
+                                  subtitle: RaisedButton(
+                                      onPressed: () {
+                                        print(_methods);
+                                        setState(() {
+                                          _methods.removeAt(index);
+                                        });
+                                      },
+                                      child: Text('Remove Entry')));
                             },
                             separatorBuilder: (context, index) {
                               return Divider();
@@ -307,6 +354,8 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                   //Save data from all the forms
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
+                    final snackBar = SnackBar(content: Text("Processing"));
+                    _scaffoldRecipeKey.currentState.showSnackBar(snackBar);
                     saveRecipe(_recipeName, _recipeTag, _recipeServings,
                         _prepTime, _cookTime, _ingredients, _methods);
                   }
@@ -324,9 +373,15 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             }));
   }
 
-  void addIngredientRow() {
+  void addIngredientRow(ingredientType) {
     setState(() {
-      _ingredients.add({'name': '', 'amount': 0, 'type': 'grams'});
+      _ingredients.add({
+        'name': '',
+        'amount': 0,
+        'type': 'grams',
+        'ingredientType': ingredientType
+      });
+      print(_ingredients);
     });
   }
 

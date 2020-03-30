@@ -10,7 +10,7 @@ List menuItems = [
   'Next Recipe',
   'Create Ingredient',
   'Create Recipe',
-  'Ingredients',
+  'Larder',
   'Recipe Book',
   'Recipe Calendar',
   'Shopping List',
@@ -22,12 +22,13 @@ List menuItems = [
 
 List<String> ingredientTypes = [
   'grams',
-  'oz',
+  'ounces',
   'millilitres',
   'teaspoons',
   'tablespoons',
   'number',
   'cups',
+  'servings'
 ];
 
 List<String> recipeTags = [

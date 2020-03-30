@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   Center(
-                    child: Text('\nCreate',
+                    child: Text('\nList',
                         style: TextStyle(
                           fontSize: 30.0,
                         )),
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: (){
                 Navigator.pushNamed(context,
-                    '/createingredient');
+                    '/listingredient');
               },
             ),
             RaisedButton(
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                         )),
                   ),
                   Center(
-                    child: Text('Food',
+                    child: Text('Larder',
                         style: TextStyle(
                           fontSize: 30.0,
                         )),
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: (){
                 Navigator.pushNamed(context,
-                    '/ingredients');
+                    '/larder');
               },
             ),
             RaisedButton(
