@@ -61,7 +61,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              if(_displayList[index]['amount'] > 0){
+                              if(int.parse(_displayList[index]['amount']) > 0){
                                 if (_displayList[index]['type'] == "number") {
                                   return new ListTile(
                                       leading: const Icon(Icons.fastfood),

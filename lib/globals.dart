@@ -28,7 +28,9 @@ List<String> ingredientTypes = [
   'tablespoons',
   'number',
   'cups',
-  'servings'
+  'servings',
+  'inches',
+  'slices'
 ];
 
 List<String> recipeTags = [

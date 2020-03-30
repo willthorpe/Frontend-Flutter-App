@@ -189,6 +189,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                                       decoration:
                                                           InputDecoration(
                                                               hintText: 'Name'),
+                                                      initialValue: _ingredients[index]['name'],
                                                       validator: (value) {
                                                         if (value.isEmpty) {
                                                           return 'Please enter a food name';
@@ -216,21 +217,16 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                           decoration: InputDecoration(
                                             hintText: 'Amount',
                                           ),
+                                          initialValue: _ingredients[index]['amount'].toString(),
                                           validator: (value) {
                                             if (value.isEmpty) {
                                               return 'Please enter an amount';
                                             }
                                             return null;
                                           },
-                                          onSaved: (String value) {
+                                          onChanged: (String value) {
                                             _ingredients[index]['amount'] =
                                                 value;
-                                          },
-                                          onChanged: (String newValue) {
-                                            setState(() {
-                                              _ingredients[index]['amount'] =
-                                                  newValue;
-                                            });
                                           },
                                         )),
                                     ListTile(
@@ -309,13 +305,14 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   title: TextFormField(
                                       decoration:
                                           InputDecoration(hintText: 'Method'),
+                                      initialValue: _methods[index],
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return 'Please enter a method';
                                         }
                                         return null;
                                       },
-                                      onSaved: (String value) {
+                                      onChanged: (String value) {
                                         _methods[index] = value;
                                       }),
                                   subtitle: RaisedButton(
