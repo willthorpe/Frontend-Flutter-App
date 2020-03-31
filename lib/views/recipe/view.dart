@@ -26,7 +26,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                 bottom: TabBar(tabs: [
                   Tab(icon: Icon(Icons.restaurant_menu)),
                   Tab(icon: Icon(Icons.kitchen)),
-                  Tab(icon: Icon(Icons.subject)),
+                  Tab(icon: Icon(Icons.list)),
                 ])),
             body: TabBarView(children: [
               ListView(shrinkWrap: true, children: <Widget>[

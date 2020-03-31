@@ -33,7 +33,7 @@ class _CalendarsPageState extends State<CalendarsPage> {
           },
           itemBuilder: (context, index) {
               return RaisedButton(
-                color: Colors.orange,
+                color: Colors.orange[300],
                 child: Column(
                   children: <Widget>[
                     Center(

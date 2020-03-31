@@ -303,7 +303,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             itemCount: _methods.length,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                  leading: const Icon(Icons.subject),
+                                  leading: const Icon(Icons.list),
                                   title: TextFormField(
                                       decoration:
                                           InputDecoration(hintText: 'Method'),
