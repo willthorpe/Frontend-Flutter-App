@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../http/fetch.dart';
+import 'package:flutter_app/http/fetch.dart';
 
 class BookPage extends StatefulWidget {
   BookPage({Key key, this.title}) : super(key: key);
@@ -32,7 +32,7 @@ class _BookPageState extends State<BookPage> {
                 padding: EdgeInsets.all(20),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Enter Filter',
+                    hintText: 'Enter recipe to search',
                   ),
                   onChanged: (String value) {
                     setState(() {
@@ -61,11 +61,12 @@ class _BookPageState extends State<BookPage> {
                           padding: EdgeInsets.all(10),
                           itemCount: _displayList.length,
                           itemBuilder: (BuildContext context, int index) {
+                            var totalTime = int.parse(_displayList[index]['cookTime']) + int.parse(_displayList[index]['prepTime']);
                             return new ListTile(
-                                leading: const Icon(Icons.note_add),
+                                leading: const Icon(Icons.restaurant_menu),
                                 title: Text(_displayList[index]['name']),
                                 subtitle: Text(_displayList[index]['tag']),
-                                trailing: Text('Serves ' + _displayList[index]['servings'].toString()),
+                                trailing: Text("Total time: ${totalTime.toString()}"),
                                 onTap: () {
                                   Navigator.pushNamed(context, '/recipeview',arguments:{
                                     'title':_displayList[index]['name'],

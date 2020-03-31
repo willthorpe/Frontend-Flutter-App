@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../database/save.dart';
-import '../database/fetch.dart';
+import 'package:flutter_app/database/save.dart';
+import 'package:flutter_app/database/fetch.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key, this.title}) : super(key: key);
@@ -35,18 +35,39 @@ class _SettingsPageState extends State<SettingsPage> {
                           if(_preferences.length == 0){
                             _preferences = snapshot.data;
                           }
+                          var dietCount = 0;
+                          var allergyCount = 0;
                           return new ListView.separated(
+                            padding: EdgeInsets.all(10),
                             itemCount: _preferences.length,
                             itemBuilder: (BuildContext context, int index) {
+                              if(_preferences[index]['type'] == "diet" && dietCount == 0){
+                                dietCount++;
+                                return new ListTile(
+                                  title: Text('Diets',
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                    ),
+                                  ),
+                                );
+                              }
+                              if(_preferences[index]['type'] == "allergy" && allergyCount == 0){
+                                allergyCount++;
+                                return new ListTile(
+                                    title: Text('Allergies',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                      ),
+                                    )
+                                );
+                              }
                               return new SwitchListTile(
                                   title: Text(_preferences[index]['name']),
                                   value: _preferences[index]['value'].isOdd,
                                   onChanged: (bool value) {
                                     setState(() {
-                                      print(value);
                                       if(value == true){
                                         _preferences[index]['value'] = 1;
-                                        print(_preferences);
                                       }else{
                                         _preferences[index]['value'] = 0;
                                       }
@@ -69,11 +90,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (_formSettingsKey.currentState.validate()) {
                         _formSettingsKey.currentState.save();
                         saveSettings(_preferences);
-                        final snackBar = SnackBar(content: Text("Processing"));
+                        final snackBar = SnackBar(content: Text("Saved"));
                         _scaffoldSettingsKey.currentState
                             .showSnackBar(snackBar);
                       }
                     },
+                    color: Colors.orange[300],
                     child: Text('Save')),
               ),
             ])));

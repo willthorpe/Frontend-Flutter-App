@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import '../../globals.dart';
-import '../../http/save.dart';
+import 'package:flutter_app/globals.dart';
+import 'package:flutter_app/http/save.dart';
 
 class ListIngredientPage extends StatefulWidget {
   ListIngredientPage({Key key, this.title}) : super(key: key);
@@ -22,7 +20,6 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
   String _ingredientAmount = '';
   String _amountType = ingredientTypes[0];
   String _ingredientStorage = '';
-  DateTime _useByDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,7 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
               padding: const EdgeInsets.all(10),
               children: <Widget>[
                 new ListTile(
-                  leading: const Icon(Icons.fastfood),
+                  leading: const Icon(Icons.kitchen),
                   title: TextFormField(
                       decoration: InputDecoration(hintText: 'Name'),
                       validator: (value) {
@@ -51,7 +48,7 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                       }),
                 ),
                 new ListTile(
-                  leading: const Icon(Icons.exposure_zero),
+                  leading: const Icon(Icons.straighten),
                   title: TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(hintText: 'Amount'),
@@ -103,49 +100,25 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                       }
                   ),
                 ),
-//                new ListTile(
-//                  leading: const Icon(Icons.date_range),
-//                  title: Text(
-//                  'Use by Date',
-//                  style: TextStyle(
-//                      color: Colors.black54
-//                  ),
-//                ),
-//                  trailing: Column(
-//                      children: <Widget>[
-//                        Container(
-//                          width: MediaQuery.of(context).size.width * 0.40,
-//                          child: DateTimeField(
-//                            format: _format,
-//                            onShowPicker: (context, currentValue) {
-//                              return showDatePicker(
-//                                  context: context,
-//                                  firstDate: DateTime(1900),
-//                                  initialDate: currentValue ?? DateTime.now(),
-//                                  lastDate: DateTime(2100));
-//                            },
-//                            onSaved: (value){
-//                              _useByDate = value;
-//                            },
-//                          ),
-//                        )
-//                  ]),
-//                ),
                 Center(
                   child: RaisedButton(
                       onPressed: () {
                         if (_formIngredientKey.currentState.validate()) {
                           _formIngredientKey.currentState.save();
-                          saveIngredient(_ingredientName, _ingredientAmount, _amountType, _ingredientStorage,_useByDate);
-                          final snackBar =
-                              SnackBar(content: Text("Processing"));
-                          _scaffoldIngredientKey.currentState
-                              .showSnackBar(snackBar);
+                          saveAndSnackbar(_scaffoldIngredientKey, _ingredientName, _ingredientAmount, _amountType, _ingredientStorage);
+                          _formIngredientKey.currentState.reset();
                         }
                       },
+                      color: Colors.orange[300],
                       child: Text('Save')),
                 ),
               ]),
         ));
   }
+}
+
+Future saveAndSnackbar(key, name, amount, type, storage)  async {
+  var response = await saveIngredient(name, amount, type, storage);
+  final snackBar = SnackBar(content: Text(response));
+  key.currentState.showSnackBar(snackBar);
 }

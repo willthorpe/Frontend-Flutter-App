@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 25.0,
                         )),
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: Colors.orange[300],
                     ),
                   ),
                 ),
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisCount: 2,
           children: <Widget>[
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(
@@ -234,7 +234,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             RaisedButton(
-              color: Colors.orange,
+              color: Colors.orange[300],
               child: Column(
                 children: <Widget>[
                   Center(

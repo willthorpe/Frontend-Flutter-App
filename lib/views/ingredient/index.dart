@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../http/fetch.dart';
+import 'package:flutter_app/http/fetch.dart';
 
 class IngredientsPage extends StatefulWidget {
   IngredientsPage({Key key, this.title}) : super(key: key);
@@ -32,7 +32,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
                   padding: EdgeInsets.all(20),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Enter Filter',
+                      hintText: 'Enter ingredient to search',
                     ),
                     onChanged: (String value) {
                       setState(() {
@@ -53,40 +53,29 @@ class _IngredientsPageState extends State<IngredientsPage> {
                       future: fetchIngredients(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          if(_allResults.length == 0){
+                          if (_allResults.length == 0) {
                             _displayList = snapshot.data;
                             _allResults = snapshot.data;
+                          }
+                          for (var i = 0; i < _displayList.length; i++) {
+                            if (_displayList[i]['amount'] == 0) {
+                              _displayList.removeAt(i);
+                            }
                           }
                           return new ListView.separated(
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              if(int.parse(_displayList[index]['amount']) > 0){
-                                if (_displayList[index]['type'] == "number") {
-                                  return new ListTile(
-                                      leading: const Icon(Icons.fastfood),
-                                      title: Text(_displayList[index]['name']),
-                                      subtitle: Text('In ' +
-                                          _displayList[index]['location'] +
-                                          ' expires ' +
-                                          _displayList[index]['useByDate']),
-                                      trailing: Text(_displayList[index]['amount']
-                                          .toString()));
-                                } else {
-                                  return new ListTile(
-                                      leading: const Icon(Icons.fastfood),
-                                      title: Text(_displayList[index]['name']),
-                                      subtitle: Text('In ' +
-                                          _displayList[index]['location'] +
-                                          ' expires ' +
-                                          _displayList[index]['useByDate']),
-                                      trailing: Text(
-                                          _displayList[index]['amount'].toString() +
-                                              ' ' +
-                                              _displayList[index]['type']));
-                              }
-                              }else{
-                                return Text('');
+                              if (_displayList[index]['type'] == "number") {
+                                return createListTile(
+                                    _displayList[index]['name'],
+                                    "In ${_displayList[index]['location']}",
+                                    _displayList[index]['amount'].toString());
+                              } else {
+                                return createListTile(
+                                    _displayList[index]['name'],
+                                    "In ${_displayList[index]['location']}",
+                                    "${_displayList[index]['amount'].toString()} ${_displayList[index]['type']}");
                               }
                             },
                             separatorBuilder: (context, index) {
@@ -103,4 +92,12 @@ class _IngredientsPageState extends State<IngredientsPage> {
               ],
             )));
   }
+}
+
+createListTile(name, location, amount) {
+  return ListTile(
+      leading: const Icon(Icons.kitchen),
+      title: Text(name),
+      subtitle: Text(location),
+      trailing: Text(amount));
 }

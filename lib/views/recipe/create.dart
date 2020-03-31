@@ -18,7 +18,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
     GlobalKey<FormState>()
   ];
   final _scaffoldRecipeKey = GlobalKey<ScaffoldState>();
-  final ScrollController scrollController = ScrollController();
   int _currentStep = 0;
   String _recipeName = '';
   String _recipeTag = 'Breakfast';
@@ -45,7 +44,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                       key: _formKeys[0],
                       child: ListView(shrinkWrap: true, children: <Widget>[
                         new ListTile(
-                          leading: const Icon(Icons.note_add),
+                          leading: const Icon(Icons.restaurant_menu),
                           title: TextFormField(
                               decoration: InputDecoration(hintText: 'Name'),
                               validator: (value) {
@@ -111,7 +110,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 }),
                             trailing: Text('minutes')),
                         new ListTile(
-                            leading: const Icon(Icons.av_timer),
+                            leading: const Icon(Icons.alarm),
                             title: TextFormField(
                                 keyboardType: TextInputType.number,
                                 decoration:
@@ -255,6 +254,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                                 _ingredients.removeAt(index);
                                               });
                                             },
+                                            color: Colors.orange[300],
                                             child: Text('Remove Ingredient')))
                                   ],
                                 );
@@ -271,6 +271,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   onPressed: () {
                                     addIngredientRow('stockroom');
                                   },
+                                  color: Colors.orange[300],
                                   child:
                                       Text('Add Ingredient \n from Stockroom')),
                             ),
@@ -280,6 +281,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   onPressed: () {
                                     addIngredientRow('new');
                                   },
+                                  color: Colors.orange[300],
                                   child: Text('New Ingredient')),
                             )
                           ],
@@ -322,6 +324,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                           _methods.removeAt(index);
                                         });
                                       },
+                                      color: Colors.orange[300],
                                       child: Text('Remove Entry')));
                             },
                             separatorBuilder: (context, index) {
@@ -333,6 +336,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             onPressed: () {
                               addMethodRow();
                             },
+                            color: Colors.orange[300],
                             child: Text('Add Method Line')),
                       ),
                     ]),
@@ -340,6 +344,24 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             ],
             type: StepperType.horizontal,
             currentStep: this._currentStep,
+            controlsBuilder: (BuildContext context, {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  RaisedButton(
+                    color: Colors.orange[300],
+                    onPressed: onStepCancel,
+                    child: const Text('Previous'),
+                  ),
+                  RaisedButton(
+                    color: Colors.orange[300],
+                    onPressed: onStepContinue,
+                    child: const Text('Next'),
+                  ),
+                ],
+              );
+            },
             onStepContinue: () {
               setState(() {
                 if (this._currentStep < 2) {
@@ -351,10 +373,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                   //Save data from all the forms
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
-                    final snackBar = SnackBar(content: Text("Processing"));
-                    _scaffoldRecipeKey.currentState.showSnackBar(snackBar);
-                    saveRecipe(_recipeName, _recipeTag, _recipeServings,
+                    saveAndSnackbar(_scaffoldRecipeKey, _recipeName, _recipeTag, _recipeServings,
                         _prepTime, _cookTime, _ingredients, _methods);
+                    _formKeys[_currentStep].currentState.reset();
                   }
                 }
               });
@@ -387,4 +408,10 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
       _methods.add("");
     });
   }
+}
+
+Future saveAndSnackbar(key, name, tag, servings, prepTime, cookTime, ingredients, methods)  async {
+  var response = await saveRecipe(name, tag, servings, prepTime, cookTime, ingredients, methods);
+  final snackBar = SnackBar(content: Text(response));
+  key.currentState.showSnackBar(snackBar);
 }

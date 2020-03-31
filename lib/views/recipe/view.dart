@@ -24,8 +24,8 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
             appBar: AppBar(
                 title: Text(arguments['title']),
                 bottom: TabBar(tabs: [
-                  Tab(icon: Icon(Icons.note_add)),
-                  Tab(icon: Icon(Icons.fastfood)),
+                  Tab(icon: Icon(Icons.restaurant_menu)),
+                  Tab(icon: Icon(Icons.kitchen)),
                   Tab(icon: Icon(Icons.subject)),
                 ])),
             body: TabBarView(children: [
@@ -46,7 +46,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                       ' minutes'),
                 ),
                 new ListTile(
-                  leading: const Icon(Icons.av_timer),
+                  leading: const Icon(Icons.alarm),
                   title: Text('Cooking Time: ' +
                       arguments['data']['cookTime'].toString() +
                       ' minutes'),

@@ -3,21 +3,22 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<String> saveIngredient(String name, String amount, String type,
-    String location, DateTime useByDate) async {
-  var useBy = useByDate.toString();
+    String location) async {
   var response = await http.post(url + "/ingredient", body: {
     'user': user.uid,
     'name': name,
     'amount': amount,
     'type': type,
     'location': location,
-    'useByDate': useBy.split(" ")[0]
+    'useByDate': ''
   });
 
   if (response.statusCode == 200) {
     print('Response body: ${response.body}');
+    return "Saved";
   } else {
     print("Request failed with status: ${response.statusCode}.");
+    return "Error : ${response.statusCode}";
   }
 }
 
@@ -36,8 +37,10 @@ Future<String> saveRecipe(String name, String tag, String servings,
 
   if (response.statusCode == 200) {
     print('Response body: ${response.body}');
+    return "Saved";
   } else {
     print("Request failed with status: ${response.statusCode}.");
+    return "Error : ${response.statusCode}";
   }
 }
 

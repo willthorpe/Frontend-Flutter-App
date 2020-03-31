@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(10),
               children: <Widget>[
                 new ListTile(
-                  leading: const Icon(Icons.people),
+                  leading: const Icon(Icons.email),
                   title: TextFormField(
                       decoration: InputDecoration(hintText: 'Email'),
                       validator: (value) {

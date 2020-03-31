@@ -8,7 +8,7 @@ String url = "http://3.10.20.105:3000";
 
 List menuItems = [
   'Next Recipe',
-  'Create Ingredient',
+  'List Ingredient',
   'Create Recipe',
   'Larder',
   'Recipe Book',
