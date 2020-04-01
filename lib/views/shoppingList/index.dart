@@ -127,6 +127,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                             .showSnackBar(snackBar);
                       }
                     },
+                    color: Colors.orange[300],
                     child: Text('Save')),
               ],
             ),

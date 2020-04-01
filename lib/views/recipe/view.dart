@@ -30,26 +30,24 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                 ])),
             body: TabBarView(children: [
               ListView(shrinkWrap: true, children: <Widget>[
-                new ListTile(
-                  leading: const Icon(Icons.group),
-                  title: Text(arguments['data']['tag']),
+                ListTile(
+                  leading: Icon(Icons.timer),
+                  title: Text(arguments['data']['tag'].toString()),
+                  trailing: Text("Meal Time"),
                 ),
-                new ListTile(
-                  leading: const Icon(Icons.room_service),
-                  title: Text(
-                      arguments['data']['servings'].toString() + ' people'),
+                ListTile(
+                  leading: Icon(Icons.room_service),
+                  title: Text(arguments['data']['servings'].toString()),
+                  trailing: Text("Servings"),
                 ),
-                new ListTile(
-                  leading: const Icon(Icons.av_timer),
-                  title: Text('Prep Time: ' +
-                      arguments['data']['prepTime'].toString() +
-                      ' minutes'),
-                ),
-                new ListTile(
-                  leading: const Icon(Icons.alarm),
-                  title: Text('Cooking Time: ' +
-                      arguments['data']['cookTime'].toString() +
-                      ' minutes'),
+                ListTile(
+                  leading: Icon(Icons.av_timer),
+                  title: Text("${arguments['data']['prepTime'].toString()} minutes"),
+                  trailing: Text("Prep Time"),),
+                ListTile(
+                  leading: Icon(Icons.alarm),
+                  title: Text("${arguments['data']['cookTime'].toString()} minutes"),
+                  trailing: Text("Cook Time"),
                 ),
                 Center(
                   child: RaisedButton(
@@ -60,6 +58,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                             .showSnackBar(snackBar);
                         deleteRecipe(arguments['title']);
                       },
+                      color: Colors.orange[300],
                       child: Text('Delete Recipe?')),
                 ),
               ]),
@@ -72,21 +71,23 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                         if (arguments['data']['ingredients'][index]['type'] ==
                             'number') {
                           return ListTile(
-                            title: Text(
-                              '${arguments['data']['ingredients'][index]['amount']} ${arguments['data']['ingredients'][index]['name']}',
+                            leading: Icon(Icons.kitchen),
+                            title: Text(arguments['data']['ingredients'][index]['name'],
                               style: TextStyle(
                                 fontSize: 15.0,
                               ),
                             ),
+                            trailing: Text(arguments['data']['ingredients'][index]['amount'])
                           );
                         } else {
                           return ListTile(
-                            title: Text(
-                              '${arguments['data']['ingredients'][index]['amount']} ${arguments['data']['ingredients'][index]['type']} of ${arguments['data']['ingredients'][index]['name']}',
+                              leading: Icon(Icons.kitchen),
+                              title: Text(arguments['data']['ingredients'][index]['name'],
                               style: TextStyle(
                                 fontSize: 15.0,
                               ),
                             ),
+                            trailing: Text("${arguments['data']['ingredients'][index]['amount']} ${arguments['data']['ingredients'][index]['type']}")
                           );
                         }
                       },
@@ -97,10 +98,11 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
               Container(
                   height: MediaQuery.of(context).size.height * 0.8,
                   padding: EdgeInsets.all(10),
-                  child: ListView.separated(
+                  child: ListView.builder(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return ListTile(
+                          leading: Icon(Icons.list),
                           title: Text(
                             '${arguments['data']['method'][index]}',
                             style: TextStyle(
@@ -108,9 +110,6 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                             ),
                           ),
                         );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider();
                       },
                       itemCount: arguments['data']['method'].length)),
             ])));

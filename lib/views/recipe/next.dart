@@ -55,9 +55,9 @@ class _NextRecipePageState extends State<NextRecipePage> {
                     appBar: AppBar(
                         title: Text(snapshot.data[0]["name"]),
                         bottom: TabBar(tabs: [
-                          Tab(icon: Icon(Icons.note_add)),
-                          Tab(icon: Icon(Icons.fastfood)),
-                          Tab(icon: Icon(Icons.subject)),
+                          Tab(icon: Icon(Icons.restaurant_menu)),
+                          Tab(icon: Icon(Icons.kitchen)),
+                          Tab(icon: Icon(Icons.list)),
                           Tab(icon: Icon(Icons.timer)),
                           Tab(icon: Icon(Icons.cached)),
                         ])),
@@ -68,20 +68,23 @@ class _NextRecipePageState extends State<NextRecipePage> {
                           shrinkWrap: true,
                           children: <Widget>[
                             ListTile(
-                              title: Text("Servings: " +
-                                  snapshot.data[0]['servings'].toString()),
+                              leading: Icon(Icons.timer),
+                              title: Text(snapshot.data[0]['tag'].toString()),
+                              trailing: Text("Meal Time"),
                             ),
                             ListTile(
-                              title:
-                                  Text("Meal Time: " + snapshot.data[0]['tag']),
+                              leading: Icon(Icons.room_service),
+                              title: Text(snapshot.data[0]['servings'].toString()),
+                              trailing: Text("Servings"),
                             ),
                             ListTile(
-                              title: Text("Prep Time: " +
-                                  snapshot.data[0]['prepTime'].toString()),
-                            ),
+                              leading: Icon(Icons.av_timer),
+                              title: Text("${snapshot.data[0]['prepTime'].toString()} minutes"),
+                              trailing: Text("Prep Time"),),
                             ListTile(
-                              title: Text("Cook Time: " +
-                                  snapshot.data[0]['cookTime'].toString()),
+                              leading: Icon(Icons.alarm),
+                              title: Text("${snapshot.data[0]['cookTime'].toString()} minutes"),
+                              trailing: Text("Cook Time"),
                             )
                           ],
                         ),
@@ -89,6 +92,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                       new Container(
                         height: MediaQuery.of(context).size.height * 0.8,
                         child: ListView.builder(
+                            padding: EdgeInsets.all(10),
                             shrinkWrap: true,
                             itemCount: snapshot.data[0]['ingredients'].length,
                             itemBuilder:
@@ -97,7 +101,8 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                       [ingredientIndex]['type'] ==
                                   "number") {
                                 return ListTile(
-                                    subtitle: Text(snapshot.data[0]
+                                    leading: Icon(Icons.kitchen),
+                                    trailing: Text(snapshot.data[0]
                                                 ['ingredients'][ingredientIndex]
                                             ['amount']
                                         .toString()),
@@ -105,7 +110,8 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                         [ingredientIndex]['name']));
                               } else {
                                 return ListTile(
-                                    subtitle: Text(snapshot.data[0]
+                                    leading: Icon(Icons.kitchen),
+                                    trailing: Text(snapshot.data[0]
                                                     ['ingredients']
                                                 [ingredientIndex]['amount']
                                             .toString() +
@@ -120,11 +126,13 @@ class _NextRecipePageState extends State<NextRecipePage> {
                       new Container(
                         height: MediaQuery.of(context).size.height * 0.8,
                         child: ListView.builder(
+                            padding: EdgeInsets.all(10),
                             shrinkWrap: true,
                             itemCount: snapshot.data[0]['method'].length,
                             itemBuilder:
                                 (BuildContext context, int methodIndex) {
                               return ListTile(
+                                  leading: Icon(Icons.list),
                                   title: Text(
                                       snapshot.data[0]['method'][methodIndex]));
                             }),
@@ -184,6 +192,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                                   .showSnackBar(snackBar);
                                             }
                                           },
+                                          color: Colors.orange[300],
                                           child: Text('Create Timer'))),
                                   ListView.builder(
                                       shrinkWrap: true,
@@ -205,7 +214,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                 padding: EdgeInsets.all(10),
                                 children: <Widget>[
                                   new ListTile(
-                                      leading: const Icon(Icons.timer),
+                                      leading: const Icon(Icons.redo),
                                       title: TextFormField(
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
@@ -225,6 +234,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                       width: 150,
                                       child: RaisedButton(
                                           onPressed: getImage,
+                                          color: Colors.orange[300],
                                           child: Text('Photo')),
                                     ),
                                     trailing: _recipeImage == null
@@ -255,6 +265,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                                 .showSnackBar(snackBar);
                                           }
                                         },
+                                        color: Colors.orange[300],
                                         child: Text('Mark as Made')),
                                   ),
                                 ],

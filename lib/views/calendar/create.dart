@@ -176,6 +176,24 @@ class _CreateCalendarPageState extends State<CreateCalendarPage> {
             ],
             type: StepperType.horizontal,
             currentStep: this._currentStep,
+            controlsBuilder: (BuildContext context, {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  RaisedButton(
+                    color: Colors.orange[300],
+                    onPressed: onStepCancel,
+                    child: const Text('Previous'),
+                  ),
+                  RaisedButton(
+                    color: Colors.orange[300],
+                    onPressed: onStepContinue,
+                    child: const Text('Next'),
+                  ),
+                ],
+              );
+            },
             onStepContinue: () {
               setState(() {
                 if (this._currentStep < 2) {
