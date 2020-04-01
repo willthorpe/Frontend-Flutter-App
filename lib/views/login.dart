@@ -67,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         _signInGoogle(context);
                       },
+                      color: Colors.orange[300],
                       child: Text("Login with Google")),
                 ),
                 Center(
@@ -81,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                               .showSnackBar(snackBar);
                         }
                       },
+                      color: Colors.orange[300],
                       child: Text('Login')),
                 ),
                 Center(
@@ -88,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.pushNamed(context,'/register');
                       },
+                      color: Colors.orange[300],
                       child: Text("Don't have an account?")),
                 ),
               ]),

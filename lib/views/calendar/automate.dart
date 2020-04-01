@@ -90,12 +90,12 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                           ListTile(
                               title: Center(
                                   child: Text(
-                                'Allow duplicates for ' + _meals[index],
+                                'Duplicate recipes for ${_meals[index]}?',
                                 style: TextStyle(
                                   fontSize: 15.0,
                                 ),
                               )),
-                              subtitle: Checkbox(
+                              trailing: Checkbox(
                                   value: _mealsData[_meals[index]][2],
                                   onChanged: (bool value) {
                                     setState(() {
@@ -152,6 +152,7 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                               .showSnackBar(snackBar);
                         }
                       },
+                      color: Colors.orange[300],
                       child: Text('Save')),
                 ),
               ],

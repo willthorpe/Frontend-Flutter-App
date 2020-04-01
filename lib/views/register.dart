@@ -72,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               .showSnackBar(snackBar);
                         }
                       },
+                      color: Colors.orange[300],
                       child: Text('Register')),
                 ),
                 Center(
@@ -79,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPressed: () {
                         Navigator.pushNamed(context,'/');
                       },
+                      color: Colors.orange[300],
                       child: Text("Already have an account?")),
                 ),
               ]),

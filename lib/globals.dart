@@ -84,14 +84,14 @@ List <String> allergies = [
 ];
 
 List<String> searchParameters = [
-  'Prefer Owned Ingredients',
-  'Prefer Lighter Weight',
-  'Prefer Variety',
-  'Prefer Popular Recipes',
-  'Prefer Less Ingredients',
-  'Prefer Less Complex Recipes',
-  'Prefer Shorter Recipes',
-  'Prefer Matching Diet',
+  'Prefer using ingredients you own',
+  'Prefer less heavy ingredients',
+  'Prefer variety of ingredients',
+  'Prefer popular recipes by users',
+  'Prefer less ingredients in recipe',
+  'Prefer less steps in recipe methods',
+  'Prefer recipes that take less time',
+  'Prefer recipes that match your diet',
 ];
 
 final days = [

@@ -75,6 +75,7 @@ class _SearchPageState extends State<SearchPage> {
                         _scaffoldSearchKey.currentState.showSnackBar(snackBar);
                       }
                     },
+                    color: Colors.orange[300],
                     child: Text('Search')),
               ),
             ],
