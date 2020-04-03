@@ -4,6 +4,7 @@ import 'package:flutter_app/globals.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/io_client.dart';
 import 'package:http/http.dart';
+import 'package:flutter_app/views/authentication/common.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -17,9 +18,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _scaffoldLoginKey = GlobalKey<ScaffoldState>();
   final _formLoginKey = GlobalKey<FormState>();
-  //Save the form data
-  String _email = '';
-  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,53 +31,30 @@ class _LoginPageState extends State<LoginPage> {
           child: new ListView(
               padding: const EdgeInsets.all(10),
               children: <Widget>[
-                new ListTile(
-                  leading: const Icon(Icons.email),
-                  title: TextFormField(
-                      decoration: InputDecoration(hintText: 'Email'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter an email';
-                        }
-                        return null;
-                      },
-                      onSaved: (String value) {
-                        this._email = value;
-                      }),
-                ),
-                new ListTile(
-                  leading: const Icon(Icons.lock),
-                  title: TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(hintText: 'Password'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a password';
-                        }
-                        return null;
-                      },
-                      onSaved: (String value) {
-                        this._password = value;
-                      }),
-                ),
+                //Fetch email tile from common.dart
+                createEmailTile(),
+                //Fetch password tile from common.dart
+                createPasswordTile(),
+                //Google signin button
                 Center(
                   child: RaisedButton(
                       onPressed: () {
-                        _signInGoogle(context);
+                        signInGoogle(context);
                       },
                       color: Colors.orange[300],
                       child: Text("Login with Google")),
                 ),
+                //Email/Password sign in button
                 Center(
                   child: RaisedButton(
                       onPressed: () {
+                        //Validate and save form
                         if (_formLoginKey.currentState.validate()) {
                           _formLoginKey.currentState.save();
-                         loginUser(_email,_password, context);
+                          authenticateUser(email, password, context, 'login');
                           final snackBar =
-                              SnackBar(content: Text("Processing"));
-                          _scaffoldLoginKey.currentState
-                              .showSnackBar(snackBar);
+                              SnackBar(content: Text("Logging In"));
+                          _scaffoldLoginKey.currentState.showSnackBar(snackBar);
                         }
                       },
                       color: Colors.orange[300],
@@ -88,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: RaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context,'/register');
+                        Navigator.pushNamed(context, '/register');
                       },
                       color: Colors.orange[300],
                       child: Text("Don't have an account?")),
@@ -98,19 +73,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-Future <String> loginUser(String email, String password, context) async {
-  try {
-    var result = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-    firebaseResult(result.user, context);
-    return "true";
-  }  catch (e) {
-    throw new AuthException(e.code, e.message);
-  }
-}
-
-//Günter Zöchbauer
-//https://stackoverflow.com/questions/48477625/how-to-use-google-api-in-flutter
+//Custom implementation of Http Client from Stack Overflow
+//Author: Günter Zöchbauer https://stackoverflow.com/users/217408/günter-zöchbauer
+//Post: https://stackoverflow.com/questions/48477625/how-to-use-google-api-in-flutter
 class GoogleHttpClient extends IOClient {
   Map<String, String> _headers;
 
@@ -123,37 +88,28 @@ class GoogleHttpClient extends IOClient {
   @override
   Future<Response> head(Object url, {Map<String, String> headers}) =>
       super.head(url, headers: headers..addAll(_headers));
-
 }
 
-Future <String> _signInGoogle(context) async {
+Future signInGoogle(context) async {
+  //Choose the scopes for the project - it requires calendar permissions
   final GoogleSignInAccount googleUser = await GoogleSignIn(
     scopes: [
       'https://www.googleapis.com/auth/calendar.readonly',
       'https://www.googleapis.com/auth/calendar.events.readonly'
     ],
   ).signIn();
-  final GoogleSignInAuthentication googleAuth =
-  await googleUser.authentication;
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
   final AuthCredential credential = GoogleAuthProvider.getCredential(
     accessToken: googleAuth.accessToken,
     idToken: googleAuth.idToken,
   );
   final FirebaseUser user =
       (await FirebaseAuth.instance.signInWithCredential(credential)).user;
-  assert(user.email != null);
-  assert(user.displayName != null);
-  assert(!user.isAnonymous);
-  assert(await user.getIdToken() != null);
 
-  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  //This Http client allows the use of the calendar api in the apis folder
   var authHeaders = await googleUser.authHeaders;
   httpClient = GoogleHttpClient(authHeaders);
 
-  firebaseResult(currentUser, context);
-}
-
-firebaseResult(returnedUser, context){
-  user = returnedUser;
-  Navigator.pushNamed(context,'/home');
+  //Return the logged in user
+  firebaseResult(user, context);
 }

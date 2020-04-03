@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/views/home.dart';
-import 'package:flutter_app/views/login.dart';
-import 'package:flutter_app/views/register.dart';
-import 'package:flutter_app/views/settings.dart';
-import 'package:flutter_app/views/shoppingList/index.dart';
-import 'package:flutter_app/views/nutrition.dart';
-import 'package:flutter_app/views/graphs.dart';
 import 'package:flutter_app/database/open.dart';
+
+//Authentication Imports
+import 'package:flutter_app/views/authentication/login.dart';
+import 'package:flutter_app/views/authentication/register.dart';
 
 //Ingredient Imports
 import 'package:flutter_app/views/ingredient/index.dart';
@@ -18,17 +16,23 @@ import 'package:flutter_app/views/recipe/create.dart';
 import 'package:flutter_app/views/recipe/next.dart';
 import 'package:flutter_app/views/recipe/view.dart';
 
-//Search imports
+//Search Imports
 import 'package:flutter_app/views/search/index.dart';
 import 'package:flutter_app/views/search/results.dart';
+import 'package:flutter_app/views/settings.dart';
 
-//Calendar imports
+//Calendar Imports
 import 'package:flutter_app/views/calendar/index.dart';
 import 'package:flutter_app/views/calendar/create.dart';
 import 'package:flutter_app/views/calendar/edit.dart';
 import 'package:flutter_app/views/calendar/view.dart';
 import 'package:flutter_app/views/calendar/automate.dart';
 import 'package:flutter_app/views/calendar/results.dart';
+
+//Other Views
+import 'package:flutter_app/views/shoppingList/index.dart';
+import 'package:flutter_app/views/nutrition.dart';
+import 'package:flutter_app/views/graphs.dart';
 
 void main() => runApp(MyApp());
 
