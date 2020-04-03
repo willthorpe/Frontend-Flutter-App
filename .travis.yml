@@ -10,7 +10,7 @@ install:
   - ./flutter/bin/flutter doctor
 script:
   - ./flutter/bin/flutter test --coverage
-  - ./flutter/bin/flutter run -t lib/codecov.dart
+  - bash <(curl -s https://codecov.io/bash)
 cache:
   directories:
     - $HOME/.pub-cache
