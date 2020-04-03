@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../globals.dart';
+import 'package:flutter_app/globals.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -22,6 +22,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var gridWidth = MediaQuery.of(context).size.width /2;
+    var gridHeight = (MediaQuery.of(context).size.height * 0.85) /4;
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -77,6 +80,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           crossAxisCount: 2,
+          childAspectRatio: gridWidth / gridHeight,
           children: <Widget>[
             RaisedButton(
               color: Colors.orange[300],
@@ -221,7 +225,13 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   Center(
-                    child: Text('\n\nSearch',
+                    child: Text('\nSearch',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                        )),
+                  ),
+                  Center(
+                    child: Text('Recipes',
                         style: TextStyle(
                           fontSize: 30.0,
                         )),
@@ -238,7 +248,13 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   Center(
-                    child: Text('\n\nSettings',
+                    child: Text('\nSearch',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                        )),
+                  ),
+                  Center(
+                    child: Text('Settings',
                         style: TextStyle(
                           fontSize: 30.0,
                         )),

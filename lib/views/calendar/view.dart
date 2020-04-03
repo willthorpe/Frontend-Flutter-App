@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../database/fetch.dart';
-import '../../database/save.dart';
+import 'package:flutter_app/database/fetch.dart';
+import 'package:flutter_app/database/save.dart';
 import 'package:flutter_app/globals.dart';
 
 class ViewCalendarsPage extends StatefulWidget {

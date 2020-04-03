@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
-import 'views/home.dart';
-import 'views/login.dart';
-import 'views/register.dart';
-import 'views/settings.dart';
-import 'views/shoppingList/index.dart';
-import 'views/nutrition.dart';
-import 'views/graphs.dart';
-import 'database/open.dart';
+import 'package:flutter_app/views/home.dart';
+import 'package:flutter_app/views/login.dart';
+import 'package:flutter_app/views/register.dart';
+import 'package:flutter_app/views/settings.dart';
+import 'package:flutter_app/views/shoppingList/index.dart';
+import 'package:flutter_app/views/nutrition.dart';
+import 'package:flutter_app/views/graphs.dart';
+import 'package:flutter_app/database/open.dart';
 
-import 'views/ingredient/index.dart';
-import 'views/ingredient/list.dart';
+//Ingredient Imports
+import 'package:flutter_app/views/ingredient/index.dart';
+import 'package:flutter_app/views/ingredient/list.dart';
 
-import 'views/recipe/index.dart';
-import 'views/recipe/create.dart';
-import 'views/recipe/next.dart';
-import 'views/recipe/view.dart';
+//Recipe Imports
+import 'package:flutter_app/views/recipe/index.dart';
+import 'package:flutter_app/views/recipe/create.dart';
+import 'package:flutter_app/views/recipe/next.dart';
+import 'package:flutter_app/views/recipe/view.dart';
 
-import 'views/search/index.dart';
-import 'views/search/results.dart';
+//Search imports
+import 'package:flutter_app/views/search/index.dart';
+import 'package:flutter_app/views/search/results.dart';
 
-import 'views/calendar/index.dart';
-import 'views/calendar/create.dart';
-import 'views/calendar/edit.dart';
-import 'views/calendar/view.dart';
-import 'views/calendar/automate.dart';
-import 'views/calendar/results.dart';
+//Calendar imports
+import 'package:flutter_app/views/calendar/index.dart';
+import 'package:flutter_app/views/calendar/create.dart';
+import 'package:flutter_app/views/calendar/edit.dart';
+import 'package:flutter_app/views/calendar/view.dart';
+import 'package:flutter_app/views/calendar/automate.dart';
+import 'package:flutter_app/views/calendar/results.dart';
 
 void main() => runApp(MyApp());
 

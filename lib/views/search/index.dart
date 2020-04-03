@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../globals.dart';
-import 'package:flutter_app/http/fetch.dart';
+import 'package:flutter_app/globals.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key, this.title}) : super(key: key);

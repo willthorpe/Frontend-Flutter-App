@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/save.dart';
-import '../../globals.dart';
-import '../../http/fetch.dart';
+import 'package:flutter_app/globals.dart';
+import 'package:flutter_app/http/fetch.dart';
 
 class CreateRecipePage extends StatefulWidget {
   CreateRecipePage({Key key, this.title}) : super(key: key);
@@ -143,7 +143,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 return Column(
                                   children: <Widget>[
                                     ListTile(
-                                        leading: const Icon(Icons.fastfood),
+                                        leading: const Icon(Icons.kitchen),
                                         title: FutureBuilder(
                                             future: fetchIngredients(),
                                             builder: (context, snapshot) {
@@ -210,7 +210,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                             })),
                                     ListTile(
                                         leading:
-                                            const Icon(Icons.exposure_zero),
+                                            const Icon(Icons.straighten),
                                         title: TextFormField(
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(

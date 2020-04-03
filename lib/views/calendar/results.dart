@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../http/fetch.dart';
+import 'package:flutter_app/http/fetch.dart';
 
 class AutomateResultsPage extends StatefulWidget {
   AutomateResultsPage(

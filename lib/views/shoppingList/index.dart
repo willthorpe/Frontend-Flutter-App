@@ -36,6 +36,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                           return new Container(
                               height: MediaQuery.of(context).size.height * 0.75,
                               child: ListView.separated(
+                                padding: EdgeInsets.all(10),
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   if (snapshot.data[index]['type'] == "number") {

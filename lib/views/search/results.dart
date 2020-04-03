@@ -27,7 +27,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return new Container(
-                    height: MediaQuery.of(context).size.height * 0.75,
+                    padding: EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.85,
                     child: ListView.separated(
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
@@ -58,11 +59,11 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                   fontSize: 20.0,
                                 )),
                             Container(
-                              height:
-                              MediaQuery.of(context).size.height * 0.3,
+                              padding: EdgeInsets.all(10),
+                              height: MediaQuery.of(context).size.height * 0.2,
                               child: GridView.builder(
                                   gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10,
@@ -70,11 +71,11 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                   scrollDirection: Axis.horizontal,
                                   padding: EdgeInsets.all(10),
                                   itemCount:
-                                  snapshot.data[index]['method'].length,
-                                  itemBuilder: (BuildContext context,
-                                      int methodIndex) {
+                                      snapshot.data[index]['method'].length,
+                                  itemBuilder:
+                                      (BuildContext context, int methodIndex) {
                                     return Text(snapshot.data[index]['method']
-                                    [methodIndex]);
+                                        [methodIndex]);
                                   }),
                             ),
                             Text('Ingredients:\n',
@@ -110,6 +111,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                   _scaffoldResultsKey.currentState
                                       .showSnackBar(snackBar);
                                 },
+                                color: Colors.orange[300],
                                 child: Text('Add to Recipe Book')),
                           ],
                         );
