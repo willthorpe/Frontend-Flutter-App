@@ -8,7 +8,7 @@ Future<String> saveIngredient(String name, int amount, String type,
   var response = await http.post(url + "/ingredient", body: {
     'user': user.uid,
     'name': name,
-    'amount': amount,
+    'amount': amount.toString(),
     'type': type,
     'location': location,
   });
@@ -27,8 +27,8 @@ Future<String> saveIngredient(String name, int amount, String type,
 //Edit Ingredient within the recipe database
 Future<String> editIngredient(String name, int amount, String type,
     String location) async {
-  var response = await http.patch(url + "/ingredient/amount",
-      body: {'user': user.uid, 'name': name, 'amount':amount, 'type':type, 'location':location});
+  var response = await http.patch(url + "/ingredient",
+      body: {'user': user.uid, 'name': name, 'amount':amount.toString(), 'type':type, 'location':location});
 
 
   //Valid response from the API so display "saved" on the screen
@@ -48,9 +48,9 @@ Future<String> saveRecipe(String name, String tag, int servings,
     'user': user.uid,
     'name': name,
     'tag': tag,
-    'servings': servings,
-    'prepTime': prepTime,
-    'cookTime': cookTime,
+    'servings': servings.toString(),
+    'prepTime': prepTime.toString(),
+    'cookTime': cookTime.toString(),
     'ingredients': json.encode(ingredients),
     'methods': json.encode(methods)
   });
@@ -67,8 +67,8 @@ Future<String> saveRecipe(String name, String tag, int servings,
 //Edit Ingredient within the recipe database
 Future<String> editRecipeSummary(String name, String tag, int servings,
     int prepTime, int cookTime) async {
-  var response = await http.patch(url + "/ingredient/summary",
-      body: {'user': user.uid, 'name':name, 'tag': tag, 'servings':servings, 'prepTime':prepTime, 'cookTime':cookTime});
+  var response = await http.patch(url + "/recipe/summary",
+      body: {'user': user.uid, 'name':name, 'tag': tag, 'servings':servings.toString(), 'prepTime':prepTime.toString(), 'cookTime':cookTime.toString()});
 
 
   //Valid response from the API so display "saved" on the screen

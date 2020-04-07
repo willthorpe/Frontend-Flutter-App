@@ -62,10 +62,9 @@ class _BookPageState extends State<BookPage> {
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
+                              print(_displayList[index].toString());
                               _scaffoldKeys.add(GlobalKey<ScaffoldState>());
-                              var totalTime = int.parse(
-                                      _displayList[index]['cookTime']) +
-                                  int.parse(_displayList[index]['prepTime']);
+                              var totalTime = _displayList[index]['cookTime'] + _displayList[index]['prepTime'];
                               return new ListTile(
                                   key: _scaffoldKeys.last,
                                   leading: const Icon(Icons.restaurant_menu),
