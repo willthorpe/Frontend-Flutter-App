@@ -75,198 +75,204 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: GridView.count(
-          padding: const EdgeInsets.all(10),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-          childAspectRatio: gridWidth / gridHeight,
-          children: <Widget>[
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nList',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+        body: OrientationBuilder(
+          builder : (context, orientation){
+            return GridView.count(
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+              childAspectRatio: orientation == Orientation.portrait ? gridWidth / gridHeight : 1,
+              children: <Widget>[
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nList',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Food',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Text('Food',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  )
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/listingredient');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nCreate',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/listingredient');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nCreate',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Recipe',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Text('Recipe',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  )
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/createrecipe');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nView',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/createrecipe');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nView',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Larder',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Text('Larder',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  )
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/larder');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nView',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/larder');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nView',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Recipes',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Text('Recipes',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  )
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/recipebook');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nRecipe',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/recipebook');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nRecipe',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Calendar',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Text('Calendar',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  )
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/recipecalendar');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nShopping',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/recipecalendar');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nShopping',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('List',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Text('List',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  )
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/shoppinglist');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nSearch',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/shoppinglist');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nSearch',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Recipes',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                    ],
                   ),
-                  Center(
-                    child: Text('Recipes',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/search');
+                  },
+                ),
+                RaisedButton(
+                  color: Colors.orange[300],
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text('\nSearch',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                      Center(
+                        child: Text('Settings',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            )),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/search');
-              },
-            ),
-            RaisedButton(
-              color: Colors.orange[300],
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Text('\nSearch',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  ),
-                  Center(
-                    child: Text('Settings',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        )),
-                  ),
-                ],
-              ),
-              onPressed: (){
-                Navigator.pushNamed(context,
-                    '/settings');
-              },
-            ),
-          ],
-        ));
+                  onPressed: (){
+                    Navigator.pushNamed(context,
+                        '/settings');
+                  },
+                ),
+              ],
+            );
+          }
+        )
+
+        );
   }
 }
