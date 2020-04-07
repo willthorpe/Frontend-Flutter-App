@@ -9,6 +9,7 @@ import 'package:flutter_app/views/authentication/register.dart';
 //Ingredient Imports
 import 'package:flutter_app/views/ingredient/index.dart';
 import 'package:flutter_app/views/ingredient/list.dart';
+import 'package:flutter_app/views/ingredient/edit.dart';
 
 //Recipe Imports
 import 'package:flutter_app/views/recipe/index.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     setupDatabase();
     return MaterialApp(
-      title: 'Integrated Recipes',
+      title: 'Meal Planner',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
         '/register' : (context) => RegisterPage(title: 'Register'),
         '/' : (context) => LoginPage(title: 'Login'),
         '/listingredient' : (context) => ListIngredientPage(title: 'List Ingredient'),
+        '/editingredient' : (context) => EditIngredientPage(),
         '/createrecipe' : (context) => CreateRecipePage(title: 'Create Recipe'),
         '/createcalendar' : (context) => CreateCalendarPage(title:'Create Calendar'),
         '/editcalendar' : (context) => EditCalendarPage(title:'Edit Calendar'),

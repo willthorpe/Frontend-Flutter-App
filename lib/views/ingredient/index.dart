@@ -66,17 +66,8 @@ class _IngredientsPageState extends State<IngredientsPage> {
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              if (_displayList[index]['type'] == "number") {
                                 return createListTile(
-                                    _displayList[index]['name'],
-                                    "In ${_displayList[index]['location']}",
-                                    _displayList[index]['amount'].toString());
-                              } else {
-                                return createListTile(
-                                    _displayList[index]['name'],
-                                    "In ${_displayList[index]['location']}",
-                                    "${_displayList[index]['amount'].toString()} ${_displayList[index]['type']}");
-                              }
+                                    _displayList[index], context);
                             },
                             separatorBuilder: (context, index) {
                               return Divider();
@@ -94,10 +85,36 @@ class _IngredientsPageState extends State<IngredientsPage> {
   }
 }
 
-createListTile(name, location, amount) {
+createListTile(parameters, context) {
+  final _listKey = GlobalKey<ScaffoldState>();
+  if(parameters['type'] == "number"){
+    parameters['type'] = "";
+  }
   return ListTile(
+      key: _listKey,
       leading: const Icon(Icons.kitchen),
-      title: Text(name),
-      subtitle: Text(location),
-      trailing: Text(amount));
+      title: Text(parameters['name']),
+      subtitle: Text("In " + parameters['location']),
+      trailing: Text('${parameters["amount"]} ${parameters["type"]}'),
+      onTap: () {
+        RenderBox box = _listKey.currentContext.findRenderObject();
+        Offset position = box.localToGlobal(Offset.zero);
+        showMenu(
+            context: context,
+            position: RelativeRect.fromLTRB(position.dx,position.dy,0,0),
+            items: [
+              PopupMenuItem(
+                child: FlatButton(
+                  color: Colors.white,
+                  child: Text('Edit Ingredient'),
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/editingredient',arguments:{
+                      'title':'Edit ' + parameters['name'],
+                      'data': parameters
+                    });
+                  },
+                )
+              ),
+            ]);
+      });
 }

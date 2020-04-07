@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/globals.dart';
 import 'package:flutter_app/http/save.dart';
 
-class ListIngredientPage extends StatefulWidget {
-  ListIngredientPage({Key key, this.title}) : super(key: key);
+class EditIngredientPage extends StatefulWidget {
+  EditIngredientPage({Key key, this.title, this.data}) : super(key: key);
 
   final String title;
+  final List data;
 
   @override
-  _ListIngredientPageState createState() => _ListIngredientPageState();
+  _EditIngredientPageState createState() => _EditIngredientPageState();
 }
 
-class _ListIngredientPageState extends State<ListIngredientPage> {
-  final _scaffoldIngredientKey = GlobalKey<ScaffoldState>();
+class _EditIngredientPageState extends State<EditIngredientPage> {
+  final _scaffoldIngredientEditKey = GlobalKey<ScaffoldState>();
   final _formIngredientKey = GlobalKey<FormState>();
 
   //Save the form data
@@ -23,10 +24,17 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    _amountType = arguments['data']['type'];
+    if(_amountType == ''){
+      _amountType = "number";
+    }
+    _ingredientName = arguments['data']['name'];
+
     return Scaffold(
-        key: _scaffoldIngredientKey,
+        key: _scaffoldIngredientEditKey,
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(arguments['title']),
         ),
         body: Form(
           key: _formIngredientKey,
@@ -35,21 +43,12 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
               children: <Widget>[
                 new ListTile(
                   leading: const Icon(Icons.kitchen),
-                  title: TextFormField(
-                      decoration: InputDecoration(hintText: 'Name'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a food name';
-                        }
-                        return null;
-                      },
-                      onSaved: (String value) {
-                        _ingredientName = value;
-                      }),
+                  title: Text(arguments['data']['name']),
                 ),
                 new ListTile(
                   leading: const Icon(Icons.straighten),
                   title: TextFormField(
+                      initialValue: arguments['data']['amount'].toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(hintText: 'Amount'),
                       validator: (value) {
@@ -88,6 +87,7 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                 new ListTile(
                   leading: const Icon(Icons.location_city),
                   title: TextFormField(
+                      initialValue: arguments['data']['location'].toString(),
                       decoration: InputDecoration(hintText: 'Storage Location'),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -105,12 +105,12 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                       onPressed: () {
                         if (_formIngredientKey.currentState.validate()) {
                           _formIngredientKey.currentState.save();
-                          saveAndSnackbar(_scaffoldIngredientKey, _ingredientName, _ingredientAmount, _amountType, _ingredientStorage);
+                          saveAndSnackbar(_scaffoldIngredientEditKey, _ingredientName, _ingredientAmount, _amountType, _ingredientStorage);
                           _formIngredientKey.currentState.reset();
                         }
                       },
                       color: Colors.orange[300],
-                      child: Text('Save')),
+                      child: Text('Edit')),
                 ),
               ]),
         ));
@@ -118,7 +118,7 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
 }
 
 Future saveAndSnackbar(key, name, amount, type, storage)  async {
-  var response = await saveIngredient(name, amount, type, storage);
+  var response = await editIngredient(name, amount, type, storage);
   final snackBar = SnackBar(content: Text(response));
   key.currentState.showSnackBar(snackBar);
 }

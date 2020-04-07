@@ -2,7 +2,8 @@ import 'package:flutter_app/globals.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<String> saveIngredient(String name, String amount, String type,
+//Save Ingredient within the recipe database
+Future<String> saveIngredient(String name, int amount, String type,
     String location) async {
   var response = await http.post(url + "/ingredient", body: {
     'user': user.uid,
@@ -10,13 +11,32 @@ Future<String> saveIngredient(String name, String amount, String type,
     'amount': amount,
     'type': type,
     'location': location,
-    'useByDate': ''
   });
 
+  //Valid response from the API so display "saved" on the screen
   if (response.statusCode == 200) {
     print('Response body: ${response.body}');
     return "Saved";
   } else {
+    //Failed, display error
+    print("Request failed with status: ${response.statusCode}.");
+    return "Error : ${response.statusCode}";
+  }
+}
+
+//Edit Ingredient within the recipe database
+Future<String> editIngredient(String name, int amount, String type,
+    String location) async {
+  var response = await http.patch(url + "/ingredient/amount",
+      body: {'user': user.uid, 'name': name, 'amount':amount, 'type':type, 'location':location});
+
+
+  //Valid response from the API so display "saved" on the screen
+  if (response.statusCode == 200) {
+    print('Response body: ${response.body}');
+    return "Saved";
+  } else {
+    //Failed, display error
     print("Request failed with status: ${response.statusCode}.");
     return "Error : ${response.statusCode}";
   }
@@ -70,7 +90,7 @@ Future<String> saveShoppingList(purchased) async {
 }
 
 Future<String> updateIngredients(ingredients) async {
-  var response = await http.patch(url + "/ingredient",
+  var response = await http.patch(url + "/ingredient/amount",
       body: {'user': user.uid, 'ingredients': json.encode(ingredients)});
 
   if (response.statusCode == 200) {
