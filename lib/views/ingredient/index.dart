@@ -54,20 +54,22 @@ class _IngredientsPageState extends State<IngredientsPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           if (_allResults.length == 0) {
-                            _displayList = snapshot.data;
                             _allResults = snapshot.data;
+                            _displayList = _allResults;
                           }
+
                           for (var i = 0; i < _displayList.length; i++) {
                             if (_displayList[i]['amount'] == 0) {
-                              _displayList.removeAt(i);
+                                _displayList.removeAt(i);
                             }
                           }
+
                           return new ListView.separated(
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
-                                return createListTile(
-                                    _displayList[index], context);
+                              return createListTile(
+                                  _displayList[index], context);
                             },
                             separatorBuilder: (context, index) {
                               return Divider();
@@ -87,7 +89,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
 
 createListTile(parameters, context) {
   final _listKey = GlobalKey<ScaffoldState>();
-  if(parameters['type'] == "number"){
+  if (parameters['type'] == "number") {
     parameters['type'] = "";
   }
   return ListTile(
@@ -101,20 +103,19 @@ createListTile(parameters, context) {
         Offset position = box.localToGlobal(Offset.zero);
         showMenu(
             context: context,
-            position: RelativeRect.fromLTRB(position.dx,position.dy,0,0),
+            position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
             items: [
               PopupMenuItem(
-                child: FlatButton(
-                  color: Colors.white,
-                  child: Text('Edit Ingredient'),
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/editingredient',arguments:{
-                      'title':'Edit ' + parameters['name'],
-                      'data': parameters
-                    });
-                  },
-                )
-              ),
+                  child: FlatButton(
+                color: Colors.white,
+                child: Text('Edit Ingredient'),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/editingredient', arguments: {
+                    'title': 'Edit ' + parameters['name'],
+                    'data': parameters
+                  });
+                },
+              )),
             ]);
       });
 }

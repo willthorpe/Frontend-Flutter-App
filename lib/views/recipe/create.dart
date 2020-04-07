@@ -21,9 +21,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   int _currentStep = 0;
   String _recipeName = '';
   String _recipeTag = 'Breakfast';
-  String _recipeServings = '';
-  String _prepTime = '';
-  String _cookTime = '';
+  int _recipeServings = 0;
+  int _prepTime = 0;
+  int _cookTime = 0;
   List _ingredients = [];
   List _methods = [''];
 
@@ -90,7 +90,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 return null;
                               },
                               onSaved: (String value) {
-                                _recipeServings = value;
+                                _recipeServings = int.parse(value);
                               }),
                         ),
                         new ListTile(
@@ -106,7 +106,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   return null;
                                 },
                                 onSaved: (String value) {
-                                  _prepTime = value;
+                                  _prepTime = int.parse(value);
                                 }),
                             trailing: Text('minutes')),
                         new ListTile(
@@ -122,7 +122,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   return null;
                                 },
                                 onSaved: (String value) {
-                                  _cookTime = value;
+                                  _cookTime = int.parse(value);
                                 }),
                             trailing: Text('minutes')),
                       ]))),

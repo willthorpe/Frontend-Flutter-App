@@ -16,6 +16,7 @@ import 'package:flutter_app/views/recipe/index.dart';
 import 'package:flutter_app/views/recipe/create.dart';
 import 'package:flutter_app/views/recipe/next.dart';
 import 'package:flutter_app/views/recipe/view.dart';
+import 'package:flutter_app/views/recipe/edit.dart';
 
 //Search Imports
 import 'package:flutter_app/views/search/index.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         '/listingredient' : (context) => ListIngredientPage(title: 'List Ingredient'),
         '/editingredient' : (context) => EditIngredientPage(),
         '/createrecipe' : (context) => CreateRecipePage(title: 'Create Recipe'),
+        '/editrecipe' : (context) => EditRecipePage(),
         '/createcalendar' : (context) => CreateCalendarPage(title:'Create Calendar'),
         '/editcalendar' : (context) => EditCalendarPage(title:'Edit Calendar'),
         '/viewcalendars' : (context) => ViewCalendarsPage(title:'View Calendars'),

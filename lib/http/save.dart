@@ -42,8 +42,8 @@ Future<String> editIngredient(String name, int amount, String type,
   }
 }
 
-Future<String> saveRecipe(String name, String tag, String servings,
-    String prepTime, String cookTime, ingredients, methods) async {
+Future<String> saveRecipe(String name, String tag, int servings,
+    int prepTime, int cookTime, ingredients, methods) async {
   var response = await http.post(url + "/recipe", body: {
     'user': user.uid,
     'name': name,
@@ -59,6 +59,24 @@ Future<String> saveRecipe(String name, String tag, String servings,
     print('Response body: ${response.body}');
     return "Saved";
   } else {
+    print("Request failed with status: ${response.statusCode}.");
+    return "Error : ${response.statusCode}";
+  }
+}
+
+//Edit Ingredient within the recipe database
+Future<String> editRecipeSummary(String name, String tag, int servings,
+    int prepTime, int cookTime) async {
+  var response = await http.patch(url + "/ingredient/summary",
+      body: {'user': user.uid, 'name':name, 'tag': tag, 'servings':servings, 'prepTime':prepTime, 'cookTime':cookTime});
+
+
+  //Valid response from the API so display "saved" on the screen
+  if (response.statusCode == 200) {
+    print('Response body: ${response.body}');
+    return "Saved";
+  } else {
+    //Failed, display error
     print("Request failed with status: ${response.statusCode}.");
     return "Error : ${response.statusCode}";
   }
