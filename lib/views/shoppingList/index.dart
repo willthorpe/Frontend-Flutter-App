@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/fetch.dart';
 import 'package:flutter_app/http/save.dart';
+import 'package:validators/validators.dart';
 
 class ShoppingListPage extends StatefulWidget {
   ShoppingListPage({Key key, this.title}) : super(key: key);
@@ -26,6 +27,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
         body: Form(
           key: _formShoppingKey,
           child: Container(
+            height: MediaQuery.of(context).size.height * 0.80,
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -34,7 +36,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return new Container(
-                              height: MediaQuery.of(context).size.height * 0.75,
+                              height: MediaQuery.of(context).size.height * 0.60,
                               child: ListView.separated(
                                 padding: EdgeInsets.all(10),
                                 itemCount: snapshot.data.length,
@@ -55,6 +57,9 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                               validator: (value) {
                                                 if (value.isEmpty) {
                                                   return 'Please enter an amount';
+                                                }
+                                                if(!isNumeric(value)){
+                                                  return 'Value must be a number';
                                                 }
                                                 if (int.parse(value) <
                                                     snapshot.data[index]['amount']) {
@@ -87,7 +92,10 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                               InputDecoration(hintText: 'Bought'),
                                               validator: (value) {
                                                 if (value.isEmpty) {
-                                                  return 'Please enter an amount';
+                                                  return 'Enter an amount';
+                                                }
+                                                if(!isNumeric(value)){
+                                                  return 'Must be value';
                                                 }
                                                 if (int.parse(value) <
                                                     snapshot.data[index]['amount']) {
@@ -122,6 +130,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                       if (_formShoppingKey.currentState.validate()) {
                         _formShoppingKey.currentState.save();
                         saveShoppingList(_purchased);
+                        Navigator.popAndPushNamed(context, '/shoppinglist');
                         final snackBar =
                         SnackBar(content: Text("Processing"));
                         _scaffoldShoppingKey.currentState

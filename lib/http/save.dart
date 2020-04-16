@@ -97,7 +97,7 @@ Future<String> createLink(String recipe, ingredients) async {
 }
 
 Future<String> saveShoppingList(purchased) async {
-  var response = await http.patch(url + "/recipe",
+  var response = await http.patch(url + "/list",
       body: {'user': user.uid, 'purchased': json.encode(purchased)});
 
   if (response.statusCode == 200) {
