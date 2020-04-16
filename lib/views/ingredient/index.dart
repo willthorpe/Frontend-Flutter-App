@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/fetch.dart';
+import 'package:flutter_app/http/delete.dart';
 
 class IngredientsPage extends StatefulWidget {
   IngredientsPage({Key key, this.title}) : super(key: key);
@@ -116,6 +117,15 @@ createListTile(parameters, context) {
                   });
                 },
               )),
+              PopupMenuItem(
+                  child: FlatButton(
+                    color: Colors.white,
+                    child: Text('Delete Ingredient'),
+                    onPressed: () {
+                      deleteIngredient(parameters['name']);
+                      Navigator.popAndPushNamed(context, '/larder');
+                    },
+                  )),
             ]);
       });
 }
