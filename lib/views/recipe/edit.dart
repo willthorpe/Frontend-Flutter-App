@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/globals.dart';
 import 'package:flutter_app/http/save.dart';
+import 'package:validators/validators.dart';
 
 class EditRecipePage extends StatefulWidget {
   EditRecipePage({Key key, this.title, this.data}) : super(key: key);
@@ -73,9 +74,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
                           if (value.isEmpty) {
                             return 'Please enter a servings amount';
                           }
+                          if(!isNumeric(value)){
+                            return 'Value must be a number';
+                          }
                           return null;
                         },
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           _recipeServings = int.parse(value);
                         }),
                     trailing: Text('servings'),
@@ -91,9 +95,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
                             if (value.isEmpty) {
                               return 'Please enter a preparation time';
                             }
+                            if(!isNumeric(value)){
+                              return 'Value must be a number';
+                            }
                             return null;
                           },
-                          onSaved: (String value) {
+                          onChanged: (String value) {
                             _prepTime = int.parse(value);
                           }),
                       trailing: Text('minutes')),
@@ -108,9 +115,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
                             if (value.isEmpty) {
                               return 'Please enter a cooking time';
                             }
+                            if(!isNumeric(value)){
+                              return 'Value must be a number';
+                            }
                             return null;
                           },
-                          onSaved: (String value) {
+                          onChanged: (String value) {
                             _cookTime = int.parse(value);
                           }),
                       trailing: Text('minutes')),

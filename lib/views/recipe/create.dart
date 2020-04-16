@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/http/save.dart';
 import 'package:flutter_app/globals.dart';
 import 'package:flutter_app/http/fetch.dart';
+import 'package:validators/validators.dart';
 
 class CreateRecipePage extends StatefulWidget {
   CreateRecipePage({Key key, this.title}) : super(key: key);
@@ -87,6 +88,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 if (value.isEmpty) {
                                   return 'Please enter a servings amount';
                                 }
+                                if(!isNumeric(value)){
+                                  return 'Value must be a number';
+                                }
                                 return null;
                               },
                               onSaved: (String value) {
@@ -103,6 +107,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                   if (value.isEmpty) {
                                     return 'Please enter a preparation time';
                                   }
+                                  if(!isNumeric(value)){
+                                    return 'Value must be a number';
+                                  }
                                   return null;
                                 },
                                 onSaved: (String value) {
@@ -118,6 +125,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Please enter a cooking time';
+                                  }
+                                  if(!isNumeric(value)){
+                                    return 'Value must be a number';
                                   }
                                   return null;
                                 },
@@ -160,6 +170,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                                         snapshot.data[0]
                                                             ['name'];
                                                   }
+                                                  //Add ingredient from stockroom
                                                   return DropdownButton<String>(
                                                       value: _ingredients[index]
                                                           ['name'],
@@ -184,6 +195,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                                         });
                                                       });
                                                 } else {
+                                                  //Add new ingredient
                                                   return TextFormField(
                                                       decoration:
                                                           InputDecoration(
@@ -220,6 +232,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                           validator: (value) {
                                             if (value.isEmpty) {
                                               return 'Please enter an amount';
+                                            }
+                                            if(!isNumeric(value)){
+                                              return 'Value must be a number';
                                             }
                                             return null;
                                           },

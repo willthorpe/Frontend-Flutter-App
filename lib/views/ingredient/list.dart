@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/globals.dart';
 import 'package:flutter_app/http/save.dart';
+import 'package:validators/validators.dart';
 
 class ListIngredientPage extends StatefulWidget {
   ListIngredientPage({Key key, this.title}) : super(key: key);
@@ -55,6 +56,9 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter an amount';
+                        }
+                        if(!isNumeric(value)){
+                          return 'Value must be a number';
                         }
                         return null;
                       },
