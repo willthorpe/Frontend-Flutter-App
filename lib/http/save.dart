@@ -108,6 +108,7 @@ Future<String> saveShoppingList(purchased) async {
 }
 
 Future<String> updateIngredients(ingredients) async {
+  print(ingredients);
   var response = await http.patch(url + "/ingredient/amount",
       body: {'user': user.uid, 'ingredients': json.encode(ingredients)});
 

@@ -6,7 +6,7 @@ import 'package:flutter_app/globals.dart';
 Future setupDatabase() async {
   print("setup database");
   final database = openDatabase(
-    join(await getDatabasesPath(), 'mealplanner.db'),
+    join(await getDatabasesPath(), 'mealplan.db'),
     onCreate: (db, version) {
       print("db created");
       db.execute(
@@ -47,7 +47,7 @@ Future setupDatabase() async {
     },
     // Set the version. This executes the onCreate function and provides a
     // path to perform database upgrades and downgrades.
-    version: 1,
+    version: 2,
   );
 
   internalDatabase = await database;

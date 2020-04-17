@@ -13,6 +13,7 @@ class EditCalendarPage extends StatefulWidget {
 }
 
 class _EditCalendarPageState extends State<EditCalendarPage> {
+  Future _future;
   final _scaffoldCalendarKey = GlobalKey<ScaffoldState>();
   List<GlobalKey<FormState>> _formKeys = [
     GlobalKey<FormState>(),
@@ -29,6 +30,11 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _future = fetchCalendarRecipes();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldCalendarKey,
@@ -50,7 +56,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                                 leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchCalendarRecipes(),
+                                    future: _future,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         if (snapshot.data[0].length > 0) {
@@ -76,6 +82,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                                             onChanged: (newValue) {
                                               setState(() {
                                                 _recipes[0][index] = newValue;
+                                                print(_recipes);
                                               });
                                             });
                                       } else {
@@ -99,7 +106,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                                 leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchCalendarRecipes(),
+                                    future: _future,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         if (snapshot.data[0].length > 0) {
@@ -125,6 +132,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                                             onChanged: (newValue) {
                                               setState(() {
                                                 _recipes[1][index] = newValue;
+                                                print(_recipes);
                                               });
                                             });
                                       } else {
@@ -148,7 +156,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                                 leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchCalendarRecipes(),
+                                    future: _future,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         if (snapshot.data[0].length > 0) {
@@ -174,6 +182,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                                             onChanged: (newValue) {
                                               setState(() {
                                                 _recipes[2][index] = newValue;
+                                                print(_recipes);
                                               });
                                             });
                                       } else {
@@ -217,6 +226,7 @@ class _EditCalendarPageState extends State<EditCalendarPage> {
                   //Save data from all the forms
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
+                    print(_recipes);
                     saveCalendar(_recipes, false);
                   }
                 }

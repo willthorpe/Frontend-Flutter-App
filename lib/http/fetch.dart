@@ -62,9 +62,7 @@ Future<List> fetchSearchResults(sliders) async {
       json.encode(allergies) +
       "&diets=" +
       json.encode(diets));
-  print(response.body);
   if (response.statusCode == 200) {
-    print(response.body);
     return json.decode(response.body);
   } else {
     print("Request failed with status: ${response.statusCode}.");
@@ -79,13 +77,13 @@ Future<List> fetchNextRecipe() async {
 
   if (now.hour < 12) {
     //Breakfast
-    nextMeal = calendar[0]["breakfast"][day + 1];
+    nextMeal = calendar[0]["breakfast"][day - 1];
   } else if (now.hour <= 14 && now.hour >= 12) {
     //Lunch
-    nextMeal = calendar[0]["lunch"][day + 1];
+    nextMeal = calendar[0]["lunch"][day - 1];
   } else {
     //Dinner
-    nextMeal = calendar[0]["dinner"][day + 1];
+    nextMeal = calendar[0]["dinner"][day - 1];
   }
 
   var response =

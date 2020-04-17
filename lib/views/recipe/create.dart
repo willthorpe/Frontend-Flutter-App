@@ -240,7 +240,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                           },
                                           onChanged: (String value) {
                                             _ingredients[index]['amount'] =
-                                                value;
+                                                int.parse(value);
                                           },
                                         )),
                                     ListTile(
@@ -264,7 +264,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                     ListTile(
                                         title: RaisedButton(
                                             onPressed: () {
-                                              print(_ingredients);
                                               setState(() {
                                                 _ingredients.removeAt(index);
                                               });
@@ -334,7 +333,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                       }),
                                   subtitle: RaisedButton(
                                       onPressed: () {
-                                        print(_methods);
                                         setState(() {
                                           _methods.removeAt(index);
                                         });
