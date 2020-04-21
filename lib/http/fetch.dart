@@ -14,11 +14,20 @@ Future<List> fetchIngredients() async {
   }
 }
 
-Future<List> fetchRecipes() async {
+Future<List> fetchRecipesAndLeftovers() async {
   var leftovers = await fetchLeftovers();
   var response = await http.get(url + "/recipe?user=" + user.uid);
   if (response.statusCode == 200) {
     return json.decode(response.body) + leftovers;
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}
+
+Future<List> fetchRecipes() async {
+  var response = await http.get(url + "/recipe?user=" + user.uid);
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
   } else {
     print("Request failed with status: ${response.statusCode}.");
   }
@@ -85,13 +94,16 @@ Future<List> fetchNextRecipe() async {
     //Dinner
     nextMeal = calendar[0]["dinner"][day - 1];
   }
-
-  var response =
-      await http.get(url + "/nextRecipe?user=" + user.uid + "&recipe=" + nextMeal);
-  if (response.statusCode == 200) {
-    return [json.decode(response.body)];
-  } else {
-    print("Request failed with status: ${response.statusCode}.");
+  if(nextMeal.contains("LEFTOVER")){
+    return nextMeal;
+  }else{
+    var response =
+    await http.get(url + "/nextRecipe?user=" + user.uid + "&recipe=" + nextMeal);
+    if (response.statusCode == 200) {
+      return [json.decode(response.body)];
+    } else {
+      print("Request failed with status: ${response.statusCode}.");
+    }
   }
 }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/globals.dart';
-import 'package:flutter_app/http/save.dart';
-import 'package:validators/validators.dart';
+import 'package:flutter_app/views/ingredient/common.dart';
 
 class ListIngredientPage extends StatefulWidget {
   ListIngredientPage({Key key, this.title}) : super(key: key);
@@ -13,24 +12,18 @@ class ListIngredientPage extends StatefulWidget {
 }
 
 class _ListIngredientPageState extends State<ListIngredientPage> {
-  final _scaffoldIngredientKey = GlobalKey<ScaffoldState>();
-  final _formIngredientKey = GlobalKey<FormState>();
-
-  //Save the form data
-  String _ingredientName = '';
-  int _ingredientAmount = 0;
-  String _amountType = ingredientTypes[0];
-  String _ingredientStorage = '';
+  final _scaffoldIngredientListKey = GlobalKey<ScaffoldState>();
+  final _listIngredientForm = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldIngredientKey,
+        key: _scaffoldIngredientListKey,
         appBar: AppBar(
           title: Text(widget.title),
         ),
         body: Form(
-          key: _formIngredientKey,
+          key: _listIngredientForm,
           child: new ListView(
               padding: const EdgeInsets.all(10),
               children: <Widget>[
@@ -45,27 +38,10 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                         return null;
                       },
                       onSaved: (String value) {
-                        _ingredientName = value;
+                        ingredientName = value;
                       }),
                 ),
-                new ListTile(
-                  leading: const Icon(Icons.straighten),
-                  title: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(hintText: 'Amount'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter an amount';
-                        }
-                        if(!isNumeric(value)){
-                          return 'Value must be a number';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _ingredientAmount = int.parse(value);
-                      }),
-                ),
+                createAmountTile(''),
                 new ListTile(
                   leading: const Icon(Icons.line_weight),
                   title: Text(
@@ -75,8 +51,8 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                     ),
                   ),
                   trailing: DropdownButton<String>(
-                    value: _amountType,
-                    items: ingredientTypes.map((value) {
+                    value: amountMeasurement,
+                    items: ingredientMeasurements.map((value) {
                       return new DropdownMenuItem<String>(
                         value: value,
                         child: new Text(value),
@@ -84,33 +60,19 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
                     }).toList(),
                     onChanged: (String newValue) {
                       setState(() {
-                        _amountType = newValue;
+                        amountMeasurement = newValue;
                       });
                     },
                   ),
                 ),
-                new ListTile(
-                  leading: const Icon(Icons.location_city),
-                  title: TextFormField(
-                      decoration: InputDecoration(hintText: 'Storage Location'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a storage location';
-                        }
-                        return null;
-                      },
-                      onSaved: (String value) {
-                        _ingredientStorage = value;
-                      }
-                  ),
-                ),
+                createStorageTile(),
                 Center(
                   child: RaisedButton(
                       onPressed: () {
-                        if (_formIngredientKey.currentState.validate()) {
-                          _formIngredientKey.currentState.save();
-                          saveAndSnackbar(_scaffoldIngredientKey, _ingredientName, _ingredientAmount, _amountType, _ingredientStorage);
-                          _formIngredientKey.currentState.reset();
+                        if (_listIngredientForm.currentState.validate()) {
+                          _listIngredientForm.currentState.save();
+                          saveAndSnackbar(_scaffoldIngredientListKey, "list", ingredientName, ingredientAmount, amountMeasurement, ingredientStorage);
+                          _listIngredientForm.currentState.reset();
                         }
                       },
                       color: Colors.orange[300],
@@ -119,10 +81,4 @@ class _ListIngredientPageState extends State<ListIngredientPage> {
               ]),
         ));
   }
-}
-
-Future saveAndSnackbar(key, name, amount, type, storage)  async {
-  var response = await saveIngredient(name, amount, type, storage);
-  final snackBar = SnackBar(content: Text(response));
-  key.currentState.showSnackBar(snackBar);
 }

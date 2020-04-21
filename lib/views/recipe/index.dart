@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/fetch.dart';
 import 'package:flutter_app/http/fetch.dart';
 
 class BookPage extends StatefulWidget {
@@ -62,7 +63,6 @@ class _BookPageState extends State<BookPage> {
                             padding: EdgeInsets.all(10),
                             itemCount: _displayList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              print(_displayList[index].toString());
                               _scaffoldKeys.add(GlobalKey<ScaffoldState>());
                               var totalTime = _displayList[index]['cookTime'] + _displayList[index]['prepTime'];
                               return new ListTile(
@@ -88,13 +88,7 @@ class _BookPageState extends State<BookPage> {
                                             color: Colors.white,
                                             child: Text('View Recipe'),
                                             onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, '/recipeview',
-                                                  arguments: {
-                                                    'title': _displayList[index]
-                                                        ['name'],
-                                                    'data': _displayList[index]
-                                                  });
+                                              leftoverAndShow(_displayList[index], context);
                                             },
                                           )),
                                           PopupMenuItem(
@@ -107,7 +101,8 @@ class _BookPageState extends State<BookPage> {
                                                       arguments: {
                                                         'title': _displayList[index]
                                                         ['name'],
-                                                        'data': _displayList[index]
+                                                        'data': _displayList[index],
+
                                                       });
                                                 },
                                               )),
@@ -128,4 +123,15 @@ class _BookPageState extends State<BookPage> {
               ],
             )));
   }
+}
+
+Future leftoverAndShow(data, context) async {
+  var leftover = await fetchLeftoversForRecipe(data['name']);
+  Navigator.pushNamed(
+      context, '/recipeview',
+      arguments: {
+        'title': data['name'],
+        'data': data,
+        'leftover': leftover,
+      });
 }

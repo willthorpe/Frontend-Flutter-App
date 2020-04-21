@@ -5,8 +5,8 @@ import 'package:flutter_app/globals.dart';
 
 Future<List> fetchActiveCalendar() async {
   final Database db = internalDatabase;
-  List<Map<String, dynamic>> calendars =
-  await db.rawQuery('SELECT * from calendars WHERE active=1 ORDER BY id DESC limit 1');
+  List<Map<String, dynamic>> calendars = await db.rawQuery(
+      'SELECT * from calendars WHERE active=1 ORDER BY id DESC limit 1');
 
   var calendar = List.generate(calendars.length, (index) {
     return {
@@ -23,7 +23,7 @@ Future<List> fetchActiveCalendar() async {
 Future<List> fetchCalendars() async {
   final Database db = internalDatabase;
   List<Map<String, dynamic>> calendars =
-  await db.rawQuery('SELECT * from calendars ORDER BY id DESC');
+      await db.rawQuery('SELECT * from calendars ORDER BY id DESC');
 
   var calendar = List.generate(calendars.length, (index) {
     return {
@@ -60,34 +60,47 @@ Future<Object> fetchSettings() async {
       'type': 'diet'
     };
   });
-
   return allergyList + dietList;
 }
 
 Future<Object> fetchDiets() async {
   final Database db = internalDatabase;
-  final diets =
-  await db.rawQuery('SELECT * from diets');
+  final diets = await db.rawQuery('SELECT * from diets');
   return diets;
 }
 
 Future<Object> fetchAllergies() async {
   final Database db = internalDatabase;
-  final allergies =
-  await db.rawQuery('SELECT * from allergies');
+  final allergies = await db.rawQuery('SELECT * from allergies');
   return allergies;
 }
 
 Future<Object> fetchLeftovers() async {
   final Database db = internalDatabase;
-  final leftovers =
-  await db.rawQuery('SELECT * from leftovers');
+  final leftovers = await db.rawQuery('SELECT * from leftovers where amount > 0');
   return leftovers;
+}
+
+Future<Object> fetchLeftoversForRecipe(recipe) async {
+  final Database db = internalDatabase;
+  List<Map> leftoverList =
+      await db.query('leftovers', where: 'name = ?', whereArgs: ["LEFTOVER " + recipe]);
+
+  var leftover = List.generate(leftoverList.length, (index) {
+    return {
+      'amount': leftoverList[index]['amount'],
+    };
+  });
+
+  if(leftover.length == 0){
+    return 0;
+  }else{
+    return leftover[0]['amount'];
+  }
 }
 
 Future<Object> fetchNutrition() async {
   final Database db = internalDatabase;
-  final nutrition =
-  await db.rawQuery('SELECT * from nutrition');
+  final nutrition = await db.rawQuery('SELECT * from nutrition');
   return nutrition;
 }

@@ -66,6 +66,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
                                     crossAxisSpacing: 10,
+                                    childAspectRatio: 0.4,
                                     mainAxisSpacing: 10,
                                   ),
                                   scrollDirection: Axis.horizontal,

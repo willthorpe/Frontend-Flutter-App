@@ -14,6 +14,7 @@ import 'package:flutter_app/views/authentication/login.dart';
 import 'package:flutter_app/views/authentication/register.dart';
 import 'package:flutter_app/views/ingredient/list.dart';
 import 'package:flutter_app/views/recipe/create.dart';
+import 'package:flutter_app/views/settings.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_app/views/ingredient/index.dart';
 import 'package:flutter_app/views/recipe/index.dart';
@@ -169,5 +170,21 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsNWidgets(7));
     expect(find.byType(RaisedButton), findsNWidgets(2));
+  });
+
+  //Test home page
+  testWidgets('Settings Page ', (WidgetTester tester) async {
+    await tester.pumpWidget(
+        MaterialApp(
+            home: SettingsPage(title: 'Settings')
+        )
+    );
+    await tester.pump();
+    expect(find.text('Settings'), findsOneWidget);
+    expect(find.text('Allergies'), findsOneWidget);
+    expect(find.byType(ListView), findsNWidgets(1));
+    expect(find.descendant(of: find.byType(ListView), matching: find.byType(SwitchListTile)), findsNWidgets(6));
+    expect(find.byType(RaisedButton), findsOneWidget);
+
   });
 }

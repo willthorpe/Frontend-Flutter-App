@@ -21,7 +21,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   final _scaffoldRecipeKey = GlobalKey<ScaffoldState>();
   int _currentStep = 0;
   String _recipeName = '';
-  String _recipeTag = 'Breakfast';
+  String _mealTime = 'Breakfast';
   int _recipeServings = 0;
   int _prepTime = 0;
   int _cookTime = 0;
@@ -65,8 +65,8 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             style: TextStyle(color: Colors.black54),
                           ),
                           trailing: DropdownButton<String>(
-                            value: _recipeTag,
-                            items: recipeTags.map((String value) {
+                            value: _mealTime,
+                            items: mealTimes.map((String value) {
                               return new DropdownMenuItem<String>(
                                 value: value,
                                 child: new Text(value),
@@ -74,7 +74,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             }).toList(),
                             onChanged: (String newValue) {
                               setState(() {
-                                _recipeTag = newValue;
+                                _mealTime = newValue;
                               });
                             },
                           ),
@@ -247,7 +247,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                         leading: const Icon(Icons.line_weight),
                                         title: DropdownButton<String>(
                                           value: _ingredients[index]['type'],
-                                          items: ingredientTypes
+                                          items: ingredientMeasurements
                                               .map((String value) {
                                             return new DropdownMenuItem<String>(
                                               value: value,
@@ -331,6 +331,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                       onChanged: (String value) {
                                         _methods[index] = value;
                                       }),
+                                  //Remove entry if the user does not wish to have any data anymore
                                   subtitle: RaisedButton(
                                       onPressed: () {
                                         setState(() {
@@ -386,7 +387,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                   //Save data from all the forms
                   if (_formKeys[_currentStep].currentState.validate()) {
                     _formKeys[_currentStep].currentState.save();
-                    saveAndSnackbar(_scaffoldRecipeKey, _recipeName, _recipeTag, _recipeServings,
+                    saveAndSnackbar(_scaffoldRecipeKey, _recipeName, _mealTime, _recipeServings,
                         _prepTime, _cookTime, _ingredients, _methods);
                     _formKeys[_currentStep].currentState.reset();
                   }

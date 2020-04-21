@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/http/delete.dart';
 
 class ViewRecipePage extends StatefulWidget {
-  ViewRecipePage({Key key, this.title, this.data}) : super(key: key);
+  ViewRecipePage({Key key, this.title, this.data, this.leftover}) : super(key: key);
 
   final String title;
   final List data;
+  final String leftover;
 
   @override
   _ViewRecipePageState createState() => _ViewRecipePageState();
@@ -48,6 +49,11 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                   leading: Icon(Icons.alarm),
                   title: Text("${arguments['data']['cookTime'].toString()} minutes"),
                   trailing: Text("Cook Time"),
+                ),
+                ListTile(
+                  leading: Icon(Icons.redo),
+                  title: Text(arguments['leftover'].toString()),
+                  trailing: Text("Leftovers"),
                 ),
                 Center(
                   child: RaisedButton(

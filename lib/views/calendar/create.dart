@@ -50,7 +50,7 @@ class _CreateCalendarPageState extends State<CreateCalendarPage> {
                                 leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchRecipes(),
+                                    future: fetchRecipesAndLeftovers(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         if (_recipes[0][index] == '') {
@@ -95,7 +95,7 @@ class _CreateCalendarPageState extends State<CreateCalendarPage> {
                                 leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchRecipes(),
+                                    future: fetchRecipesAndLeftovers(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         if (_recipes[1][index] == '') {
@@ -140,7 +140,7 @@ class _CreateCalendarPageState extends State<CreateCalendarPage> {
                                 leading: Text(days[index],
                                     style: TextStyle(fontSize: 15.0)),
                                 title: FutureBuilder(
-                                    future: fetchRecipes(),
+                                    future: fetchRecipesAndLeftovers(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         if (_recipes[2][index] == '') {

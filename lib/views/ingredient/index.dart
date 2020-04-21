@@ -12,6 +12,7 @@ class IngredientsPage extends StatefulWidget {
 }
 
 class _IngredientsPageState extends State<IngredientsPage> {
+  Future _future;
   final _scaffoldIngredientsKey = GlobalKey<ScaffoldState>();
   final _formIngredientsKey = GlobalKey<FormState>();
   var _allResults = [];
@@ -19,6 +20,11 @@ class _IngredientsPageState extends State<IngredientsPage> {
   var _searchTerm = '';
 
   @override
+  void initState() {
+    super.initState();
+    _future = fetchIngredients();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldIngredientsKey,
@@ -51,18 +57,12 @@ class _IngredientsPageState extends State<IngredientsPage> {
                 ),
                 Expanded(
                   child: FutureBuilder(
-                      future: fetchIngredients(),
+                      future: _future,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           if (_allResults.length == 0) {
                             _allResults = snapshot.data;
                             _displayList = _allResults;
-                          }
-
-                          for (var i = 0; i < _displayList.length; i++) {
-                            if (_displayList[i]['amount'] == 0) {
-                                _displayList.removeAt(i);
-                            }
                           }
 
                           return new ListView.separated(
@@ -119,13 +119,13 @@ createListTile(parameters, context) {
               )),
               PopupMenuItem(
                   child: FlatButton(
-                    color: Colors.white,
-                    child: Text('Delete Ingredient'),
-                    onPressed: () {
-                      deleteIngredient(parameters['name']);
-                      Navigator.popAndPushNamed(context, '/larder');
-                    },
-                  )),
+                color: Colors.white,
+                child: Text('Delete Ingredient'),
+                onPressed: () {
+                  deleteIngredient(parameters['name']);
+                  Navigator.popAndPushNamed(context, '/larder');
+                },
+              )),
             ]);
       });
 }

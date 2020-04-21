@@ -44,7 +44,7 @@ Future saveLeftovers(recipe, amount) async {
   await db.insert(
     'leftovers',
     {
-      'name': recipe,
+      'name': "LEFTOVER " + recipe,
       'amount': amount,
     },
     conflictAlgorithm: ConflictAlgorithm.replace,

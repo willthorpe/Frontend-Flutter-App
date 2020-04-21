@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database/save.dart';
 import 'package:flutter_app/http/fetch.dart';
 import 'package:flutter_app/http/save.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:quiver/async.dart';
 import 'dart:io';
 import 'dart:async';
@@ -32,10 +33,25 @@ class _NextRecipePageState extends State<NextRecipePage> {
     });
   }
 
+  Future _showNotificationWithDefaultSound(timer) async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails('notification_channel_id', 'Timer', 'Countdown Timer');
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(0, 'Timer Finished', 'Timer of $timer seconds elapsed' , platformChannelSpecifics);
+  }
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+
   @override
   void initState() {
     super.initState();
     _future = fetchNextRecipe();
+    var initializationSettingsAndroid = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   Widget build(BuildContext context) {
@@ -47,7 +63,6 @@ class _NextRecipePageState extends State<NextRecipePage> {
         future: this._future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data);
             return DefaultTabController(
                 length: 5,
                 child: Scaffold(
@@ -149,7 +164,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                       title: TextFormField(
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
-                                              hintText: 'Timer'),
+                                              hintText: 'Timer in secs'),
                                           validator: (value) {
                                             if (value.isEmpty) {
                                               return 'Enter time';
@@ -161,7 +176,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                               CountdownTimer countdownTimer =
                                                   CountdownTimer(
                                                       Duration(
-                                                          minutes:
+                                                          seconds:
                                                               int.parse(value)),
                                                       Duration(seconds: 1));
                                               this._timers.add(countdownTimer);
@@ -199,11 +214,16 @@ class _NextRecipePageState extends State<NextRecipePage> {
                                       itemCount: this._timers.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
+                                            if(_timers[index].remaining.inSeconds == 0 && _timers.length > 0){
+                                              _showNotificationWithDefaultSound((_timers[index].elapsed.inSeconds+1).toString());
+                                              _timers.removeAt(index);
+                                            }
                                         return ListTile(
                                             title: Text(_timers[index]
                                                 .remaining
                                                 .inSeconds
-                                                .toString()));
+                                                .toString() + " seconds"));
+
                                       }),
                                 ])),
                       ),

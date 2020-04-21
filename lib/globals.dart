@@ -20,7 +20,7 @@ List menuItems = [
   'Settings'
 ];
 
-List<String> ingredientTypes = [
+List<String> ingredientMeasurements = [
   'grams',
   'ounces',
   'millilitres',
@@ -33,7 +33,7 @@ List<String> ingredientTypes = [
   'slices'
 ];
 
-List<String> recipeTags = [
+List<String> mealTimes = [
   'Breakfast',
   'Brunch',
   'Lunch',
