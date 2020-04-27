@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/http/fetch.dart';
+import 'package:flutter_app/database/save.dart';
 
 class AutomateResultsPage extends StatefulWidget {
   AutomateResultsPage(
@@ -27,38 +28,72 @@ class _AutomateResultsPageState extends State<AutomateResultsPage> {
         appBar: AppBar(
           title: Text('View Calendar'),
         ),
-        body: FutureBuilder(
-            future: automateCalendar(arguments['mealsData'],
-                arguments['weekFrequency'], arguments['eatingTime']),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return new ListView.separated(
-                  padding: const EdgeInsets.all(10),
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: <Widget>[
-                        Text(
-                            'Day is ' + snapshot.data[index]['day'].toString()),
-                        Text('Breakfast:'),
-                        Text(snapshot.data[index]['breakfast'].toString()),
-                        Text('Lunch:'),
-                        Text(snapshot.data[index]['lunch'].toString()),
-                        Text('Dinner:'),
-                        Text(snapshot.data[index]['dinner'].toString()),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return Divider();
-                  },
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }));
+        body: Container(
+            child: Column(
+              children: <Widget>[
+                FutureBuilder(
+                    future: automateCalendar(arguments['mealsData'],
+                        arguments['weekFrequency'], arguments['eatingTime']),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        print("end");
+                        print(new DateTime.now().millisecondsSinceEpoch);
+                        return Container(
+                            height: MediaQuery.of(context).size.height * 0.85,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: MediaQuery.of(context).size.height * 0.8,
+                                  child: ListView.separated(
+                                    padding: const EdgeInsets.all(10),
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Column(
+                                        children: <Widget>[
+                                          Text('Day is ' +
+                                              snapshot.data[index]['day']
+                                                  .toString()),
+                                          Text('Breakfast:'),
+                                          Text(snapshot.data[index]['breakfast']
+                                              .toString()),
+                                          Text('Lunch:'),
+                                          Text(snapshot.data[index]['lunch']
+                                              .toString()),
+                                          Text('Dinner:'),
+                                          Text(snapshot.data[index]['dinner']
+                                              .toString()),
+                                        ],
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return Divider();
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                    height: MediaQuery.of(context).size.height * 0.05,
+                                    child:  RaisedButton(
+                                      onPressed: () {
+                                        saveAutomateCalendar(snapshot.data);
+                                        final snackBar =
+                                        SnackBar(content: Text("Processing"));
+                                        _scaffoldAutomateResultKey.currentState
+                                            .showSnackBar(snackBar);
+                                      },
+                                      color: Colors.orange[300],
+                                      child: Text('Save Calendar')),
+                                )
+                              ],
+                            ));
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    })
+              ],
+            )));
   }
 }

@@ -90,15 +90,15 @@ class _IngredientsPageState extends State<IngredientsPage> {
 
 createListTile(parameters, context) {
   final _listKey = GlobalKey<ScaffoldState>();
-  if (parameters['type'] == "number") {
-    parameters['type'] = "";
+  if (parameters['measurement'] == "number") {
+    parameters['measurement'] = "";
   }
   return ListTile(
       key: _listKey,
       leading: const Icon(Icons.kitchen),
       title: Text(parameters['name']),
       subtitle: Text("In " + parameters['location']),
-      trailing: Text('${parameters["amount"]} ${parameters["type"]}'),
+      trailing: Text('${parameters["amount"]} ${parameters["measurement"]}'),
       onTap: () {
         RenderBox box = _listKey.currentContext.findRenderObject();
         Offset position = box.localToGlobal(Offset.zero);

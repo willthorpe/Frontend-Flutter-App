@@ -37,7 +37,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
         addCompleteIngredient(
             arguments['data']['ingredients'][i]['name'],
             arguments['data']['ingredients'][i]['amount'],
-            arguments['data']['ingredients'][i]['type']);
+            arguments['data']['ingredients'][i]['measurement']);
       }
     }
 
@@ -265,7 +265,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                                     ListTile(
                                         leading: const Icon(Icons.line_weight),
                                         title: DropdownButton<String>(
-                                          value: _ingredients[index]['type'],
+                                          value: _ingredients[index]['measurement'],
                                           items: ingredientMeasurements
                                               .map((String value) {
                                             return new DropdownMenuItem<String>(
@@ -275,7 +275,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                                           }).toList(),
                                           onChanged: (String newValue) {
                                             setState(() {
-                                              _ingredients[index]['type'] =
+                                              _ingredients[index]['measurement'] =
                                                   newValue;
                                             });
                                           },
@@ -408,12 +408,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
             ])));
   }
 
-  void addCompleteIngredient(name, amount, type) {
+  void addCompleteIngredient(name, amount, measurement) {
     setState(() {
       _ingredients.add({
         'name': name,
         'amount': amount,
-        'type': type,
+        'measurement': measurement,
         'ingredientType': 'new'
       });
     });
@@ -424,7 +424,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
       _ingredients.add({
         'name': '',
         'amount': 0,
-        'type': 'grams',
+        'measurement': 'grams',
         'ingredientType': ingredientType
       });
     });

@@ -19,7 +19,7 @@ class _EditIngredientPageState extends State<EditIngredientPage> {
   @override
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    amountMeasurement = arguments['data']['type'];
+    amountMeasurement = arguments['data']['measurement'];
     //Don't allow blank to be a measurement type
     if(amountMeasurement == ''){
       amountMeasurement = "number";

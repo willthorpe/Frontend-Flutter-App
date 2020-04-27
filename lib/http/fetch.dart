@@ -18,7 +18,10 @@ Future<List> fetchRecipesAndLeftovers() async {
   var leftovers = await fetchLeftovers();
   var response = await http.get(url + "/recipe?user=" + user.uid);
   if (response.statusCode == 200) {
-    return json.decode(response.body) + leftovers;
+    List result = json.decode(response.body) + leftovers;
+    result.add({'name':'EMPTY'});
+    print(result);
+    return result;
   } else {
     print("Request failed with status: ${response.statusCode}.");
   }
@@ -94,8 +97,9 @@ Future<List> fetchNextRecipe() async {
     //Dinner
     nextMeal = calendar[0]["dinner"][day - 1];
   }
-  if(nextMeal.contains("LEFTOVER")){
-    return nextMeal;
+
+  if(nextMeal.contains("LEFTOVER") || nextMeal.contains("EMPTY")){
+    return [nextMeal];
   }else{
     var response =
     await http.get(url + "/nextRecipe?user=" + user.uid + "&recipe=" + nextMeal);

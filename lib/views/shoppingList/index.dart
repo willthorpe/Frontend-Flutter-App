@@ -16,8 +16,14 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
   final _scaffoldShoppingKey = GlobalKey<ScaffoldState>();
   final _formShoppingKey = GlobalKey<FormState>();
   List _purchased = [];
+  Future _future;
 
   @override
+  void initState() {
+    super.initState();
+    _future = fetchShoppingList();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldShoppingKey,
@@ -32,7 +38,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
               children: <Widget>[
                 Expanded(
                   child: FutureBuilder(
-                      future: fetchShoppingList(),
+                      future: _future,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return new Container(
@@ -41,16 +47,26 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                 padding: EdgeInsets.all(10),
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  if (snapshot.data[index]['type'] == "number") {
+                                  if(_purchased.length < snapshot.data.length){
+                                    _purchased.add({
+                                      'name': snapshot.data[index]['name'],
+                                      'amount': 0,
+                                      'measurement': snapshot.data[index]['measurement']
+                                    });
+                                  }
+
+                                  if (snapshot.data[index]['measurement'] == "number") {
                                     return new ListTile(
                                         leading: const Icon(Icons.fastfood),
                                         title: Text(snapshot.data[index]['name']),
                                         subtitle: Text(
-                                            snapshot.data[index]['amount'].toString()),
+                                            snapshot.data[index]['amount'].toString() + "\n£" + snapshot.data[index]['price'].toString()),
+                                        isThreeLine: true,
                                         trailing: Container(
                                           width:
                                           MediaQuery.of(context).size.width * 0.30,
                                           child: TextFormField(
+                                            initialValue: _purchased[index]['amount'].toString(),
                                               keyboardType: TextInputType.number,
                                               decoration:
                                               InputDecoration(hintText: 'Amount'),
@@ -67,11 +83,13 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                                 }
                                                 return null;
                                               },
-                                              onSaved: (value) {
-                                                this._purchased.add({
-                                                  'name': snapshot.data[index]['name'],
-                                                  'amount': int.parse(value),
-                                                  'type': snapshot.data[index]['type']
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _purchased[index] = {
+                                                    'name': snapshot.data[index]['name'],
+                                                    'amount': int.parse(value),
+                                                    'measurement': snapshot.data[index]['measurement']
+                                                  };
                                                 });
                                               }),
                                         ));
@@ -79,14 +97,17 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                     return new ListTile(
                                         leading: const Icon(Icons.fastfood),
                                         title: Text(snapshot.data[index]['name']),
+                                        isThreeLine: true,
                                         subtitle: Text(
                                             snapshot.data[index]['amount'].toString() +
                                                 " " +
-                                                snapshot.data[index]['type']),
+                                                snapshot.data[index]['measurement'] + "\n£" + snapshot.data[index]['price'].toString()
+                                        ),
                                         trailing: Container(
                                           width:
                                           MediaQuery.of(context).size.width * 0.30,
                                           child: TextFormField(
+                                              initialValue: _purchased[index]['amount'].toString(),
                                               keyboardType: TextInputType.number,
                                               decoration:
                                               InputDecoration(hintText: 'Bought'),
@@ -103,11 +124,13 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                                 }
                                                 return null;
                                               },
-                                              onSaved: (value) {
-                                                this._purchased.add({
-                                                  'name': snapshot.data[index]['name'],
-                                                  'amount': int.parse(value),
-                                                  'type': snapshot.data[index]['type']
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _purchased[index] = {
+                                                    'name': snapshot.data[index]['name'],
+                                                    'amount': int.parse(value),
+                                                    'measurement': snapshot.data[index]['measurement']
+                                                  };
                                                 });
                                               }),
                                         ));

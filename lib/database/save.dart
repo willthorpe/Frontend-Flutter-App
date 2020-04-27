@@ -17,6 +17,32 @@ Future saveCalendar(List recipes, active) async {
   );
 }
 
+Future saveAutomateCalendar(List recipes) async {
+  var breakfast = [];
+  var lunch = [];
+  var dinner = [];
+
+  //Convert from days into meal organisation
+  for(var i = 0; i<recipes.length - 1; i++){
+    breakfast.add(recipes[i]['breakfast']);
+    lunch.add(recipes[i]['lunch']);
+    dinner.add(recipes[i]['dinner']);
+  }
+
+  final Database db = internalDatabase;
+
+  await db.insert(
+    'calendars',
+    {
+      'breakfast': json.encode(breakfast),
+      'lunch': json.encode(lunch),
+      'dinner': json.encode(dinner),
+      'active': false
+    },
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+}
+
 Future saveActiveCalendar(activeID) async {
   final Database db = internalDatabase;
   await db.update(

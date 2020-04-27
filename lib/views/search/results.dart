@@ -97,7 +97,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                           .toString() +
                                       " " +
                                       snapshot.data[index]['ingredients']
-                                          [ingredientIndex][1]['type'] +
+                                          [ingredientIndex][1]['measurement'] +
                                       " " +
                                       snapshot.data[index]['ingredients']
                                           [ingredientIndex][0]['name']);

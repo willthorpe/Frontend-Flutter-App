@@ -74,7 +74,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                   child: ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        if (arguments['data']['ingredients'][index]['type'] ==
+                        if (arguments['data']['ingredients'][index]['measurement'] ==
                             'number') {
                           return ListTile(
                             leading: Icon(Icons.kitchen),
@@ -93,7 +93,7 @@ class _ViewRecipePageState extends State<ViewRecipePage> {
                                 fontSize: 15.0,
                               ),
                             ),
-                            trailing: Text("${arguments['data']['ingredients'][index]['amount']} ${arguments['data']['ingredients'][index]['type']}")
+                            trailing: Text("${arguments['data']['ingredients'][index]['amount']} ${arguments['data']['ingredients'][index]['measurement']}")
                           );
                         }
                       },

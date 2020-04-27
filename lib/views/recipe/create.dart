@@ -246,7 +246,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                     ListTile(
                                         leading: const Icon(Icons.line_weight),
                                         title: DropdownButton<String>(
-                                          value: _ingredients[index]['type'],
+                                          value: _ingredients[index]['measurement'],
                                           items: ingredientMeasurements
                                               .map((String value) {
                                             return new DropdownMenuItem<String>(
@@ -256,7 +256,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                           }).toList(),
                                           onChanged: (String newValue) {
                                             setState(() {
-                                              _ingredients[index]['type'] =
+                                              _ingredients[index]['measurement'] =
                                                   newValue;
                                             });
                                           },
@@ -410,7 +410,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
       _ingredients.add({
         'name': '',
         'amount': 0,
-        'type': 'grams',
+        'measurement': 'grams',
         'ingredientType': ingredientType
       });
       print(_ingredients);
