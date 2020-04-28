@@ -139,6 +139,8 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                       onPressed: () {
                         if (_formAutomateKey.currentState.validate()) {
                           _formAutomateKey.currentState.save();
+                          print("start");
+                          print(new DateTime.now().millisecondsSinceEpoch);
                           Navigator.pushNamed(context, '/automateresults',
                               arguments: {
                                 'title': 'View Calendar',

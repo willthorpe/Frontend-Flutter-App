@@ -7,6 +7,7 @@ Future<List> fetchGoogleCalendars() async {
   FreeBusyRequest freeBusy = new FreeBusyRequest();
 
   //Start the calendar search from today until the end of the week
+  freeBusy.timeMin = new DateTime.utc(2020, 6, 29);
   freeBusy.timeMin = new DateTime.now().toUtc();
   freeBusy.timeMax = freeBusy.timeMin.add(Duration(days: 7));
 

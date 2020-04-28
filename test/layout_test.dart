@@ -171,20 +171,4 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsNWidgets(7));
     expect(find.byType(RaisedButton), findsNWidgets(2));
   });
-
-  //Test home page
-  testWidgets('Settings Page ', (WidgetTester tester) async {
-    await tester.pumpWidget(
-        MaterialApp(
-            home: SettingsPage(title: 'Settings')
-        )
-    );
-    await tester.pump();
-    expect(find.text('Settings'), findsOneWidget);
-    expect(find.text('Allergies'), findsOneWidget);
-    expect(find.byType(ListView), findsNWidgets(1));
-    expect(find.descendant(of: find.byType(ListView), matching: find.byType(SwitchListTile)), findsNWidgets(6));
-    expect(find.byType(RaisedButton), findsOneWidget);
-
-  });
 }

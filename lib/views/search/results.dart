@@ -26,6 +26,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             future: fetchSearchResults(arguments['data']),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                print("end");
+                print(new DateTime.now().millisecondsSinceEpoch);
                 return new Container(
                     padding: EdgeInsets.all(10),
                     height: MediaQuery.of(context).size.height * 0.85,
@@ -33,6 +35,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
+                        print(snapshot.data[index]['ingredients']);
                         return Column(
                           children: <Widget>[
                             ListTile(

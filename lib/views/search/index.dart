@@ -64,6 +64,8 @@ class _SearchPageState extends State<SearchPage> {
                     onPressed: () {
                       if (_formSearchKey.currentState.validate()) {
                         _formSearchKey.currentState.save();
+                        print("start");
+                        print(new DateTime.now().millisecondsSinceEpoch);
                         Navigator.pushNamed(context, '/searchresults',
                             arguments: {
                               'title': "Results",

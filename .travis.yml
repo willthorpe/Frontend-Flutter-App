@@ -1,4 +1,4 @@
-#https://dev.to/mastersam07/configuring-travis-ci-and-coveralls-with-flutter-2b29
+# Code for this travis.yml was adapted from a tutorial : https://dev.to/mastersam07/configuring-travis-ci-and-coveralls-with-flutter-2b29
 language: dart
 dist: trusty
 addons:

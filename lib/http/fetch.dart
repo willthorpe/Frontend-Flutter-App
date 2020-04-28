@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/database/fetch.dart';
 import '../apis/google.dart';
 
+/**
+ * Get ingredients from the API
+ */
 Future<List> fetchIngredients() async {
   var response = await http.get(url + "/ingredient?user=" + user.uid);
   if (response.statusCode == 200) {
@@ -14,6 +17,21 @@ Future<List> fetchIngredients() async {
   }
 }
 
+/**
+ * Get recipes from the API
+ */
+Future<List> fetchRecipes() async {
+  var response = await http.get(url + "/recipe?user=" + user.uid);
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    print("Request failed with status: ${response.statusCode}.");
+  }
+}
+
+/**
+ * Get recipes from the API + leftovers
+ */
 Future<List> fetchRecipesAndLeftovers() async {
   var leftovers = await fetchLeftovers();
   var response = await http.get(url + "/recipe?user=" + user.uid);
@@ -27,15 +45,9 @@ Future<List> fetchRecipesAndLeftovers() async {
   }
 }
 
-Future<List> fetchRecipes() async {
-  var response = await http.get(url + "/recipe?user=" + user.uid);
-  if (response.statusCode == 200) {
-    return json.decode(response.body);
-  } else {
-    print("Request failed with status: ${response.statusCode}.");
-  }
-}
-
+/**
+ * Get recipes from the API + leftovers + active calendar
+ */
 Future<List> fetchCalendarRecipes() async {
   var calendar = await fetchActiveCalendar();
   var leftovers = await fetchLeftovers();
@@ -47,6 +59,9 @@ Future<List> fetchCalendarRecipes() async {
   }
 }
 
+/**
+ * Get shopping list from API
+ */
 Future<List> fetchShoppingList() async {
   var calendar = await fetchActiveCalendar();
   var response = await http.get(
@@ -58,6 +73,9 @@ Future<List> fetchShoppingList() async {
   }
 }
 
+/**
+ * Get search results from the API
+ */
 Future<List> fetchSearchResults(sliders) async {
   var diets = await fetchDiets();
   var allergies = await fetchAllergies();
@@ -66,7 +84,7 @@ Future<List> fetchSearchResults(sliders) async {
     parameters.add(sliders[i]);
   }
   var response = await http.get(url +
-      "/search?user=" +
+      "/recipe/search?user=" +
       user.uid +
       "&search=" +
       json.encode(parameters) +
@@ -81,6 +99,9 @@ Future<List> fetchSearchResults(sliders) async {
   }
 }
 
+/**
+ * Get the next recipe the user should be creating
+ */
 Future<List> fetchNextRecipe() async {
   var calendar = await fetchActiveCalendar();
   var now = new DateTime.now();
@@ -102,7 +123,7 @@ Future<List> fetchNextRecipe() async {
     return [nextMeal];
   }else{
     var response =
-    await http.get(url + "/nextRecipe?user=" + user.uid + "&recipe=" + nextMeal);
+    await http.get(url + "/recipe/next?user=" + user.uid + "&recipe=" + nextMeal);
     if (response.statusCode == 200) {
       return [json.decode(response.body)];
     } else {
@@ -111,6 +132,9 @@ Future<List> fetchNextRecipe() async {
   }
 }
 
+/**
+ * Get an example calendar from the algorithm
+ */
 Future<List> automateCalendar(meals, weekFrequency, eatingTime) async {
   var busy = await fetchGoogleCalendars();
   var response = await http.get(url +
@@ -125,17 +149,7 @@ Future<List> automateCalendar(meals, weekFrequency, eatingTime) async {
       "&busy=" +
       json.encode(busy));
   if (response.statusCode == 200) {
-    return json.decode(response.body);
-  } else {
-    print("Request failed with status: ${response.statusCode}.");
-  }
-}
-
-Future<List> fetchRecipeGraphData() async {
-  var calendars = await fetchCalendars();
-  var response = await http.get(
-      url + "/graph/recipe?user=" + user.uid + "&calendars=" + json.encode(calendars));
-  if (response.statusCode == 200) {
+    print(response.body);
     return json.decode(response.body);
   } else {
     print("Request failed with status: ${response.statusCode}.");

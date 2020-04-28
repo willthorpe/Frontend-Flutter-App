@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app/globals.dart';
 
+/**
+ * Fetch the currently used calendar for this week
+ */
 Future<List> fetchActiveCalendar() async {
   final Database db = internalDatabase;
   List<Map<String, dynamic>> calendars = await db.rawQuery(
@@ -20,6 +23,9 @@ Future<List> fetchActiveCalendar() async {
   return calendar;
 }
 
+/**
+ * Fetch all calendars in the app
+ */
 Future<List> fetchCalendars() async {
   final Database db = internalDatabase;
   List<Map<String, dynamic>> calendars =
@@ -37,6 +43,9 @@ Future<List> fetchCalendars() async {
   return calendar;
 }
 
+/**
+ * Fetch all user settings from the app
+ */
 Future<Object> fetchSettings() async {
   final Database db = internalDatabase;
   List<Map<String, dynamic>> allergies =
@@ -63,24 +72,36 @@ Future<Object> fetchSettings() async {
   return allergyList + dietList;
 }
 
+/**
+ * Fetch all diets
+ */
 Future<Object> fetchDiets() async {
   final Database db = internalDatabase;
   final diets = await db.rawQuery('SELECT * from diets');
   return diets;
 }
 
+/**
+ * Fetch all allergies
+ */
 Future<Object> fetchAllergies() async {
   final Database db = internalDatabase;
   final allergies = await db.rawQuery('SELECT * from allergies');
   return allergies;
 }
 
+/**
+ * Fetch all leftovers
+ */
 Future<Object> fetchLeftovers() async {
   final Database db = internalDatabase;
   final leftovers = await db.rawQuery('SELECT * from leftovers where amount > 0');
   return leftovers;
 }
 
+/**
+ * Fetch leftovers for a specific recipe
+ */
 Future<Object> fetchLeftoversForRecipe(recipe) async {
   final Database db = internalDatabase;
   List<Map> leftoverList =
@@ -97,10 +118,4 @@ Future<Object> fetchLeftoversForRecipe(recipe) async {
   }else{
     return leftover[0]['amount'];
   }
-}
-
-Future<Object> fetchNutrition() async {
-  final Database db = internalDatabase;
-  final nutrition = await db.rawQuery('SELECT * from nutrition');
-  return nutrition;
 }

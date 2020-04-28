@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-//Custom implementation of Http Client from Stack Overflow
+//Custom implementation of HTTP Client from Stack Overflow
 //Author: Günter Zöchbauer https://stackoverflow.com/users/217408/günter-zöchbauer
 //Post: https://stackoverflow.com/questions/48477625/how-to-use-google-api-in-flutter
 class GoogleHttpClient extends IOClient {
@@ -89,6 +89,7 @@ class GoogleHttpClient extends IOClient {
   Future<Response> head(Object url, {Map<String, String> headers}) =>
       super.head(url, headers: headers..addAll(_headers));
 }
+//End of custom implementation of HTTP client from Stack Overflow
 
 Future signInGoogle(context) async {
   //Choose the scopes for the project - it requires calendar permissions

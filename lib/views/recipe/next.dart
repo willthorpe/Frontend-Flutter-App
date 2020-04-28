@@ -33,6 +33,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
     });
   }
 
+  //Setup and initialisation of local notifications adapted from the tutorial https://medium.com/@nitishk72/flutter-local-notification-1e43a353877b
   Future _showNotificationWithDefaultSound(timer) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'notification_channel_id', 'Timer', 'Countdown Timer');
@@ -44,11 +45,13 @@ class _NextRecipePageState extends State<NextRecipePage> {
   }
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  //End of setup and initialisation from the tutorial
 
   @override
   void initState() {
     super.initState();
     _future = fetchNextRecipe();
+    //Setup and initialisation of local notifications from the tutorial https://medium.com/@nitishk72/flutter-local-notification-1e43a353877b
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettingsIOS = new IOSInitializationSettings();
@@ -56,6 +59,7 @@ class _NextRecipePageState extends State<NextRecipePage> {
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    //End of local notification setup
   }
 
   Widget build(BuildContext context) {

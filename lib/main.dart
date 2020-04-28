@@ -33,8 +33,7 @@ import 'package:flutter_app/views/calendar/results.dart';
 
 //Other Views
 import 'package:flutter_app/views/shoppingList/index.dart';
-import 'package:flutter_app/views/nutrition.dart';
-import 'package:flutter_app/views/graphs.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -73,7 +72,6 @@ class MyApp extends StatelessWidget {
         '/automatecalendar': (context) => AutomateCalendarPage(title: 'Automate Calendar'),
         '/automateresults': (context) => AutomateResultsPage(),
         '/nextrecipe' : (context) => NextRecipePage(title:'Next Recipe'),
-        '/nutritiongoals' : (context) => CreateNutritionPage(title: 'Nutrition Goals'),
         '/search' : (context) => SearchPage(title: 'Recipe Search'),
         '/searchresults' : (context) => SearchResultsPage(),
         '/larder' : (context) => IngredientsPage(title: 'Larder'),
@@ -81,7 +79,6 @@ class MyApp extends StatelessWidget {
         '/recipecalendar' : (context) => CalendarsPage(title:'Recipe Calendars'),
         '/recipeview' : (context) => ViewRecipePage(),
         '/shoppinglist' : (context) => ShoppingListPage(title: 'Shopping List'),
-        '/graphs' : (context) => GraphsPage(title: 'Graphs'),
         '/settings' : (context) => SettingsPage(title: 'Settings'),
       },
     );

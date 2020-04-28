@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app/globals.dart';
 
+/**
+ * Save calendar in the application
+ */
 Future saveCalendar(List recipes, active) async {
   final Database db = internalDatabase;
   await db.insert(
@@ -17,6 +20,9 @@ Future saveCalendar(List recipes, active) async {
   );
 }
 
+/**
+ * Save calendar fetched from the recommendation algorithm
+ */
 Future saveAutomateCalendar(List recipes) async {
   var breakfast = [];
   var lunch = [];
@@ -43,6 +49,9 @@ Future saveAutomateCalendar(List recipes) async {
   );
 }
 
+/**
+ * Update the user's activate calendar
+ */
 Future saveActiveCalendar(activeID) async {
   final Database db = internalDatabase;
   await db.update(
@@ -65,6 +74,9 @@ Future saveActiveCalendar(activeID) async {
   );
 }
 
+/**
+ * Save leftovers for the app
+ */
 Future saveLeftovers(recipe, amount) async {
   final Database db = internalDatabase;
   await db.insert(
@@ -77,6 +89,9 @@ Future saveLeftovers(recipe, amount) async {
   );
 }
 
+/**
+ * Save settings for the app
+ */
 Future saveSettings(List preferences) async {
   final Database db = await internalDatabase;
   for (var i = 0; i < preferences.length; i++) {
