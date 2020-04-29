@@ -119,21 +119,6 @@ class _AutomateCalendarPageState extends State<AutomateCalendarPage> {
                         _eatingTime = value;
                       }),
                 ),
-                new ListTile(
-                  title: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration:
-                          InputDecoration(hintText: 'Weeks since last made'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a week frequency';
-                        }
-                        return null;
-                      },
-                      onSaved: (String value) {
-                        _weekFrequency = value;
-                      }),
-                ),
                 Center(
                   child: RaisedButton(
                       onPressed: () {

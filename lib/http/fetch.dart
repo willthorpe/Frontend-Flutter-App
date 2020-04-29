@@ -142,8 +142,7 @@ Future<List> automateCalendar(meals, weekFrequency, eatingTime) async {
       user.uid +
       "&meals=" +
       json.encode(meals) +
-      "&weekFrequency=" +
-      weekFrequency +
+      "&weekFrequency=0" +
       "&eatingTime=" +
       eatingTime +
       "&busy=" +
